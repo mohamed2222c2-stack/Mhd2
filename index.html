@@ -64,7 +64,7 @@
         }
         /* Glow effects */
         .glow-indigo {
-            box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.35);
         }
     </style>
 </head>
@@ -86,13 +86,39 @@
             </div>
             
             <div class="flex items-center gap-2">
-                <div class="bg-slate-800/80 border border-slate-700/50 px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 text-indigo-300">
+                <button onclick="toggleApiSettingsModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-400 flex items-center justify-center transition border border-slate-700/40" title="إعدادات الـ API">
+                    <i class="fa-solid fa-gear text-sm"></i>
+                </button>
+                <div class="bg-slate-800/80 border border-slate-700/50 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 text-indigo-300">
                     <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
                     <span id="overall-progress">0%</span>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- API Settings Modal (For GitHub hosting compatibility) -->
+    <div id="api-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h4 class="font-bold text-sm text-white flex items-center gap-2">
+                    <i class="fa-solid fa-key text-indigo-400"></i> إعدادات مفتاح الذكاء الاصطناعي
+                </h4>
+                <button onclick="toggleApiSettingsModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                إذا قمت بتشغيل التطبيق على غيتهاب (خارج بيئة التطوير)، ستحتاج لإدخال مفتاح Gemini API المجاني الخاص بك لكي يعمل الروبوت بنجاح.
+            </p>
+            <div class="space-y-1.5">
+                <label class="block text-[10px] font-bold text-slate-400 uppercase">مفتاح API الخاص بك (Gemini Key):</label>
+                <input type="password" id="api-key-input" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white text-left font-mono" placeholder="AIzaSy...">
+            </div>
+            <div class="flex gap-2">
+                <button onclick="saveApiKey()" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-lg">حفظ ومزامنة</button>
+                <button onclick="toggleApiSettingsModal()" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">إلغاء</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-850 border border-slate-700 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs z-50 opacity-0 pointer-events-none transition-all duration-300">
@@ -293,6 +319,15 @@
 
                     <!-- Chat Messages Area -->
                     <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3.5 text-xs">
+                        <div id="setup-api-warning" class="hidden bg-amber-950/40 border border-amber-900/40 text-amber-200 p-4 rounded-xl space-y-2 mb-3">
+                            <p class="font-bold"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i> تنبيه محمد:</p>
+                            <p class="text-[11px] leading-relaxed">
+                                يبدو أنك تستخدم التطبيق على GitHub Pages. الروبوت يحتاج لمفتاح API خاص بك لكي يجيبك.
+                            </p>
+                            <button onclick="toggleApiSettingsModal()" class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 rounded-lg text-[10px] font-bold transition">
+                                إدخال مفتاح الـ API المجاني الآن
+                            </button>
+                        </div>
                         <div class="bg-purple-950/30 border border-purple-900/30 text-purple-200 p-3.5 rounded-2xl max-w-[85%] self-start rounded-tr-none ml-auto leading-relaxed">
                             مرحباً محمد! أنا الأستاذ الذكي ديالك. يسولني على أي حاجة بغيتي: قواعد اليوم، تمارين، أو علاش خطأتي في الكتابة والإملاء وغادي نشرح ليك مزيان بالدارجة المغربية! 🇲🇦✨
                         </div>
@@ -326,7 +361,7 @@
 
     <!-- JS Code Database & App Logic -->
     <script>
-        // API KEY SETUP (Empty string is filled at runtime by environment)
+        // API KEY SETUP (Empty string is filled at runtime by environment or fallback)
         const apiKey = ""; 
 
         // Precise A1 Grammar Database for 30 Days
@@ -482,7 +517,7 @@
                 { en: "I want to order now.", ar: "بغيت نطلب دابا." },
                 { en: "Where is my food?", ar: "فين هي الماكلة ديالي؟" },
                 { en: "This is very delicious.", ar: "هادشي لديد بزاف." },
-                { en: "Could I have some water?", ar: "ممكن شوية د الما؟" },
+                { en: "Could I have some water?", ar: "ممكن شوية د الما?" },
                 { en: "I do not want sugar.", ar: "ما بغيتش السكر." },
                 { en: "The check, please.", ar: "الحساب عافاك." },
                 { en: "Can I pay in cash?", ar: "واش نقدر نخلص كاش؟" },
@@ -523,11 +558,43 @@
         window.onload = function() {
             renderDaysGrid();
             updateOverallProgress();
+            
+            // Check for Custom API Key inside local storage (Crucial for GitHub Hosting)
+            const savedKey = localStorage.getItem('user_gemini_api_key');
+            if (savedKey) {
+                document.getElementById('api-key-input').value = savedKey;
+            } else {
+                // If running on custom URL and no key saved, show warnings in Chatbot
+                if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('stackblitz')) {
+                    document.getElementById('setup-api-warning').classList.remove('hidden');
+                }
+            }
+
             // Load saved chat history if any
             chatHistory = JSON.parse(localStorage.getItem('english_tutor_history')) || [];
             if (chatHistory.length > 0) {
                 renderSavedChat();
             }
+        }
+
+        // API settings modal handlers
+        function toggleApiSettingsModal() {
+            const modal = document.getElementById('api-modal');
+            modal.classList.toggle('opacity-0');
+            modal.classList.toggle('pointer-events-none');
+        }
+
+        function saveApiKey() {
+            const val = document.getElementById('api-key-input').value.trim();
+            if (val) {
+                localStorage.setItem('user_gemini_api_key', val);
+                document.getElementById('setup-api-warning').classList.add('hidden');
+                showToast("تم حفظ مفتاح API بنجاح!");
+            } else {
+                localStorage.removeItem('user_gemini_api_key');
+                showToast("تم حذف المفتاح.", false);
+            }
+            toggleApiSettingsModal();
         }
 
         // Show toast notifications
@@ -688,6 +755,7 @@
             }, 150);
         }
 
+        // Flip trigger
         function toggleCardFlip() {
             document.getElementById('flashcard-inner').classList.toggle('flipped');
         }
@@ -886,11 +954,18 @@
             }
         }
 
-        // --- ROBOT GEMINI 2.5 FLASH ENGINE WITH HISTORY & BACKOFF ---
+        // --- ROBOT GEMINI 2.5 FLASH ENGINE WITH HISTORY, CUSTOM KEY & BACKOFF ---
         async function fetchGeminiResponse(userPrompt, systemPrompt) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            // Priority: Local storage key (if user hosts on github), then the predefined code key
+            const userKey = localStorage.getItem('user_gemini_api_key') || apiKey;
             
-            // Map the app chat history context for Gemini format
+            if (!userKey) {
+                return "يا محمد، لم تقم بإدخال مفتاح الـ API الخاص بـ Gemini حتى الآن. يرجى الضغط على زر الإعدادات (أيقونة المسنن ⚙️) بالأعلى وإدخال المفتاح المجاني لكي يعمل الروبوت بنجاح.";
+            }
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${userKey}`;
+            
+            // Map chat history context for Gemini format
             const contents = [];
             chatHistory.slice(-10).forEach(msg => { // Keep last 10 messages for context
                 contents.push({
@@ -930,7 +1005,7 @@
                 await new Promise(resolve => setTimeout(resolve, delay));
                 delay *= 2; // exponential backoff multiplier
             }
-            return "عذراً محمد، كاين تذبذب في الاتصال بخادم الروبوت حالياً. حاول إعادة إرسال السؤال مجدداً.";
+            return "عذراً محمد، كاين تذبذب في الاتصال بخادم الروبوت حالياً. تأكد من صحة مفتاح الـ API الخاص بك أو أعد المحاولة بعد قليل.";
         }
 
         function appendMessage(sender, text) {
@@ -996,6 +1071,23 @@
         function renderSavedChat() {
             const container = document.getElementById('chat-messages');
             container.innerHTML = '';
+            
+            // Re-show setup warning if needed
+            const savedKey = localStorage.getItem('user_gemini_api_key');
+            if (!savedKey && window.location.hostname !== 'localhost' && !window.location.hostname.includes('stackblitz')) {
+                document.getElementById('chat-messages').innerHTML = `
+                    <div id="setup-api-warning" class="bg-amber-950/40 border border-amber-900/40 text-amber-200 p-4 rounded-xl space-y-2 mb-3">
+                        <p class="font-bold"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i> تنبيه محمد:</p>
+                        <p class="text-[11px] leading-relaxed">
+                            يبدو أنك تستخدم التطبيق على GitHub Pages. الروبوت يحتاج لمفتاح API خاص بك لكي يجيبك.
+                        </p>
+                        <button onclick="toggleApiSettingsModal()" class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 rounded-lg text-[10px] font-bold transition">
+                            إدخال مفتاح الـ API المجاني الآن
+                        </button>
+                    </div>
+                `;
+            }
+
             chatHistory.forEach(msg => {
                 appendMessage(msg.sender, msg.text);
             });
