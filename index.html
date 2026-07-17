@@ -3,1098 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحدي 30 يوم - الإنجليزية الاحترافي A1</title>
-    <!-- Tailwind CSS -->
+    <title>تحدي 30 يوم الإنجليزي A1</title>
+    <!-- Tailwind CSS للتحكم في الألوان والتصميم بسرعة -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <!-- Font Awesome للأيقونات مثل الترس والإرسال -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
     <style>
         body {
-            font-family: 'Cairo', 'Poppins', sans-serif;
             background-color: #0b0f19;
+            font-family: system-ui, -apple-system, sans-serif;
         }
-        .english-text {
-            font-family: 'Poppins', sans-serif;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
+        /* تخصيص شريط التمرير للدردشة */
+        .chat-scroll::-webkit-scrollbar {
             width: 6px;
-            height: 6px;
         }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
+        .chat-scroll::-webkit-scrollbar-track {
+            background: #0b0f19;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #1f2937;
             border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-        /* Card Flip Animation */
-        .flip-card {
-            background-color: transparent;
-            perspective: 1000px;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .flip-card-inner.flipped {
-            transform: rotateY(180deg);
-        }
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 1.25rem;
-        }
-        .flip-card-back {
-            transform: rotateY(180deg);
-        }
-        /* Glow effects */
-        .glow-indigo {
-            box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.35);
         }
     </style>
 </head>
-<body class="text-slate-200 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body class="text-gray-100 flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <header class="border-b border-slate-800/80 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50 py-4 px-4">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                    <i class="fa-solid fa-graduation-cap text-lg text-white"></i>
-                </div>
-                <div>
-                    <h1 class="text-base md:text-lg font-black tracking-wide text-white flex items-center gap-1.5">
-                        تحدي 30 يوم الإنجليزي <span class="text-indigo-400">A1</span>
-                    </h1>
-                    <p class="text-[10px] text-slate-400 font-semibold">تطبيق مطور مخصص لمحمد 🇲🇦</p>
-                </div>
+    <!-- شريط الرأس (Header) -->
+    <header class="bg-[#111827] border-b border-gray-800 p-4 sticky top-0 z-10 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-purple-600 text-white p-2.5 rounded-xl">
+                <i class="fa-solid fa-graduation-cap text-xl"></i>
             </div>
-            
-            <div class="flex items-center gap-2">
-                <button onclick="toggleApiSettingsModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-400 flex items-center justify-center transition border border-slate-700/40" title="إعدادات الـ API">
-                    <i class="fa-solid fa-gear text-sm"></i>
-                </button>
-                <div class="bg-slate-800/80 border border-slate-700/50 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 text-indigo-300">
-                    <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
-                    <span id="overall-progress">0%</span>
-                </div>
+            <div>
+                <h1 class="text-lg font-bold text-white">تحدي 30 يوم الإنجليزي A1</h1>
+                <p class="text-xs text-gray-400">تطبيق مطور مخصص لمحمد 🇲🇦</p>
             </div>
         </div>
+        <!-- زر الإعدادات لتغيير API Key -->
+        <button id="settingsBtn" class="text-gray-400 hover:text-white p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+            <i class="fa-solid fa-gear text-lg"></i>
+        </button>
     </header>
 
-    <!-- API Settings Modal (For GitHub hosting compatibility) -->
-    <div id="api-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h4 class="font-bold text-sm text-white flex items-center gap-2">
-                    <i class="fa-solid fa-key text-indigo-400"></i> إعدادات مفتاح الذكاء الاصطناعي
-                </h4>
-                <button onclick="toggleApiSettingsModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
-                إذا قمت بتشغيل التطبيق على غيتهاب (خارج بيئة التطوير)، ستحتاج لإدخال مفتاح Gemini API المجاني الخاص بك لكي يعمل الروبوت بنجاح.
-            </p>
-            <div class="space-y-1.5">
-                <label class="block text-[10px] font-bold text-slate-400 uppercase">مفتاح API الخاص بك (Gemini Key):</label>
-                <input type="password" id="api-key-input" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white text-left font-mono" placeholder="AIzaSy...">
-            </div>
-            <div class="flex gap-2">
-                <button onclick="saveApiKey()" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-lg">حفظ ومزامنة</button>
-                <button onclick="toggleApiSettingsModal()" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-850 border border-slate-700 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs z-50 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400" id="toast-icon-bg">
-            <i class="fa-solid fa-circle-check" id="toast-icon"></i>
-        </div>
-        <span id="toast-msg">تم النسخ بنجاح!</span>
-    </div>
-
-    <!-- Main Content -->
-    <main class="flex-grow max-w-4xl w-full mx-auto p-4 pb-28">
+    <!-- منطقة الشات الرئيسية -->
+    <main class="flex-1 max-w-2xl w-full mx-auto p-4 flex flex-col gap-4 overflow-hidden">
         
-        <!-- Welcome Banner -->
-        <div class="bg-gradient-to-r from-slate-900 to-indigo-950/40 border border-indigo-950 rounded-2xl p-5 mb-6 flex flex-col md:flex-row justify-between items-center gap-4 glow-indigo">
-            <div class="text-center md:text-right">
-                <h2 class="text-base md:text-lg font-bold text-white">أهلاً بيك محمد في نسختك الفخمة! 🚀</h2>
-                <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">قواعد مبسطة، إملاء صوتي، وروبوت تفاعلي كيشرح ليك أخطاءك بالدارجة المغربية.</p>
-            </div>
-            <div class="w-full md:w-52">
-                <div class="flex justify-between text-[10px] font-semibold text-slate-400 mb-1">
-                    <span>نسبة الإنجاز العام</span>
-                    <span class="text-indigo-400" id="progress-percent">0%</span>
+        <!-- بطاقة الأستاذ المساعد -->
+        <div class="bg-[#161b26] border border-purple-950/40 rounded-2xl p-4 flex items-center justify-between shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-[#161b26] rounded-full"></span>
                 </div>
-                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                    <div id="progress-bar-fill" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-500" style="width: 0%"></div>
+                <div>
+                    <h2 class="font-bold text-white text-sm sm:text-base">الأستاذ الذكي المساعد</h2>
+                    <span class="text-xs text-green-400 font-medium">● نشط حالياً (بالدارجة)</span>
+                </div>
+            </div>
+            <button onclick="clearChat()" class="text-xs text-red-400 hover:text-red-300 bg-red-500/10 px-3 py-1.5 rounded-lg border border-red-500/20 transition">
+                <i class="fa-regular fa-trash-can mr-1"></i> مسح السجل
+            </button>
+        </div>
+
+        <!-- صندوق الرسائل -->
+        <div id="chatBox" class="flex-1 bg-[#0f1422] border border-gray-800 rounded-2xl p-4 overflow-y-auto chat-scroll flex flex-col gap-3 min-h-[350px]">
+            <!-- رسالة الترحيب التلقائية -->
+            <div class="flex gap-2 items-end max-w-[85%]">
+                <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shrink-0">🤖</div>
+                <div class="bg-[#1a2035] text-gray-200 p-3 rounded-2xl rounded-br-none text-sm leading-relaxed">
+                    مرحباً محمد! واجد لشي تمرين سريع دابا ديال الإنجليزية أولا عندك شي سؤال؟ أنا هنا باش نعاونك بالدارجة المغربية. 🌟
                 </div>
             </div>
         </div>
 
-        <!-- 30 Days Grid Section -->
-        <div id="days-section" class="mb-8">
-            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                <i class="fa-solid fa-calendar-days text-indigo-400"></i>
-                اختر اليوم اللي باغي تقراه:
-            </h3>
-            <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-3.5" id="days-grid">
-                <!-- Days buttons generated by JS -->
-            </div>
-        </div>
-
-        <!-- Selected Day Study Area -->
-        <div id="study-area" class="hidden space-y-6">
-            <!-- Day Navigation Header -->
-            <div class="flex justify-between items-center flex-wrap gap-3 bg-slate-900/40 p-3 rounded-2xl border border-slate-850">
-                <button onclick="backToDashboard()" class="text-slate-300 hover:text-white font-bold flex items-center gap-1.5 text-xs transition px-3 py-1.5 bg-slate-800/50 rounded-xl hover:bg-slate-800">
-                    <i class="fa-solid fa-arrow-right"></i> الرئيسية
-                </button>
-                <span class="text-xs font-black bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-lg border border-indigo-500/20" id="current-day-title">اليوم 1</span>
-                
-                <div class="flex gap-1 bg-slate-950 p-1 rounded-xl border border-slate-850">
-                    <button id="tab-learn" onclick="switchTab('learn')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition">
-                        <i class="fa-solid fa-book-open mr-1"></i> الجمل
-                    </button>
-                    <button id="tab-grammar" onclick="switchTab('grammar')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition">
-                        <i class="fa-solid fa-brain mr-1"></i> القواعد
-                    </button>
-                    <button id="tab-chatbot" onclick="switchTab('chatbot')" class="px-3 py-1.5 rounded-lg font-bold text-xs transition">
-                        <i class="fa-solid fa-robot mr-1"></i> الأستاذ AI
-                    </button>
-                </div>
-            </div>
-
-            <!-- TAB 1: Learn Sentences + Dictation -->
-            <div id="view-learn" class="space-y-5">
-                <!-- Sub navigation -->
-                <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-850 max-w-sm">
-                    <button id="subtab-flash" onclick="switchLearnSubTab('flash')" class="flex-1 py-2 rounded-lg font-bold text-xs transition">بطاقات اليوم</button>
-                    <button id="subtab-dict" onclick="switchLearnSubTab('dict')" class="flex-1 py-2 rounded-lg font-bold text-xs transition">تحدي الإملاء</button>
-                </div>
-
-                <!-- Subtab A: Flashcards & List -->
-                <div id="sub-view-flash" class="space-y-5">
-                    <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl">
-                        <div class="flip-card w-full h-44 cursor-pointer max-w-md mx-auto" onclick="toggleCardFlip()">
-                            <div class="flip-card-inner w-full h-full duration-500" id="flashcard-inner">
-                                <!-- Front -->
-                                <div class="flip-card-front bg-slate-950 border border-slate-800 flex flex-col justify-center items-center p-6 text-center shadow-inner">
-                                    <span class="text-[10px] text-slate-500 absolute top-3 right-4 font-semibold" id="flashcard-index">1 / 10</span>
-                                    <p class="english-text text-xl md:text-2xl font-bold text-white tracking-wide" id="flashcard-en">Loading...</p>
-                                    <span class="text-[9px] text-indigo-400 mt-4 bg-indigo-500/10 px-2 py-0.5 rounded-full"><i class="fa-solid fa-rotate mr-1"></i> اضغط للقلب والترجمة</span>
-                                </div>
-                                <!-- Back -->
-                                <div class="flip-card-back bg-gradient-to-br from-indigo-900 to-indigo-950 border border-indigo-800 flex flex-col justify-center items-center p-6 text-center text-white">
-                                    <p class="text-base md:text-lg font-bold" id="flashcard-ar">جاري التحميل...</p>
-                                    <span class="text-[9px] text-indigo-300 mt-4 bg-white/10 px-2 py-0.5 rounded-full"><i class="fa-solid fa-rotate mr-1"></i> إرجاع للإنجليزية</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Actions -->
-                        <div class="flex justify-center items-center gap-3.5 mt-5">
-                            <button onclick="prevFlashcard(event)" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition border border-slate-700/50">
-                                <i class="fa-solid fa-chevron-right text-sm"></i>
-                            </button>
-                            <button onclick="speakText(document.getElementById('flashcard-en').innerText, event)" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-2 text-xs font-bold transition shadow-lg shadow-indigo-600/20">
-                                <i class="fa-solid fa-volume-high"></i> استمع
-                            </button>
-                            <button onclick="copyCurrentText(event)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center gap-2 text-xs font-bold transition border border-slate-700/50">
-                                <i class="fa-solid fa-copy"></i> نسخ
-                            </button>
-                            <button onclick="nextFlashcard(event)" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition border border-slate-700/50">
-                                <i class="fa-solid fa-chevron-left text-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- List sentences -->
-                    <div class="space-y-3">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">قائمة جمل اليوم ومستوى الحفظ:</h4>
-                        <div id="sentences-list" class="space-y-2.5">
-                            <!-- Filled dynamically -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Subtab B: Dictation Challenge -->
-                <div id="sub-view-dict" class="hidden">
-                    <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 max-w-md mx-auto space-y-4">
-                        <div class="flex justify-between items-center text-[10px] text-slate-500 font-bold">
-                            <span id="dictation-counter" class="bg-slate-950 px-2.5 py-1 rounded-lg">جملة 1 من 10</span>
-                            <span id="dictation-score" class="text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">النتيجة: 0</span>
-                        </div>
-                        
-                        <div class="bg-slate-950/80 p-6 rounded-2xl border border-slate-850 text-center space-y-4">
-                            <button onclick="playDictationVoice()" class="w-14 h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 flex items-center justify-center mx-auto transition transform active:scale-95">
-                                <i class="fa-solid fa-volume-high text-xl"></i>
-                            </button>
-                            <p class="text-xs text-slate-400">الترجمة بالدارجة: <span id="dictation-ar-hint" class="font-bold text-indigo-300 block mt-1 text-sm"></span></p>
-                        </div>
-
-                        <div>
-                            <input type="text" id="dictation-input" autocomplete="off" class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-left font-bold text-white text-sm tracking-wide" placeholder="اكتب الجملة بالإنجليزية هنا...">
-                        </div>
-
-                        <div id="dictation-feedback" class="hidden p-3.5 rounded-xl text-xs font-bold text-center border"></div>
-                        
-                        <div class="flex gap-2">
-                            <button id="btn-check-dictation" onclick="checkDictationAnswer()" class="flex-grow py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition text-xs shadow-lg shadow-indigo-600/10">تحقق من كتابتك</button>
-                            <button id="btn-ask-ai" onclick="askAiAboutError()" class="hidden flex-grow py-3 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 font-bold hover:bg-purple-600/30 transition text-xs flex items-center justify-center gap-1.5">
-                                <i class="fa-solid fa-robot"></i> سول AI علاش خطأت
-                            </button>
-                        </div>
-                        <button id="btn-next-dictation" onclick="nextDictationQuestion()" class="hidden w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition text-xs shadow-lg shadow-emerald-600/10">الجملة الموالية <i class="fa-solid fa-arrow-left mr-1"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 2: Grammar Lessons & Grammar Quiz -->
-            <div id="view-grammar" class="hidden space-y-6">
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl space-y-4">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                        <h4 class="font-bold text-sm flex items-center gap-2 text-white">
-                            <i class="fa-solid fa-brain text-indigo-400"></i>
-                            درس اليوم: <span id="grammar-title" class="text-indigo-300">قواعد</span>
-                        </h4>
-                        <button onclick="askAiAboutGrammar()" class="px-3 py-1.5 rounded-xl bg-purple-600/10 hover:bg-purple-600/20 text-purple-300 border border-purple-500/20 text-[10px] font-bold transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-robot"></i> اشرح ليا بالدارجة المغربية
-                        </button>
-                    </div>
-                    <div id="grammar-content" class="text-xs text-slate-300 leading-relaxed space-y-3">
-                        <!-- Filled dynamically -->
-                    </div>
-                </div>
-
-                <!-- Grammar Quick Quiz -->
-                <div class="bg-gradient-to-r from-slate-950 to-slate-900 border border-slate-800 p-6 rounded-2xl">
-                    <h4 class="font-black text-xs text-indigo-400 mb-3 uppercase tracking-wider flex items-center gap-1">
-                        <i class="fa-solid fa-bolt text-amber-500"></i> اختبار سريع للقاعدة
-                    </h4>
-                    <div id="grammar-quiz-play" class="space-y-3">
-                        <p class="text-sm font-semibold text-white" id="grammar-quiz-q">جاري التحميل...</p>
-                        <div class="grid grid-cols-1 gap-2.5 text-xs" id="grammar-quiz-options"></div>
-                        <p id="grammar-quiz-feedback" class="hidden mt-4 p-3 rounded-xl text-xs font-bold text-center border"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 3: AI Chatbot (Gemini 2.5 Flash Arabic / Darija Tutor) -->
-            <div id="view-chatbot" class="hidden">
-                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-[460px] overflow-hidden">
-                    <!-- Chat Header -->
-                    <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold shadow-lg shadow-purple-600/20">
-                                <i class="fa-solid fa-robot"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white">الأستاذ الذكي المساعد</h4>
-                                <p class="text-[9px] text-emerald-400 flex items-center gap-1 mt-0.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span> نشط حالياً (الدارجة)
-                                </p>
-                            </div>
-                        </div>
-                        <button onclick="clearChatHistory()" class="text-[10px] text-slate-400 hover:text-slate-200 bg-slate-800/40 px-2 py-1 rounded-lg border border-slate-700/50 transition" title="مسح المحادثة">
-                            <i class="fa-solid fa-trash-can mr-1"></i> مسح السجل
-                        </button>
-                    </div>
-
-                    <!-- Chat Messages Area -->
-                    <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3.5 text-xs">
-                        <div id="setup-api-warning" class="hidden bg-amber-950/40 border border-amber-900/40 text-amber-200 p-4 rounded-xl space-y-2 mb-3">
-                            <p class="font-bold"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i> تنبيه محمد:</p>
-                            <p class="text-[11px] leading-relaxed">
-                                يبدو أنك تستخدم التطبيق على GitHub Pages. الروبوت يحتاج لمفتاح API خاص بك لكي يجيبك.
-                            </p>
-                            <button onclick="toggleApiSettingsModal()" class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 rounded-lg text-[10px] font-bold transition">
-                                إدخال مفتاح الـ API المجاني الآن
-                            </button>
-                        </div>
-                        <div class="bg-purple-950/30 border border-purple-900/30 text-purple-200 p-3.5 rounded-2xl max-w-[85%] self-start rounded-tr-none ml-auto leading-relaxed">
-                            مرحباً محمد! أنا الأستاذ الذكي ديالك. يسولني على أي حاجة بغيتي: قواعد اليوم، تمارين، أو علاش خطأتي في الكتابة والإملاء وغادي نشرح ليك مزيان بالدارجة المغربية! 🇲🇦✨
-                        </div>
-                    </div>
-
-                    <!-- Quick Templates -->
-                    <div class="p-2 border-t border-slate-800 flex gap-2 overflow-x-auto bg-slate-950/30">
-                        <button onclick="sendQuickPrompt('شرح ليا قاعدة اليوم بالدارجة بالتفصيل وبأمثلة واضحة')" class="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700/50 text-[10px] text-slate-300 hover:bg-slate-700 transition">شرح القاعدة 📘</button>
-                        <button onclick="sendQuickPrompt('اعطيني تمرين سريع دابا على جمل اليوم نجاوب عليه')" class="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700/50 text-[10px] text-slate-300 hover:bg-slate-700 transition">اختبرني دابا 📝</button>
-                        <button onclick="sendQuickPrompt('شنو هما أهم النصائح باش نحسن النطق ديالي بالإنجليزية')" class="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700/50 text-[10px] text-slate-300 hover:bg-slate-700 transition">نصائح النطق 🗣️</button>
-                    </div>
-
-                    <!-- Chat Input Area -->
-                    <div class="p-3 border-t border-slate-800 flex gap-2 bg-slate-950/40">
-                        <input type="text" id="chat-input" onkeydown="if(event.key === 'Enter') sendChatMessage()" class="flex-grow p-3 rounded-xl bg-slate-950 border border-slate-800 focus:outline-none focus:border-purple-500 text-xs text-white" placeholder="اكتب سؤالك هنا للأستاذ الذكي...">
-                        <button onclick="sendChatMessage()" class="w-11 h-11 rounded-xl bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center transition shadow-lg shadow-purple-600/10 shrink-0">
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+        <!-- حقل الإدخال والإرسال -->
+        <div class="flex gap-2 items-center">
+            <input type="text" id="userInput" placeholder="اكتب سؤالك هنا للأستاذ الذكي..." 
+                   class="flex-1 bg-[#161b26] border border-gray-700 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-purple-500 transition placeholder-gray-500">
+            <button id="sendBtn" class="w-12 h-12 rounded-xl bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center transition shadow-lg shrink-0">
+                <i class="fa-solid fa-paper-plane text-sm transform -rotate-45"></i>
+            </button>
         </div>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900/40 border-t border-slate-800/80 py-5 text-center text-xs text-slate-500 mt-auto">
-        <p>© 2026 تطبيق حفظ الإنجليزية المطور • مخصص بالكامل لمحمد 🚀</p>
-    </footer>
+    <!-- نافذة الإعدادات المنبثقة (Modal) -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-[#161b26] border border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-key text-purple-500"></i> إعدادات الـ API Key
+            </h3>
+            <p class="text-xs text-gray-400 mb-4 leading-relaxed">
+                دخل هنا ساروت OpenRouter ديالك. كيتخزن بشكل آمن في المتصفح ديالك فقط ومكتشوفوش أي جهة أخرى أو GitHub.
+            </p>
+            
+            <div class="mb-4">
+                <label class="block text-xs text-gray-300 font-bold mb-2">مفتاح OpenRouter API Key:</label>
+                <input type="password" id="apiKeyInput" placeholder="Sk-or-v1-..." 
+                       class="w-full bg-[#0f1422] border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+            </div>
 
-    <!-- JS Code Database & App Logic -->
+            <div class="flex gap-2 justify-end">
+                <button id="closeModal" class="px-4 py-2 text-xs bg-gray-800 hover:bg-gray-700 rounded-lg transition text-gray-300">إلغاء</button>
+                <button id="saveKeyBtn" class="px-4 py-2 text-xs bg-purple-600 hover:bg-purple-500 rounded-lg transition text-white font-semibold">حفظ الساروت</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- كود الـ JavaScript للتحكم والتواصل مع OpenRouter -->
     <script>
-        // API KEY SETUP (Empty string is filled at runtime by environment or fallback)
-        const apiKey = ""; 
+        const chatBox = document.getElementById('chatBox');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeModal = document.getElementById('closeModal');
+        const saveKeyBtn = document.getElementById('saveKeyBtn');
+        const apiKeyInput = document.getElementById('apiKeyInput');
 
-        // Precise A1 Grammar Database for 30 Days
-        const grammarLessons = {
-            1: {
-                title: "Subject Pronouns (ضمائر الفاعل)",
-                content: `هادو هما الضمائر اللي كنبداو بيهم الجملة باش نعرفو شكون الفاعل:<br>
-                • <b class="text-indigo-400">I</b> (أنا)<br>
-                • <b class="text-indigo-400">You</b> (أنت / أنتم)<br>
-                • <b class="text-indigo-400">He</b> (هو للغائب العاقل)<br>
-                • <b class="text-indigo-400">She</b> (هي للغائبة العاقلة)<br>
-                • <b class="text-indigo-400">It</b> (هو/هي لغير العاقل بحال جماد أو حيوان)<br>
-                • <b class="text-indigo-400">We</b> (نحن)<br>
-                • <b class="text-indigo-400">They</b> (هم / هن)<br><br>
-                <i>مثال:</i> <b>I</b> am from Morocco. (أنا من المغرب)`,
-                question: "She is a doctor. شنو كتعني She هنا؟",
-                options: ["هو", "أنا", "هي", "نحن"],
-                correct: "هي",
-                explanation: "She هي ضمير المؤنث المفرد العاقل (هي)."
-            },
-            2: {
-                title: "Verb 'To Be' (فعل الكينونة)",
-                content: `هذا أهم فعل في الإنجليزية وهو كيعني 'أكون' وكيتصرف في الحاضر هاكا:<br>
-                • I <b class="text-indigo-400">am</b> (أنا أكون)<br>
-                • He / She / It <b class="text-indigo-400">is</b> (هو / هي يكون)<br>
-                • You / We / They <b class="text-indigo-400">are</b> (أنت / نحن / هم يكونون)<br><br>
-                <i>مثال:</i> I <b class="text-indigo-400">am</b> a student. / He <b class="text-indigo-400">is</b> Moroccan.`,
-                question: "اختيار الجواب الصحيح: We ___ happy.",
-                options: ["am", "is", "are", "be"],
-                correct: "are",
-                explanation: "مع الضمير We ديما كنستعملو are."
-            },
-            3: {
-                title: "Articles A / An (أدوات النكرة)",
-                content: `كنستعملوهم قبل الاسم المفرد القابل للعد:<br>
-                • <b class="text-indigo-400">A:</b> قبل الحروف الساكنة (Consonants) بحال: a book, a car.<br>
-                • <b class="text-indigo-400">An:</b> قبل حروف العلة (A, E, I, O, U) بحال: an apple, an elephant.`,
-                question: "Choose correct option: I want to eat ___ orange.",
-                options: ["a", "an", "the", "no article"],
-                correct: "an",
-                explanation: "Orange كتبدا بحرف علة O، داكشي علاش كنستعملو an."
-            },
-            4: {
-                title: "Possessive Adjectives (صفات الملكية)",
-                content: `كنستعملوهم باش نقولو هاد الشي ديالي، ديالك، ديالو...<br>
-                • <b class="text-indigo-400">My</b> book (كتابي)<br>
-                • <b class="text-indigo-400">Your</b> book (كتابك)<br>
-                • <b class="text-indigo-400">His</b> book (كتابه - للمذكر)<br>
-                • <b class="text-indigo-400">Her</b> book (كتابها - للمؤنث)<br>
-                • <b class="text-indigo-400">Our</b> class (قسمنا)`,
-                question: "This is ___ friend. His name is Ali.",
-                options: ["my", "her", "its", "their"],
-                correct: "my",
-                explanation: "my friend كتعني صديقي أنا."
-            },
-            5: {
-                title: "Demonstratives (أسماء الإشارة)",
-                content: `كنشيرو بيهم للحاجة القريبة أو البعيدة:<br>
-                • <b class="text-indigo-400">This:</b> المفرد القريب (هذا) -> This car.<br>
-                • <b class="text-indigo-400">That:</b> المفرد البعيد (ذلك) -> That star.<br>
-                • <b class="text-indigo-400">These:</b> الجمع القريب (هؤلاء) -> These books.<br>
-                • <b class="text-indigo-400">Those:</b> الجمع البعيد (أولئك) -> Those trees.`,
-                question: "Look at ___ bird up in the sky!",
-                options: ["this", "that", "these", "those"],
-                correct: "that",
-                explanation: "بما أن الطائر في السماء (بعيد) ومفرد، كنستعملو That."
-            }
-        };
-
-        // Fill remaining grammar days automatically
-        for (let d = 6; d <= 30; d++) {
-            grammarLessons[d] = {
-                title: `قواعد المستوى A1 - الجزء ${d}`,
-                content: `هاد الجزء مخصص لتعميق الفهم في أساسيات التراكيب الإنجليزية والمصطلحات الشائعة لمستوى A1.<br>
-                • تفاعل مع الدروس اليومية وطبق عليها في الإملاء والامتحان اليومي.<br>
-                • تذكر أن التكرار هو مفتاح الحفظ والتمكن من صياغة جمل متكاملة.`,
-                question: "What is the capital of English studies?",
-                options: ["Practice", "Sleep", "Waiting", "No action"],
-                correct: "Practice",
-                explanation: "الممارسة (Practice) هي أساس كل تعلم ناجح."
-            };
-        }
-
-        // Precise A1 sentences with Moroccan Darija translation
-        const database = {
-            1: [
-                { en: "Hello, how are you?", ar: "أهلاً، كيدير؟ لباس عليك؟" },
-                { en: "My name is Mohamed.", ar: "اسمي محمد." },
-                { en: "Nice to meet you.", ar: "متشرفين / فرصة سعيدة." },
-                { en: "Where are you from?", ar: "منين أنت؟" },
-                { en: "I am from Morocco.", ar: "أنا من المغرب." },
-                { en: "How old are you?", ar: "شحال في عمرك؟" },
-                { en: "I am twenty years old.", ar: "عندي عشرين عام." },
-                { en: "What do you do?", ar: "شنو كتدير في حياتك؟" },
-                { en: "I am a student.", ar: "أنا طالب." },
-                { en: "Where is the bathroom?", ar: "فين كاين الحمام؟" }
-            ],
-            2: [
-                { en: "Good morning.", ar: "صباح الخير." },
-                { en: "Good night.", ar: "تصبح على خير." },
-                { en: "Thank you very much.", ar: "شكراً بزاف." },
-                { en: "You are welcome.", ar: "بلا جميل / العفو." },
-                { en: "See you later.", ar: "نتشوفو من بعد." },
-                { en: "Have a nice day.", ar: "أتمنى لك نهار مبروك." },
-                { en: "I do not understand.", ar: "ما فهمتش." },
-                { en: "Can you help me, please?", ar: "واش تقدر تعاوني عافاك؟" },
-                { en: "Yes, of course.", ar: "نعم، بطبيعة الحال." },
-                { en: "No, thank you.", ar: "لا، شكراً." }
-            ],
-            3: [
-                { en: "How much is this?", ar: "شحال داير هادا؟" },
-                { en: "I want coffee, please.", ar: "بغيت قهوة عافاك." },
-                { en: "Where is the supermarket?", ar: "فين كاين السوبرماركت؟" },
-                { en: "Can I pay by card?", ar: "واش نقدر نخلص بالبطاقة؟" },
-                { en: "Keep the change.", ar: "خلي عندك الصرف." },
-                { en: "I am hungry.", ar: "فيا الجوع." },
-                { en: "I am thirsty.", ar: "فيا العطش." },
-                { en: "The food is delicious.", ar: "الماكلة لديدة بزاف." },
-                { en: "Where can I buy water?", ar: "فين نقدر نشري الما؟" },
-                { en: "I need a doctor.", ar: "محتاج طبيب." }
-            ],
-            4: [
-                { en: "What time is it?", ar: "شحال هادي في الساعة؟" },
-                { en: "It is nine o'clock.", ar: "راها التسعود قد قد." },
-                { en: "I wake up early.", ar: "كنفيق بكري." },
-                { en: "I go to work at eight.", ar: "كنمشي للخدمة مع الثمنية." },
-                { en: "I am busy today.", ar: "أنا مشغول اليوم." },
-                { en: "Are you free tonight?", ar: "واش مسالي هاد الليلة؟" },
-                { en: "Let's meet tomorrow.", ar: "نتلاقاو غدا." },
-                { en: "I am on my way.", ar: "أنا في الطريق." },
-                { en: "I am sorry, I am late.", ar: "سمح ليا، تعطلت." },
-                { en: "I have an appointment.", ar: "عندي موعد." }
-            ],
-            5: [
-                { en: "I love my family.", ar: "كنبغي عائلتي." },
-                { en: "Do you have any brothers?", ar: "واش عندك خوت؟" },
-                { en: "I have one brother.", ar: "عندي خو واحد." },
-                { en: "I have two sisters.", ar: "عندي جوج خوتات." },
-                { en: "He is my father.", ar: "هذا الأب ديالي." },
-                { en: "She is my mother.", ar: "هادي الأم ديالي." },
-                { en: "This is my friend.", ar: "هذا صاحبي." },
-                { en: "Are you married?", ar: "واش مزوج؟" },
-                { en: "I am single.", ar: "أنا عازب / سيلباتير." },
-                { en: "I have a big family.", ar: "عندي عائلة كبيرة." }
-            ]
-        };
-
-        // Fill remaining days dynamically with high fidelity thematic translations
-        const extensionTopics = [
-            [
-                { en: "Table for one, please.", ar: "طبلة لواحد الشخص، عافاك." },
-                { en: "Can I see the menu?", ar: "واش نقدر نشوف المنيو؟" },
-                { en: "I want to order now.", ar: "بغيت نطلب دابا." },
-                { en: "Where is my food?", ar: "فين هي الماكلة ديالي؟" },
-                { en: "This is very delicious.", ar: "هادشي لديد بزاف." },
-                { en: "Could I have some water?", ar: "ممكن شوية د الما?" },
-                { en: "I do not want sugar.", ar: "ما بغيتش السكر." },
-                { en: "The check, please.", ar: "الحساب عافاك." },
-                { en: "Can I pay in cash?", ar: "واش نقدر نخلص كاش؟" },
-                { en: "Where is the exit?", ar: "فين كاين المخرج؟" }
-            ],
-            [
-                { en: "Where is the nearest bank?", ar: "فين كاين أقرب بـنك؟" },
-                { en: "I want to buy a ticket.", ar: "بغيت نشري تيكيت." },
-                { en: "Is this the bus to airport?", ar: "واش هادا هو الطوبيس د المطار؟" },
-                { en: "What is this building?", ar: "شنو هاد البناية؟" },
-                { en: "I am looking for a pharmacy.", ar: "كنقلب على فرمسيان." },
-                { en: "The museum is closed today.", ar: "المتحف مسدود اليوم." },
-                { en: "Where is the public park?", ar: "فين كاين الجردة العمومية؟" },
-                { en: "Is there a hotel nearby?", ar: "واش كاين شي أوطيل قريب؟" },
-                { en: "I need to call a taxi.", ar: "محتاج نعيط للطاكسي." },
-                { en: "How do I get to beach?", ar: "كيفاش نوصل للبحر؟" }
-            ]
-        ];
-
-        for (let d = 6; d <= 30; d++) {
-            const topicPattern = extensionTopics[(d - 6) % extensionTopics.length];
-            database[d] = topicPattern.map(p => ({
-                en: p.en,
-                ar: p.ar
-            }));
-        }
-
-        // App State
-        let currentDay = 1;
-        let activeTab = 'learn';
-        let currentFlashcardIndex = 0;
-        let dictationState = { currentIndex: 0, score: 0, questions: [] };
-        let chatHistory = [];
-
-        // User Progress tracking using LocalStorage
-        let progress = JSON.parse(localStorage.getItem('english_challenge_progress')) || {};
-
-        window.onload = function() {
-            renderDaysGrid();
-            updateOverallProgress();
-            
-            // Check for Custom API Key inside local storage (Crucial for GitHub Hosting)
-            const savedKey = localStorage.getItem('user_gemini_api_key');
+        // تحميل المفتاح المخزن في المتصفح ديريكت في حقل الإدخال عند الفتح
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('openrouter_api_key');
             if (savedKey) {
-                document.getElementById('api-key-input').value = savedKey;
+                apiKeyInput.value = savedKey;
+            }
+        });
+
+        // فتح وإغلاق النافذة المنبثقة
+        settingsBtn.addEventListener('click', () => settingsModal.classList.remove('hidden'));
+        closeModal.addEventListener('click', () => settingsModal.classList.add('hidden'));
+
+        // حفظ المفتاح في الـ LocalStorage ديريكت في المتصفح
+        saveKeyBtn.addEventListener('click', () => {
+            const key = apiKeyInput.value.trim();
+            if (key.startsWith('sk-or-')) {
+                localStorage.setItem('openrouter_api_key', key);
+                alert('🎉 تم حفظ الساروت في متصفحك بنجاح!');
+                settingsModal.classList.add('hidden');
             } else {
-                // If running on custom URL and no key saved, show warnings in Chatbot
-                if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('stackblitz')) {
-                    document.getElementById('setup-api-warning').classList.remove('hidden');
-                }
+                alert('❌ الساروت اللي دخلتيه كيبان ماشي صحيح، تأكد أنه كيبدا بـ sk-or-');
+            }
+        });
+
+        // إرسال الرسالة عند الضغط على الزر أو Enter
+        sendBtn.addEventListener('click', handleUserSend);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleUserSend();
+        });
+
+        // دالة إرسال الرسالة من المستخدم
+        async function handleUserSend() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            // التحقق من وجود الساروت في المتصفح قبل الإرسال
+            const apiKey = localStorage.getItem('openrouter_api_key');
+            if (!apiKey) {
+                alert('⚠️ عافاك دخل الـ API Key ديالك أولاً من زر الإعدادات ⚙️ الفوق!');
+                settingsModal.classList.remove('hidden');
+                return;
             }
 
-            // Load saved chat history if any
-            chatHistory = JSON.parse(localStorage.getItem('english_tutor_history')) || [];
-            if (chatHistory.length > 0) {
-                renderSavedChat();
-            }
-        }
+            // إضافة رسالة المستخدم للشات
+            appendMessage(text, 'user');
+            userInput.value = '';
 
-        // API settings modal handlers
-        function toggleApiSettingsModal() {
-            const modal = document.getElementById('api-modal');
-            modal.classList.toggle('opacity-0');
-            modal.classList.toggle('pointer-events-none');
-        }
+            // إضافة مؤشر التحميل "جاري التفكير..."
+            const loadingId = appendLoading();
 
-        function saveApiKey() {
-            const val = document.getElementById('api-key-input').value.trim();
-            if (val) {
-                localStorage.setItem('user_gemini_api_key', val);
-                document.getElementById('setup-api-warning').classList.add('hidden');
-                showToast("تم حفظ مفتاح API بنجاح!");
-            } else {
-                localStorage.removeItem('user_gemini_api_key');
-                showToast("تم حذف المفتاح.", false);
-            }
-            toggleApiSettingsModal();
-        }
-
-        // Show toast notifications
-        function showToast(msg, isSuccess = true) {
-            const toast = document.getElementById('toast');
-            const icon = document.getElementById('toast-icon');
-            const iconBg = document.getElementById('toast-icon-bg');
-            const msgSpan = document.getElementById('toast-msg');
-
-            msgSpan.innerText = msg;
-            if (isSuccess) {
-                icon.className = "fa-solid fa-circle-check text-emerald-400";
-                iconBg.className = "w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center";
-            } else {
-                icon.className = "fa-solid fa-circle-exclamation text-rose-400";
-                iconBg.className = "w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center";
-            }
-
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            toast.classList.add('opacity-100');
-
-            setTimeout(() => {
-                toast.classList.remove('opacity-100');
-                toast.classList.add('opacity-0', 'pointer-events-none');
-            }, 2500);
-        }
-
-        // Render dashboard days
-        function renderDaysGrid() {
-            const grid = document.getElementById('days-grid');
-            grid.innerHTML = '';
-            
-            for (let i = 1; i <= 30; i++) {
-                const dayProgress = getDayProgress(i);
-                let btnClass = "";
-                let icon = "";
-
-                if (dayProgress === 100) {
-                    btnClass = "bg-emerald-950/40 hover:bg-emerald-900/40 text-emerald-300 border-emerald-900/50";
-                    icon = `<span class="absolute top-1.5 right-1.5 text-[10px] text-emerald-400"><i class="fa-solid fa-circle-check"></i></span>`;
-                } else if (dayProgress > 0) {
-                    btnClass = "bg-indigo-950/30 hover:bg-indigo-900/30 text-indigo-300 border-indigo-900/50";
-                    icon = `<span class="absolute top-1.5 right-1.5 text-[10px] text-indigo-400 animate-pulse"><i class="fa-solid fa-clock-rotate-left"></i></span>`;
-                } else {
-                    btnClass = "bg-slate-900/40 hover:bg-slate-800/60 text-slate-300 border-slate-850";
-                }
-
-                const button = document.createElement('button');
-                button.className = `${btnClass} border p-4 rounded-2xl font-bold flex flex-col items-center justify-center relative transition transform active:scale-95 shadow-lg h-16`;
-                button.onclick = () => selectDay(i);
-                button.innerHTML = `
-                    ${icon}
-                    <span class="text-[9px] text-slate-500">النهار</span>
-                    <span class="text-base font-black">${i}</span>
-                `;
-                grid.appendChild(button);
+            try {
+                const aiResponse = await askAI(text, apiKey);
+                removeLoading(loadingId);
+                appendMessage(aiResponse, 'ai');
+            } catch (error) {
+                removeLoading(loadingId);
+                appendMessage("عذراً محمد، كاين تذبذب في الاتصال بخادم الروبوت حالياً. تأكد من صحة الـ API Key ديالك في الإعدادات.", 'ai');
             }
         }
 
-        function getDayProgress(dayNum) {
-            if (!progress[dayNum]) return 0;
-            const completedCount = Object.values(progress[dayNum]).filter(Boolean).length;
-            return Math.round((completedCount / 10) * 100);
-        }
+        // دالة التواصل مع OpenRouter (Gemini 2.5 Flash)
+        async function askAI(userMessage, apiKey) {
+            const url = "https://openrouter.ai/api/v1/chat/completions";
+            const systemPrompt = "أنت أستاذ لغة إنجليزية ذكي ومرح، تدرس وتساعد طالب مبتدئ اسمه محمد (مستوى A1). تتكلم بالدارجة المغربية بأسلوب مشجع ومبسط، وتستخدم الإنجليزية فقط لتعليم الكلمات والجمل وتصحيحها.";
 
-        function updateOverallProgress() {
-            let totalCompleted = 0;
-            for (let d = 1; d <= 30; d++) {
-                if (progress[d]) {
-                    totalCompleted += Object.values(progress[d]).filter(Boolean).length;
-                }
-            }
-            const overallPercent = Math.round((totalCompleted / 300) * 100);
-            document.getElementById('overall-progress').innerText = `${overallPercent}%`;
-            document.getElementById('progress-percent').innerText = `${overallPercent}%`;
-            document.getElementById('progress-bar-fill').style.width = `${overallPercent}%`;
-        }
-
-        function selectDay(dayNum) {
-            currentDay = dayNum;
-            document.getElementById('days-section').classList.add('hidden');
-            document.getElementById('study-area').classList.remove('hidden');
-            document.getElementById('current-day-title').innerText = `اليوم ${dayNum}`;
-            
-            currentFlashcardIndex = 0;
-            switchTab('learn');
-            switchLearnSubTab('flash');
-            loadFlashcard(0);
-            renderSentencesList();
-            loadGrammarLesson();
-        }
-
-        function backToDashboard() {
-            document.getElementById('days-section').classList.remove('hidden');
-            document.getElementById('study-area').classList.add('hidden');
-            renderDaysGrid();
-            updateOverallProgress();
-        }
-
-        function switchTab(tab) {
-            activeTab = tab;
-            const btnLearn = document.getElementById('tab-learn');
-            const btnGrammar = document.getElementById('tab-grammar');
-            const btnChatbot = document.getElementById('tab-chatbot');
-            const viewLearn = document.getElementById('view-learn');
-            const viewGrammar = document.getElementById('view-grammar');
-            const viewChatbot = document.getElementById('view-chatbot');
-
-            [btnLearn, btnGrammar, btnChatbot].forEach(btn => {
-                btn.className = "px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white transition";
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${apiKey}`,
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://mohamed2222c2-stack.github.io",
+                    "X-Title": "English Learning App"
+                },
+                body: JSON.stringify({
+                    model: "google/gemini-2.5-flash",
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: userMessage }
+                    ]
+                })
             });
 
-            viewLearn.classList.add('hidden');
-            viewGrammar.classList.add('hidden');
-            viewChatbot.classList.add('hidden');
-
-            if (tab === 'learn') {
-                btnLearn.className = "px-3 py-1.5 rounded-lg font-bold text-xs bg-indigo-600 text-white transition shadow-lg shadow-indigo-600/10";
-                viewLearn.classList.remove('hidden');
-            } else if (tab === 'grammar') {
-                btnGrammar.className = "px-3 py-1.5 rounded-lg font-bold text-xs bg-purple-600 text-white transition shadow-lg shadow-purple-600/10";
-                viewGrammar.classList.remove('hidden');
-                loadGrammarLesson();
-            } else if (tab === 'chatbot') {
-                btnChatbot.className = "px-3 py-1.5 rounded-lg font-bold text-xs bg-emerald-600 text-white transition shadow-lg shadow-emerald-600/10";
-                viewChatbot.classList.remove('hidden');
-            }
-        }
-
-        function switchLearnSubTab(sub) {
-            const btnFlash = document.getElementById('subtab-flash');
-            const btnDict = document.getElementById('subtab-dict');
-            const viewFlash = document.getElementById('sub-view-flash');
-            const viewDict = document.getElementById('sub-view-dict');
-
-            if (sub === 'flash') {
-                btnFlash.className = "flex-1 py-2 rounded-lg font-bold text-xs bg-indigo-600 text-white transition shadow-sm";
-                btnDict.className = "flex-1 py-2 rounded-lg font-bold text-xs text-slate-400 hover:text-white transition";
-                viewFlash.classList.remove('hidden');
-                viewDict.classList.add('hidden');
+            const data = await response.json();
+            if (data.choices && data.choices[0]) {
+                return data.choices[0].message.content;
             } else {
-                btnDict.className = "flex-1 py-2 rounded-lg font-bold text-xs bg-indigo-600 text-white transition shadow-sm";
-                btnFlash.className = "flex-1 py-2 rounded-lg font-bold text-xs text-slate-400 hover:text-white transition";
-                viewDict.classList.remove('hidden');
-                viewFlash.classList.add('hidden');
-                startDictation();
+                throw new Error("استجابة غير صالحة");
             }
         }
 
-        function loadFlashcard(index) {
-            const sentences = database[currentDay];
-            const card = sentences[index];
-            document.getElementById('flashcard-inner').classList.remove('flipped');
-            setTimeout(() => {
-                document.getElementById('flashcard-en').innerText = card.en;
-                document.getElementById('flashcard-ar').innerText = card.ar;
-                document.getElementById('flashcard-index').innerText = `${index + 1} / 10`;
-            }, 150);
+        // إضافة رسالة للواجهة
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-2 items-end max-w-[85%] ${sender === 'user' ? 'self-end flex-row-reverse' : ''}`;
+            
+            const avatar = sender === 'user' ? '👤' : '🤖';
+            const bgClass = sender === 'user' ? 'bg-purple-600 text-white rounded-bl-none' : 'bg-[#1a2035] text-gray-200 rounded-br-none';
+
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full ${sender === 'user' ? 'bg-gray-800' : 'bg-purple-600'} flex items-center justify-center text-sm shrink-0">${avatar}</div>
+                <div class="${bgClass} p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line">${text}</div>
+            `;
+            
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // Flip trigger
-        function toggleCardFlip() {
-            document.getElementById('flashcard-inner').classList.toggle('flipped');
+        // إضافة مؤشر تحميل مؤقت
+        function appendLoading() {
+            const id = 'loading_' + Date.now();
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = id;
+            loadingDiv.className = "flex gap-2 items-end max-w-[85%]";
+            loadingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shrink-0">🤖</div>
+                <div class="bg-[#1a2035] text-gray-400 p-3 rounded-2xl rounded-br-none text-sm flex gap-1 items-center">
+                    <span>جاري التفكير</span>
+                    <span class="animate-bounce">.</span>
+                    <span class="animate-bounce delay-100">.</span>
+                    <span class="animate-bounce delay-200">.</span>
+                </div>
+            `;
+            chatBox.appendChild(loadingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return id;
         }
 
-        // Prevent events bubbling
-        function prevFlashcard(event) {
-            event.stopPropagation();
-            currentFlashcardIndex = currentFlashcardIndex > 0 ? currentFlashcardIndex - 1 : 9;
-            loadFlashcard(currentFlashcardIndex);
+        function removeLoading(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
         }
 
-        function nextFlashcard(event) {
-            event.stopPropagation();
-            currentFlashcardIndex = currentFlashcardIndex < 9 ? currentFlashcardIndex + 1 : 0;
-            loadFlashcard(currentFlashcardIndex);
-        }
-
-        function copyTextToClipboard(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast("تم النسخ بنجاح!");
-            } catch (err) {
-                showToast("حدث خطأ أثناء النسخ.", false);
-            }
-            document.body.removeChild(textArea);
-        }
-
-        function copyCurrentText(event) {
-            if (event) event.stopPropagation();
-            copyTextToClipboard(document.getElementById('flashcard-en').innerText);
-        }
-
-        function speakText(text, event) {
-            if (event) event.stopPropagation();
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-            } else {
-                showToast("النطق غير مدعوم في متصفحك.", false);
-            }
-        }
-
-        function renderSentencesList() {
-            const listContainer = document.getElementById('sentences-list');
-            listContainer.innerHTML = '';
-            const sentences = database[currentDay];
-            if (!progress[currentDay]) progress[currentDay] = {};
-
-            sentences.forEach((sentence, index) => {
-                const isChecked = progress[currentDay][index] || false;
-                const item = document.createElement('div');
-                item.className = `p-3.5 rounded-2xl border flex items-center justify-between transition ${isChecked ? 'bg-emerald-950/20 border-emerald-900/60' : 'bg-slate-900/40 border-slate-850 shadow-lg'}`;
-                
-                item.innerHTML = `
-                    <div class="flex items-center gap-3.5 flex-1 min-w-0">
-                        <input type="checkbox" id="check-${index}" ${isChecked ? 'checked' : ''} 
-                            onchange="toggleSentenceSaved(${index})" 
-                            class="w-5 h-5 text-indigo-600 border-slate-800 bg-slate-950 rounded cursor-pointer">
-                        <div class="text-right min-w-0 flex-1">
-                            <p class="english-text text-sm md:text-base font-bold text-white truncate">${sentence.en}</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5 truncate">${sentence.ar}</p>
+        // مسح الشات
+        function clearChat() {
+            if (confirm("واش متأكد بغيتي تمسح سجل المحادثة؟")) {
+                chatBox.innerHTML = `
+                    <div class="flex gap-2 items-end max-w-[85%]">
+                        <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shrink-0">🤖</div>
+                        <div class="bg-[#1a2035] text-gray-200 p-3 rounded-2xl rounded-br-none text-sm">
+                            تم مسح السجل بنجاح! كيفاش نقدر نعاونك دابا يا محمد؟ 🌟
                         </div>
                     </div>
-                    <div class="flex gap-1.5 mr-2">
-                        <button onclick="speakText('${sentence.en.replace(/'/g, "\\'")}')" class="w-8 h-8 rounded-xl text-indigo-400 hover:bg-indigo-500/10 flex items-center justify-center transition"><i class="fa-solid fa-volume-high text-xs"></i></button>
-                        <button onclick="copyTextToClipboard('${sentence.en.replace(/'/g, "\\'")}')" class="w-8 h-8 rounded-xl text-emerald-400 hover:bg-emerald-500/10 flex items-center justify-center transition"><i class="fa-solid fa-copy text-xs"></i></button>
-                    </div>
-                `;
-                listContainer.appendChild(item);
-            });
-        }
-
-        function toggleSentenceSaved(index) {
-            if (!progress[currentDay]) progress[currentDay] = {};
-            progress[currentDay][index] = document.getElementById(`check-${index}`).checked;
-            localStorage.setItem('english_challenge_progress', JSON.stringify(progress));
-            renderSentencesList();
-            updateOverallProgress();
-        }
-
-        // Dictation (Spelling Challenge)
-        function startDictation() {
-            dictationState.currentIndex = 0;
-            dictationState.score = 0;
-            const daySentences = [...database[currentDay]];
-            dictationState.questions = daySentences.sort(() => 0.5 - Math.random());
-            showDictationQuestion();
-        }
-
-        function showDictationQuestion() {
-            const currentQuestion = dictationState.questions[dictationState.currentIndex];
-            document.getElementById('dictation-counter').innerText = `جملة ${dictationState.currentIndex + 1} من 10`;
-            document.getElementById('dictation-score').innerText = `النتيجة: ${dictationState.score}`;
-            document.getElementById('dictation-ar-hint').innerText = currentQuestion.ar;
-
-            const input = document.getElementById('dictation-input');
-            input.value = '';
-            input.disabled = false;
-            input.className = "w-full p-4 rounded-xl bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-left font-bold text-white text-sm tracking-wide";
-            
-            document.getElementById('dictation-feedback').classList.add('hidden');
-            document.getElementById('btn-check-dictation').classList.remove('hidden');
-            document.getElementById('btn-next-dictation').classList.add('hidden');
-            document.getElementById('btn-ask-ai').classList.add('hidden');
-
-            setTimeout(() => playDictationVoice(), 300);
-        }
-
-        function playDictationVoice() {
-            speakText(dictationState.questions[dictationState.currentIndex].en);
-        }
-
-        function checkDictationAnswer() {
-            const userInput = document.getElementById('dictation-input').value.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
-            const currentQuestion = dictationState.questions[dictationState.currentIndex];
-            const correctAnswer = currentQuestion.en.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
-
-            const feedback = document.getElementById('dictation-feedback');
-            const input = document.getElementById('dictation-input');
-
-            input.disabled = true;
-            feedback.classList.remove('hidden');
-
-            if (userInput === correctAnswer) {
-                dictationState.score++;
-                feedback.className = "p-3 rounded-xl text-xs font-bold text-center bg-emerald-500/10 border-emerald-500/20 text-emerald-400";
-                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> برافو محمد! كتابة صحيحة تماماً.`;
-                input.className = "w-full p-4 rounded-xl border border-emerald-500 bg-emerald-950/20 text-left font-bold text-emerald-400 text-sm tracking-wide";
-                document.getElementById('btn-check-dictation').classList.add('hidden');
-                document.getElementById('btn-next-dictation').classList.remove('hidden');
-            } else {
-                feedback.className = "p-3 rounded-xl text-xs font-bold text-center bg-rose-500/10 border-rose-500/20 text-rose-400";
-                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> كاين خطأ بسيط.<br>الجواب الصحيح: <span class="underline block mt-1.5 font-bold english-text text-sm">${currentQuestion.en}</span>`;
-                input.className = "w-full p-4 rounded-xl border border-rose-500 bg-rose-950/20 text-left font-bold text-rose-400 text-sm tracking-wide";
-                
-                document.getElementById('btn-check-dictation').classList.add('hidden');
-                document.getElementById('btn-ask-ai').classList.remove('hidden');
-                document.getElementById('btn-next-dictation').classList.remove('hidden');
-            }
-        }
-
-        function nextDictationQuestion() {
-            if (dictationState.currentIndex < 9) {
-                dictationState.currentIndex++;
-                showDictationQuestion();
-            } else {
-                showToast(`أنهيت التحدي بنتيجة: ${dictationState.score}/10!`);
-                switchLearnSubTab('flash');
-            }
-        }
-
-        // Grammar Tab
-        function loadGrammarLesson() {
-            const lesson = grammarLessons[currentDay];
-            document.getElementById('grammar-title').innerText = lesson.title;
-            document.getElementById('grammar-content').innerHTML = lesson.content;
-
-            // Load Grammar Quiz
-            document.getElementById('grammar-quiz-q').innerText = lesson.question;
-            const optionsContainer = document.getElementById('grammar-quiz-options');
-            optionsContainer.innerHTML = '';
-            document.getElementById('grammar-quiz-feedback').classList.add('hidden');
-
-            lesson.options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = "w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-900 text-right transition font-bold text-slate-300";
-                button.innerText = option;
-                button.onclick = () => selectGrammarOption(option, lesson.correct, lesson.explanation, button);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function selectGrammarOption(selected, correct, explanation, button) {
-            const buttons = document.querySelectorAll('#grammar-quiz-options button');
-            buttons.forEach(btn => btn.disabled = true);
-
-            const feedback = document.getElementById('grammar-quiz-feedback');
-            feedback.classList.remove('hidden');
-
-            if (selected === correct) {
-                button.className = "w-full p-3.5 rounded-xl bg-emerald-600 border-emerald-500 text-white text-right font-bold";
-                feedback.className = "mt-4 p-3.5 rounded-xl text-xs font-bold text-center bg-emerald-950/40 border-emerald-500/20 text-emerald-300";
-                feedback.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> صحيح! ${explanation}`;
-            } else {
-                button.className = "w-full p-3.5 rounded-xl bg-rose-600 border-rose-500 text-white text-right font-bold";
-                feedback.className = "mt-4 p-3.5 rounded-xl text-xs font-bold text-center bg-rose-950/40 border-rose-500/20 text-rose-300";
-                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> خطأ. الجواب هو "${correct}". <br>${explanation}`;
-            }
-        }
-
-        // --- ROBOT GEMINI DIRECT API (V1 INTEGRATION CODES) ---
-        async function fetchGeminiResponse(userPrompt, systemPrompt) {
-            const userKey = localStorage.getItem('user_gemini_api_key') || apiKey;
-            
-            if (!userKey) {
-                return "يا محمد، لم تقم بإدخال مفتاح الـ API الخاص بـ Gemini حتى الآن. يرجى الضغط على زر الإعدادات (أيقونة المسنن ⚙️) بالأعلى وإدخال المفتاح المجاني لكي يعمل الروبوت بنجاح.";
-            }
-
-            // Using standard v1 API which is highly reliable and resolves CORS directly
-            const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${userKey}`;
-            
-            const contents = [];
-            chatHistory.slice(-6).forEach(msg => { 
-                contents.push({
-                    role: msg.sender === 'user' ? 'user' : 'model',
-                    parts: [{ text: msg.text }]
-                });
-            });
-            contents.push({
-                role: 'user',
-                parts: [{ text: `تعليمات النظام: ${systemPrompt}\n\nالسؤال الحالي: ${userPrompt}` }]
-            });
-
-            const payload = {
-                contents: contents
-            };
-
-            let delay = 1000;
-            for (let attempt = 0; attempt < 3; attempt++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (response.ok) {
-                        const data = await response.json();
-                        return data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أستطع إنتاج رد حالياً.";
-                    } else {
-                        const errorMsg = await response.text();
-                        console.error("Gemini Response Error:", errorMsg);
-                    }
-                } catch (err) {
-                    console.error("Fetch Exception:", err);
-                }
-                await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2; 
-            }
-            return "عذراً محمد، كاين تذبذب في الاتصال بخادم الروبوت حالياً. تأكد من صحة مفتاح الـ API الخاص بك (أنه يبدأ بـ AIzaSy) أو أعد المحاولة بعد قليل.";
-        }
-
-        function appendMessage(sender, text) {
-            const container = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-
-            if (sender === 'user') {
-                messageDiv.className = "bg-indigo-600 text-white p-3.5 rounded-2xl max-w-[85%] self-end mr-auto rounded-tl-none text-left shadow-lg";
-            } else {
-                messageDiv.className = "bg-slate-950 border border-slate-850 text-slate-200 p-3.5 rounded-2xl max-w-[85%] self-start rounded-tr-none ml-auto leading-relaxed shadow-lg";
-            }
-
-            messageDiv.innerHTML = text.replace(/\n/g, '<br>');
-            container.appendChild(messageDiv);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        async function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const query = input.value.trim();
-            if (!query) return;
-
-            appendMessage('user', query);
-            input.value = '';
-
-            chatHistory.push({ sender: 'user', text: query });
-            localStorage.setItem('english_tutor_history', JSON.stringify(chatHistory));
-
-            const systemPrompt = `أنت أستاذ لغة إنجليزية ذكي ومحبوب جداً، وتتحدث بالدارجة المغربية بطلاقة تامة لمساعدة الطالب "محمد" ذو المستوى A1. اشرح له القواعد والجمل بطريقة سهلة وتفاعلية، ولا تجعل الردود طويلة جداً. خاطبه دائماً باسم محمد وبكل مودة وتشجيع مغربي أصيل.`;
-            
-            appendMessage('ai', "<div id='ai-spinner' class='flex items-center gap-1.5'><i class='fa-solid fa-circle-notch animate-spin text-purple-400'></i> جاري التفكير...</div>");
-
-            const response = await fetchGeminiResponse(query, systemPrompt);
-            
-            const container = document.getElementById('chat-messages');
-            container.removeChild(container.lastChild);
-
-            appendMessage('ai', response);
-
-            chatHistory.push({ sender: 'ai', text: response });
-            localStorage.setItem('english_tutor_history', JSON.stringify(chatHistory));
-        }
-
-        function sendQuickPrompt(promptText) {
-            document.getElementById('chat-input').value = promptText;
-            sendChatMessage();
-        }
-
-        function clearChatHistory() {
-            chatHistory = [];
-            localStorage.removeItem('english_tutor_history');
-            const container = document.getElementById('chat-messages');
-            container.innerHTML = `<div class="bg-purple-950/30 border border-purple-900/30 text-purple-200 p-3.5 rounded-2xl max-w-[85%] self-start rounded-tr-none ml-auto leading-relaxed">سجل المحادثة تم مسحه! سولني على أي حاجة بغيتي ونشرح ليك دابا بالدارجة المغربية.</div>`;
-            showToast("تم مسح السجل.");
-        }
-
-        function renderSavedChat() {
-            const container = document.getElementById('chat-messages');
-            container.innerHTML = '';
-            
-            const savedKey = localStorage.getItem('user_gemini_api_key');
-            if (!savedKey && window.location.hostname !== 'localhost' && !window.location.hostname.includes('stackblitz')) {
-                document.getElementById('chat-messages').innerHTML = `
-                    <div id="setup-api-warning" class="bg-amber-950/40 border border-amber-900/40 text-amber-200 p-4 rounded-xl space-y-2 mb-3">
-                        <p class="font-bold"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i> تنبيه محمد:</p>
-                        <p class="text-[11px] leading-relaxed">
-                            يبدو أنك تستخدم التطبيق على GitHub Pages. الروبوت يحتاج لمفتاح API خاص بك لكي يجيبك.
-                        </p>
-                        <button onclick="toggleApiSettingsModal()" class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 rounded-lg text-[10px] font-bold transition">
-                            إدخال مفتاح الـ API المجاني الآن
-                        </button>
-                    </div>
                 `;
             }
-
-            chatHistory.forEach(msg => {
-                appendMessage(msg.sender, msg.text);
-            });
-        }
-
-        // Automatic actions from tabs
-        function askAiAboutGrammar() {
-            const lesson = grammarLessons[currentDay];
-            switchTab('chatbot');
-            sendQuickPrompt(`شرح ليا هاد القاعدة بالدارجة وبطريقة مبسطة بحال للدراري الصغار: "${lesson.title}". هادا هو الدرس: "${lesson.content}"`);
-        }
-
-        function askAiAboutError() {
-            const userInput = document.getElementById('dictation-input').value.trim();
-            const correctAnswer = dictationState.questions[dictationState.currentIndex].en;
-            switchTab('chatbot');
-            sendQuickPrompt(`أنا غلطت في الإملاء. كتبت: "${userInput}" وكان خَاصْ نكتب: "${correctAnswer}". اشرح ليا بالدارجة المغربية فين عندي الخطأ وكيفاش نصلحو.`);
         }
     </script>
 </body>
