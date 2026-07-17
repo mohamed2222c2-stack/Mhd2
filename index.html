@@ -1,941 +1,1273 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A1 - تعلم الإنجليزية</title>
-    <style>
-        /* ===== التصميم العام ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Tahoma', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعلّم الإنجليزية — A1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-900:#0f3d3a;
+  --teal-700:#1f6f68;
+  --teal-500:#2f9188;
+  --teal-100:#e4f2ef;
+  --sand-100:#faf6ee;
+  --sand-200:#f1e9d6;
+  --coral:#e8795a;
+  --coral-light:#fbe4dc;
+  --ink:#1c2624;
+  --muted:#5c6d69;
+  --white:#ffffff;
+  --ok:#2f9188;
+  --bad:#d1554a;
+  --radius:18px;
+  --shadow: 0 10px 30px -12px rgba(15,61,58,.18);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Tajawal','Poppins',sans-serif;
+  background:var(--sand-100);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.en{font-family:'Poppins','Tajawal',sans-serif; direction:ltr; unicode-bidi:isolate;}
+button{font-family:inherit; cursor:pointer;}
+::selection{background:var(--teal-100);}
 
-        body {
-            background: #f0f4fa;
-            color: #1a2a44;
-            padding: 16px;
-            direction: rtl;
-            min-height: 100vh;
-        }
+/* ---------- App Shell ---------- */
+#app{display:flex; min-height:100vh;}
+.sidebar{
+  width:240px; background:var(--teal-900); color:var(--sand-100);
+  padding:28px 18px; display:flex; flex-direction:column; gap:6px;
+  position:sticky; top:0; height:100vh; flex-shrink:0;
+}
+.brand{display:flex; align-items:center; gap:10px; padding:0 8px 22px; }
+.brand .mark{width:38px; height:38px; border-radius:12px; background:var(--coral); display:flex; align-items:center; justify-content:center; font-weight:800; font-family:'Poppins'; color:#fff; font-size:18px;}
+.brand h1{font-size:17px; font-weight:800;}
+.brand span{display:block; font-size:11px; color:#9fc7c1; font-weight:500;}
+.nav-item{
+  display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:12px;
+  background:transparent; border:none; color:#cfe6e2; font-size:15px; font-weight:500;
+  text-align:right; transition:.18s;
+}
+.nav-item:hover{background:rgba(255,255,255,.06);}
+.nav-item.active{background:var(--teal-700); color:#fff;}
+.nav-item .ic{font-size:18px; width:22px; text-align:center;}
+.sidebar-foot{margin-top:auto; padding:14px 8px; font-size:12px; color:#7fa39d;}
 
-        /* ===== الهيدر ===== */
-        header {
-            background: linear-gradient(135deg, #1a2a44, #2b4a7a);
-            color: white;
-            padding: 16px 28px;
-            border-radius: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: 0 6px 20px rgba(26, 42, 68, 0.25);
-            margin-bottom: 24px;
-        }
+main{flex:1; min-width:0; padding:34px 40px 90px; max-width:1100px; margin:0 auto; width:100%;}
 
-        header h1 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        header h1 span {
-            color: #7aa5ff;
-        }
+/* mobile bottom nav */
+.bottom-nav{display:none;}
+@media (max-width:880px){
+  .sidebar{display:none;}
+  main{padding:20px 16px 90px;}
+  .bottom-nav{
+    display:flex; position:fixed; bottom:0; left:0; right:0; background:var(--teal-900);
+    justify-content:space-around; padding:8px 4px 10px; z-index:50; box-shadow:0 -6px 20px rgba(0,0,0,.15);
+  }
+  .bottom-nav button{background:none; border:none; color:#9fc7c1; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:10.5px; font-weight:600; padding:4px 6px;}
+  .bottom-nav button.active{color:#fff;}
+  .bottom-nav .ic{font-size:19px;}
+}
 
-        nav {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+/* ---------- Reusable ---------- */
+.section-title{font-size:26px; font-weight:800; margin-bottom:6px;}
+.section-sub{color:var(--muted); font-size:14.5px; margin-bottom:26px;}
+.card{background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px;}
+.pill{display:inline-flex; align-items:center; gap:6px; background:var(--teal-100); color:var(--teal-700); font-size:12.5px; font-weight:700; padding:5px 12px; border-radius:100px;}
+.btn{border:none; border-radius:12px; padding:12px 22px; font-weight:700; font-size:14.5px; transition:.15s;}
+.btn-primary{background:var(--coral); color:#fff;}
+.btn-primary:hover{filter:brightness(1.06); transform:translateY(-1px);}
+.btn-ghost{background:var(--teal-100); color:var(--teal-700);}
+.btn-ghost:hover{background:#d6ebe7;}
+.btn:disabled{opacity:.45; cursor:not-allowed; transform:none;}
+.fade-in{animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
 
-        nav a {
-            color: #c5d9ff;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-        }
-        nav a:hover,
-        nav a.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-        }
+/* ---------- Home ---------- */
+.hero{
+  background:linear-gradient(135deg, var(--teal-900), var(--teal-700));
+  border-radius:24px; padding:36px 32px; color:#fff; position:relative; overflow:hidden;
+  display:flex; align-items:center; gap:30px; flex-wrap:wrap;
+}
+.hero::after{content:""; position:absolute; inset:0; background:radial-gradient(circle at 85% 20%, rgba(232,121,90,.35), transparent 55%);}
+.hero-ring{position:relative; z-index:1; flex-shrink:0;}
+.hero-text{position:relative; z-index:1; flex:1; min-width:220px;}
+.hero-text h2{font-size:24px; font-weight:800; margin-bottom:8px;}
+.hero-text p{color:#cfe6e2; font-size:14.5px; margin-bottom:18px; line-height:1.9;}
+.ring-wrap{width:132px; height:132px; position:relative;}
+.ring-num{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.ring-num b{font-size:26px; font-family:'Poppins';}
+.ring-num span{font-size:11px; color:#cfe6e2;}
 
-        /* ===== الأزرار ===== */
-        .btn-primary {
-            background: #4a7cf7;
-            color: white;
-            padding: 14px 44px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-size: 1.15rem;
-            font-weight: 600;
-            display: inline-block;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(74, 124, 247, 0.35);
-            transition: all 0.3s;
-        }
-        .btn-primary:hover {
-            background: #3a66d6;
-            transform: scale(1.02);
-            box-shadow: 0 8px 24px rgba(74, 124, 247, 0.45);
-        }
+.stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:26px 0;}
+.stat{background:#fff; border-radius:16px; padding:18px; box-shadow:var(--shadow); text-align:center;}
+.stat b{display:block; font-size:24px; color:var(--teal-700); font-family:'Poppins'; font-weight:800;}
+.stat span{font-size:12.5px; color:var(--muted);}
 
-        .btn-secondary {
-            background: #e8edf5;
-            color: #1a2a44;
-            padding: 10px 24px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .btn-secondary:hover {
-            background: #d0d9e8;
-        }
+.day-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;}
+.day-tile{
+  background:#fff; border-radius:14px; padding:16px 14px; text-align:right; box-shadow:var(--shadow);
+  border:2px solid transparent; transition:.15s; position:relative;
+}
+.day-tile:hover{transform:translateY(-3px);}
+.day-tile.locked{opacity:.5; filter:grayscale(.4);}
+.day-tile.done{border-color:var(--teal-500);}
+.day-tile .num{font-family:'Poppins'; font-weight:800; font-size:22px; color:var(--teal-700);}
+.day-tile .topic{font-size:12.5px; color:var(--muted); margin-top:2px; min-height:32px;}
+.day-tile .chk{position:absolute; top:10px; left:10px; font-size:15px; color:var(--teal-500);}
+.day-tile button{width:100%; margin-top:10px;}
 
-        /* ===== الصفحة الرئيسية ===== */
-        .hero {
-            text-align: center;
-            padding: 40px 30px;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-            margin-bottom: 30px;
-        }
-        .hero h2 {
-            font-size: 2.2rem;
-            margin-bottom: 6px;
-        }
-        .hero p {
-            color: #4a5e7a;
-            font-size: 1.1rem;
-        }
+/* ---------- Flashcards ---------- */
+.fc-wrap{max-width:560px; margin:0 auto;}
+.fc-progress{height:6px; background:var(--sand-200); border-radius:10px; overflow:hidden; margin-bottom:22px;}
+.fc-progress i{display:block; height:100%; background:var(--coral); transition:.3s;}
+.flashcard{
+  background:#fff; border-radius:22px; box-shadow:var(--shadow); padding:34px 28px; min-height:340px;
+  display:flex; flex-direction:column; justify-content:center; position:relative; cursor:pointer;
+}
+.flashcard .side-label{position:absolute; top:16px; right:20px; font-size:11px; color:var(--muted); font-weight:700;}
+.fc-en{font-family:'Poppins'; font-size:24px; font-weight:700; direction:ltr; text-align:center; line-height:1.5;}
+.fc-pron{direction:ltr; text-align:center; color:var(--teal-700); font-size:14px; margin-top:10px;}
+.fc-hint{text-align:center; color:var(--muted); font-size:12.5px; margin-top:22px;}
+.fc-back .ar-block{text-align:center; margin-bottom:16px;}
+.fc-back .ar-label{font-size:11px; color:var(--muted); font-weight:700; margin-bottom:4px;}
+.fc-back .ar-text{font-size:19px; font-weight:700;}
+.fc-back .darija{color:var(--teal-700);}
+.fc-back .example{background:var(--sand-200); border-radius:12px; padding:12px 14px; margin-top:8px; font-size:13.5px; direction:ltr; text-align:center; color:var(--ink);}
+.fc-controls{display:flex; justify-content:center; gap:12px; margin-top:22px;}
+.audio-btn{
+  background:var(--teal-100); border:none; width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:17px; color:var(--teal-700); flex-shrink:0;
+}
+.audio-btn:hover{background:#d6ebe7;}
+.fc-nav{display:flex; justify-content:space-between; align-items:center; margin-top:20px;}
+.fc-dots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center; margin-top:16px;}
+.fc-dots span{width:7px; height:7px; border-radius:50%; background:var(--sand-200); display:inline-block;}
+.fc-dots span.on{background:var(--coral);}
 
-        .progress-ring {
-            max-width: 500px;
-            margin: 25px auto;
-        }
-        #day-display {
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .bar {
-            width: 100%;
-            height: 12px;
-            background: #e2e8f0;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        #progress-bar {
-            height: 100%;
-            width: 3%;
-            background: linear-gradient(90deg, #4a7cf7, #7aa5ff);
-            border-radius: 20px;
-            transition: width 0.6s ease;
-        }
+/* ---------- Quiz ---------- */
+.quiz-wrap{max-width:560px; margin:0 auto;}
+.q-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+.q-score{font-size:13px; font-weight:700; color:var(--teal-700);}
+.q-card{background:#fff; border-radius:20px; box-shadow:var(--shadow); padding:26px;}
+.q-type{font-size:11.5px; font-weight:700; color:var(--coral); margin-bottom:10px;}
+.q-prompt{font-size:17px; font-weight:700; margin-bottom:20px; line-height:1.7;}
+.q-prompt.en{direction:ltr; text-align:right;}
+.opt-list{display:flex; flex-direction:column; gap:10px;}
+.opt{
+  background:var(--sand-100); border:2px solid var(--sand-200); border-radius:12px; padding:13px 16px;
+  text-align:right; font-size:14.5px; font-weight:600; transition:.15s;
+}
+.opt:hover{border-color:var(--teal-500);}
+.opt.correct{background:var(--teal-100); border-color:var(--ok); color:var(--teal-900);}
+.opt.wrong{background:var(--coral-light); border-color:var(--bad); color:#7c2a20;}
+.word-bank, .word-slots{display:flex; flex-wrap:wrap; gap:8px; direction:ltr;}
+.word-slots{min-height:46px; background:var(--sand-100); border-radius:12px; padding:8px; margin-bottom:14px; border:2px dashed var(--sand-200);}
+.word-chip{background:var(--teal-100); color:var(--teal-700); border:none; padding:9px 14px; border-radius:10px; font-weight:700; font-size:14px; font-family:'Poppins';}
+.word-chip:hover{background:#d6ebe7;}
+.text-input{width:100%; border:2px solid var(--sand-200); border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Tajawal'; margin-bottom:14px;}
+.text-input:focus{outline:none; border-color:var(--teal-500);}
+.feedback{border-radius:12px; padding:12px 14px; font-size:13.5px; font-weight:600; margin-top:14px;}
+.feedback.ok{background:var(--teal-100); color:var(--teal-900);}
+.feedback.bad{background:var(--coral-light); color:#7c2a20;}
+.q-actions{display:flex; justify-content:space-between; margin-top:20px;}
 
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 20px 0 10px;
-            flex-wrap: wrap;
-        }
-        .stats div {
-            text-align: center;
-        }
-        .stats .num {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1a2a44;
-        }
-        .stats .label {
-            font-size: 0.85rem;
-            color: #6a7e9a;
-        }
+.result-card{text-align:center; padding:40px 26px;}
+.result-card .big{font-size:46px; font-weight:800; font-family:'Poppins'; color:var(--teal-700);}
+.result-card p{color:var(--muted); margin:8px 0 22px;}
 
-        /* ===== البطاقات ===== */
-        .day-selector {
-            background: white;
-            padding: 20px 24px;
-            border-radius: 18px;
-            margin-bottom: 28px;
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-        }
-        .day-selector label {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .day-selector input {
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 2px solid #dce3ed;
-            width: 70px;
-            font-size: 1rem;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .day-selector input:focus {
-            border-color: #4a7cf7;
-            outline: none;
-        }
+/* ---------- Lessons list ---------- */
+.lesson-row{display:flex; align-items:center; gap:16px; background:#fff; border-radius:16px; padding:16px 18px; box-shadow:var(--shadow); margin-bottom:12px;}
+.lesson-row .badge{width:44px; height:44px; border-radius:12px; background:var(--teal-100); color:var(--teal-700); display:flex; align-items:center; justify-content:center; font-weight:800; font-family:'Poppins'; flex-shrink:0;}
+.lesson-row .badge.done{background:var(--teal-500); color:#fff;}
+.lesson-row .info{flex:1; min-width:0;}
+.lesson-row .info b{display:block; font-size:15px;}
+.lesson-row .info span{font-size:12.5px; color:var(--muted);}
 
-        .flashcard {
-            background: white;
-            border-radius: 20px;
-            padding: 22px 28px;
-            margin: 14px 0;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-            border-right: 6px solid #4a7cf7;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .flashcard:hover {
-            background: #f8fbff;
-            transform: translateX(-4px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
-        }
-        .flashcard .texts {
-            flex: 1;
-            min-width: 180px;
-        }
-        .flashcard .en {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #0a1a2e;
-        }
-        .flashcard .ar {
-            font-size: 1.2rem;
-            color: #4a5e7a;
-            margin-top: 4px;
-        }
-        .flashcard .example {
-            font-size: 0.95rem;
-            color: #7a8ea8;
-            font-style: italic;
-            margin-top: 6px;
-        }
-        .flashcard .audio-btn {
-            background: #eef3fc;
-            border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .flashcard .audio-btn:hover {
-            background: #4a7cf7;
-            color: white;
-            transform: scale(1.08);
-        }
+/* ---------- Grammar ---------- */
+.gram-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;}
+.gram-tile{background:#fff; border-radius:16px; padding:18px; box-shadow:var(--shadow); text-align:right; border:2px solid transparent;}
+.gram-tile:hover{border-color:var(--teal-500); transform:translateY(-2px);}
+.gram-tile .ic{font-size:24px; margin-bottom:8px;}
+.gram-tile b{display:block; font-size:15px; margin-bottom:3px;}
+.gram-tile span{font-size:12px; color:var(--muted);}
+.gram-detail .block{margin-bottom:22px;}
+.gram-detail h3{font-size:15px; font-weight:800; color:var(--teal-700); margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+.gram-detail p{font-size:14.5px; line-height:2; color:var(--ink);}
+.ex-line{background:var(--sand-100); border-radius:10px; padding:10px 14px; margin-bottom:8px; font-size:14px;}
+.ex-line .e{direction:ltr; font-family:'Poppins'; font-weight:600; display:block;}
+.ex-line .a{color:var(--muted); font-size:13px;}
+.note-box{background:var(--teal-100); border-radius:12px; padding:14px 16px; font-size:13.5px; line-height:1.9;}
+.mistake-box{background:var(--coral-light); border-radius:12px; padding:14px 16px; font-size:13.5px; line-height:1.9;}
 
-        /* ===== الاختبار ===== */
-        #quiz-container {
-            background: white;
-            padding: 28px 30px;
-            border-radius: 24px;
-            margin-top: 30px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-        }
-        #quiz-container h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #quiz-question {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin: 12px 0 10px;
-            padding: 14px;
-            background: #f4f8ff;
-            border-radius: 14px;
-        }
-        #quiz-answer {
-            padding: 12px 20px;
-            border-radius: 14px;
-            border: 2px solid #dce3ed;
-            width: 220px;
-            font-size: 1rem;
-            transition: 0.3s;
-            margin-left: 12px;
-        }
-        #quiz-answer:focus {
-            border-color: #4a7cf7;
-            outline: none;
-        }
-        #quiz-feedback {
-            margin-top: 14px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            min-height: 30px;
-        }
-        .quiz-progress {
-            font-size: 0.9rem;
-            color: #6a7e9a;
-            margin-bottom: 8px;
-        }
+.back-link{display:inline-flex; align-items:center; gap:6px; color:var(--teal-700); font-weight:700; font-size:13.5px; margin-bottom:18px; background:none; border:none;}
+.topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
 
-        /* ===== صفحة القواعد ===== */
-        .grammar-section {
-            background: white;
-            padding: 28px 30px;
-            border-radius: 24px;
-            margin: 24px 0;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-        }
-        .grammar-section h2 {
-            color: #1a2a44;
-            border-bottom: 4px solid #4a7cf7;
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-            font-size: 1.6rem;
-        }
-        .grammar-section h3 {
-            color: #2b4a7a;
-            margin: 18px 0 8px;
-        }
-        .grammar-section ul,
-        .grammar-section .examples ul {
-            list-style: none;
-            padding: 0;
-        }
-        .grammar-section li {
-            padding: 6px 0 6px 20px;
-            border-bottom: 1px solid #f0f4fa;
-        }
-        .grammar-section li::before {
-            content: "• ";
-            color: #4a7cf7;
-            font-weight: 700;
-        }
-        .examples {
-            background: #f4f8ff;
-            padding: 18px 22px;
-            border-radius: 16px;
-            margin: 14px 0;
-        }
-        .examples li::before {
-            content: "📌 ";
-            color: #4a7cf7;
-        }
-
-        .grammar-quiz {
-            background: #f8fbff;
-            padding: 22px 26px;
-            border-radius: 18px;
-            margin-top: 20px;
-            border: 2px dashed #c5d9ff;
-        }
-        .grammar-quiz .options {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 12px 0;
-        }
-        .grammar-quiz button {
-            padding: 10px 28px;
-            border-radius: 30px;
-            border: 2px solid #4a7cf7;
-            background: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-        .grammar-quiz button:hover {
-            background: #4a7cf7;
-            color: white;
-        }
-        .grammar-quiz .correct {
-            background: #22c55e;
-            color: white;
-            border-color: #22c55e;
-        }
-        .grammar-quiz .wrong {
-            background: #ef4444;
-            color: white;
-            border-color: #ef4444;
-        }
-
-        /* ===== التبويب ===== */
-        .tab-container {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            padding: 12px 28px;
-            border-radius: 30px;
-            border: none;
-            background: #e8edf5;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .tab-btn.active {
-            background: #1a2a44;
-            color: white;
-        }
-        .tab-btn:hover:not(.active) {
-            background: #d0d9e8;
-        }
-
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-
-        /* ===== استجابة ===== */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-                padding: 16px;
-            }
-            nav {
-                justify-content: center;
-            }
-            .flashcard {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-                padding: 18px;
-            }
-            .flashcard .audio-btn {
-                align-self: center;
-            }
-            .hero h2 {
-                font-size: 1.6rem;
-            }
-            .stats {
-                gap: 20px;
-            }
-            #quiz-answer {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .day-selector {
-                justify-content: center;
-            }
-        }
-    </style>
+@media (max-width:520px){
+  .hero{flex-direction:column; text-align:center;}
+  .stat-row{grid-template-columns:1fr 1fr; }
+}
+</style>
 </head>
 <body>
+<div id="app"></div>
 
-    <!-- ============================================================ -->
-    <!-- HEADER -->
-    <!-- ============================================================ -->
-    <header>
-        <h1>📘 <span>A1</span> English</h1>
-        <nav>
-            <a href="#" class="active" data-tab="home">🏠 الرئيسية</a>
-            <a href="#" data-tab="flashcards">📇 البطاقات</a>
-            <a href="#" data-tab="grammar">📖 القواعد</a>
-        </nav>
-    </header>
+<script>
+/* =================== DATA =================== */
+// [en, fusha, darija, pronunciation, example]
+const DAYS = [
+{t:"التحيات والتعارف", sentences:[
+["Hello, how are you?","مرحباً، كيف حالك؟","سلام، لاباس؟","هيلو، هاو آر يو","Hello, how are you? I am fine, thank you."],
+["Good morning!","صباح الخير!","صباح الخير!","غود مورنينغ","Good morning! Did you sleep well?"],
+["Good evening!","مساء الخير!","مسا الخير!","غود إيفنينغ","Good evening, everyone!"],
+["What is your name?","ما اسمك؟","شنو سميتك؟","وات إز يور نيم","What is your name? My name is Sara."],
+["My name is Ali.","اسمي علي.","سميتي علي.","ماي نيم إز آلي","My name is Ali, nice to meet you."],
+["Nice to meet you.","تشرفت بمعرفتك.","تشرفت بيك.","نايس تو ميت يو","Nice to meet you too!"],
+["Goodbye, see you later.","إلى اللقاء، أراك لاحقاً.","بسلامة، نتلاقاو من بعد.","غودباي، سي يو ليتر","Goodbye, see you later at school."],
+["Where are you from?","من أين أنت؟","منين نتا؟","وير آر يو فروم","Where are you from? I am from Morocco."],
+["I am from Morocco.","أنا من المغرب.","أنا من المغرب.","آي آم فروم موروكو","I am from Morocco, and you?"],
+["Thank you very much.","شكراً جزيلاً.","شكراً بزاف.","ثانك يو فيري ماتش","Thank you very much for your help."]
+]},
+{t:"الأرقام 1-20", sentences:[
+["I have one brother.","لدي أخ واحد.","عندي خو واحد.","آي هاف وان براذر","I have one brother and two sisters."],
+["She has two cats.","لديها قطتان.","عندها جوج ديال القطط.","شي هاز تو كاتس","She has two cats and one dog."],
+["We need three chairs.","نحتاج ثلاثة كراسي.","خاصنا تلاتة دالكراسي.","وي نيد ثري تشيرز","We need three chairs for the guests."],
+["There are four books.","توجد أربعة كتب.","كاينين ربعة كتوب.","دير آر فور بوكس","There are four books on the table."],
+["I am five years old... just kidding, I am twenty-five.","عمري خمسة وعشرون.","عمري خمسة وعشرين.","آي آم توينتي فايف","I am twenty-five years old this year."],
+["He has six apples.","لديه ست تفاحات.","عندو ستة تفاحات.","هي هاز سيكس آبلز","He has six apples in his bag."],
+["It's seven o'clock.","الساعة السابعة.","السّاعة سبعة.","إتس سيفن أوكلوك","It's seven o'clock, time for dinner."],
+["I study eight hours a day.","أدرس ثماني ساعات يومياً.","كنقرا تمن سوايع فالنهار.","آي ستادي إيت آورز","I study eight hours a day for the exam."],
+["There are nine students.","يوجد تسعة طلاب.","كاينين تسعة ديال التلاميذ.","دير آر ناين ستيودنتس","There are nine students in the class."],
+["I have ten fingers.","لدي عشرة أصابع.","عندي عشرة صوابع.","آي هاف تن فينغرز","I have ten fingers on my hands."]
+]},
+{t:"العائلة", sentences:[
+["This is my family.","هذه عائلتي.","هادي عائلتي.","ذيس إز ماي فاميلي","This is my family in the photo."],
+["My father is a doctor.","والدي طبيب.","بابا طبيب.","ماي فاذر إز أ دوكتور","My father is a doctor at the hospital."],
+["My mother is a teacher.","والدتي معلمة.","ماما أستاذة.","ماي ماذر إز أ تيتشر","My mother is a teacher at school."],
+["I have two brothers.","لدي أخوان.","عندي جوج خوت.","آي هاف تو براذرز","I have two brothers and one sister."],
+["Her sister is young.","أختها صغيرة.","ختها صغيرة.","هير سيستر إز يانغ","Her sister is young and cute."],
+["Our grandfather is kind.","جدنا طيب.","جدنا مزيان.","آور غراندفاذر إز كايند","Our grandfather is kind to everyone."],
+["Their grandmother lives with them.","جدتهم تعيش معهم.","جدتهم ساكنة معاهم.","ذير غراندماذر ليفز ويذ ذيم","Their grandmother lives with them at home."],
+["I love my parents.","أحب والديّ.","كنبغي والديا.","آي لاف ماي بيرنتس","I love my parents very much."],
+["My cousin is my best friend.","ابن عمي أعز صديق لي.","ولد عمي هو صاحبي الغالي.","ماي كازن إز ماي بست فريند","My cousin is my best friend at school."],
+["We visit our family every Friday.","نزور عائلتنا كل جمعة.","كنزورو العائلة كل جمعة.","وي فيزيت آور فاميلي","We visit our family every Friday for lunch."]
+]},
+{t:"الألوان", sentences:[
+["I like the color blue.","أحب اللون الأزرق.","كنبغي اللون الزرق.","آي لايك ذا كولر بلو","I like the color blue on my car."],
+["Her dress is red.","فستانها أحمر.","الروب ديالها حمر.","هير دريس إز ريد","Her dress is red and beautiful."],
+["The sky is white today.","السماء بيضاء اليوم.","السما بيضة اليوم.","ذا سكاي إز وايت","The sky is white today, it might rain."],
+["My car is black.","سيارتي سوداء.","الطوموبيل ديالي كحلة.","ماي كار إز بلاك","My car is black and new."],
+["I have a green bag.","لدي حقيبة خضراء.","عندي ساك خضر.","آي هاف أ غرين باغ","I have a green bag for school."],
+["The sun is yellow.","الشمس صفراء.","الشمس صفرا.","ذا صن إز يلو","The sun is yellow and bright."],
+["He wears a brown jacket.","يرتدي سترة بنية.","لابس فيسطة قهوية.","هي ويرز أ براون جاكيت","He wears a brown jacket in winter."],
+["This flower is pink.","هذه الزهرة وردية.","هاد الزهرة وردية.","ذيس فلاور إز بينك","This flower is pink and small."],
+["The wall is gray.","الحائط رمادي.","الحيط رمادي.","ذا وول إز غراي","The wall is gray and old."],
+["I love orange juice.","أحب عصير البرتقال.","كنبغي عصير البرتقال.","آي لاف أورنج جوس","I love orange juice in the morning."]
+]},
+{t:"الأيام والشهور", sentences:[
+["Today is Monday.","اليوم هو الإثنين.","اليوم الإتنين.","تودي إز مانداي","Today is Monday, the first day of the week."],
+["I have class on Tuesday.","لدي حصة يوم الثلاثاء.","عندي قسم نهار الثلاثاء.","آي هاف كلاس أون تيوزداي","I have class on Tuesday morning."],
+["We rest on Sunday.","نرتاح يوم الأحد.","كنرتاحو نهار الحد.","وي رست أون صنداي","We rest on Sunday with family."],
+["My birthday is in January.","عيد ميلادي في يناير.","عيد ميلادي فبراير... لا، يناير.","ماي بيرثداي إز إن جانواري","My birthday is in January every year."],
+["School starts in September.","تبدأ الدراسة في سبتمبر.","الدراسة كتبدا شهر شتنبر.","سكول ستارتس إن سبتمبر","School starts in September this year."],
+["It is hot in July.","الجو حار في يوليو.","الجو سخون فيوليوز.","إت إز هوت إن جولاي","It is hot in July every summer."],
+["We travel in August.","نسافر في أغسطس.","كنسافرو شهر غشت.","وي ترافل إن أوغست","We travel in August for vacation."],
+["Winter is in December.","الشتاء في ديسمبر.","الشتا فدجمبر.","وينتر إز إن ديسمبر","Winter is in December and January."],
+["Spring is a beautiful season.","الربيع فصل جميل.","الربيع فصل زوين.","سبرينغ إز أ بيوتيفل سيزن","Spring is a beautiful season for flowers."],
+["I love the autumn.","أحب فصل الخريف.","كنبغي الخريف.","آي لاف ذي أوتم","I love the autumn and its colors."]
+]},
+{t:"الوقت", sentences:[
+["What time is it?","كم الساعة؟","شحال فالساعة؟","وات تايم إز إت","What time is it now, please?"],
+["It is three o'clock.","الساعة الثالثة.","الساعة تلاتة.","إت إز ثري أوكلوك","It is three o'clock in the afternoon."],
+["I wake up at seven.","أستيقظ في السابعة.","كنفيق فالسبعة.","آي ويك آب آت سيفن","I wake up at seven every morning."],
+["The meeting is at noon.","الاجتماع عند الظهر.","الاجتماع فنص النهار.","ذا ميتينغ إز آت نون","The meeting is at noon today."],
+["We eat dinner at eight.","نتناول العشاء في الثامنة.","كناكلو العشا فالتمنية.","وي إيت دينر آت إيت","We eat dinner at eight every night."],
+["School ends at four.","تنتهي الدراسة عند الرابعة.","الدراسة كتسالي فالربعة.","سكول إندز آت فور","School ends at four in the afternoon."],
+["I sleep at eleven.","أنام في الحادية عشرة.","كنعس فالحداش.","آي سليب آت إيليفن","I sleep at eleven every night."],
+["The train leaves at ten.","يغادر القطار في العاشرة.","القطار كيمشي فالعشرة.","ذا ترين ليفز آت تن","The train leaves at ten in the morning."],
+["It's half past five.","الساعة الخامسة والنصف.","خمسة ونص.","إتس هاف باست فايف","It's half past five, let's go."],
+["It's a quarter to nine.","الساعة التاسعة إلا ربع.","تسعة إلا ربع.","إتس أ كوارتر تو ناين","It's a quarter to nine, we're late."]
+]},
+{t:"الطقس", sentences:[
+["It is sunny today.","الجو مشمس اليوم.","الشمس خارجة اليوم.","إت إز صني تودي","It is sunny today, let's go outside."],
+["It is raining.","إنها تمطر.","كتشتي.","إتس رينينغ","It is raining, take an umbrella."],
+["It is very cold.","الجو بارد جداً.","البرد بزاف.","إت إز فيري كولد","It is very cold, wear a coat."],
+["It is hot in summer.","الجو حار في الصيف.","السخانة كاينة فالصيف.","إت إز هوت إن سامر","It is hot in summer, drink water."],
+["The wind is strong today.","الرياح قوية اليوم.","الريح قوية اليوم.","ذا ويند إز سترونغ","The wind is strong today, be careful."],
+["It is snowing in the mountains.","تتساقط الثلوج في الجبال.","الطلج كيهطل فالجبال.","إتس سنووينغ إن ذا ماونتنز","It is snowing in the mountains this week."],
+["The weather is nice today.","الطقس جميل اليوم.","الجو زوين اليوم.","ذا وذر إز نايس تودي","The weather is nice today for a walk."],
+["It is cloudy this morning.","الجو غائم هذا الصباح.","السما مغيمة اليوم الصباح.","إتس كلاودي ذيس مورنينغ","It is cloudy this morning but warm."],
+["I don't like foggy days.","لا أحب الأيام الضبابية.","ما كنبغيش الأيام لي فيهم الضباب.","آي دونت لايك فوغي دايز","I don't like foggy days, I can't see well."],
+["What is the weather like?","كيف هو الطقس؟","كيفاش الجو؟","وات إز ذا وذر لايك","What is the weather like in your city?"]
+]},
+{t:"الطعام والشراب", sentences:[
+["I am hungry.","أنا جائع.","أنا مجوع.","آي آم هانغري","I am hungry, let's eat something."],
+["I would like some water.","أريد بعض الماء.","بغيت شوية دالما.","آي وود لايك سام واتر","I would like some water, please."],
+["She likes bread and cheese.","تحب الخبز والجبن.","كتبغي الخبز والفروماج.","شي لايكس بريد اند تشيز","She likes bread and cheese for breakfast."],
+["We eat rice every day.","نأكل الأرز كل يوم.","كناكلو الروز كل نهار.","وي إيت رايس إيفري داي","We eat rice every day with vegetables."],
+["I drink milk every morning.","أشرب الحليب كل صباح.","كنشرب الحليب كل صباح.","آي درينك ميلك إيفري مورنينغ","I drink milk every morning at breakfast."],
+["He wants a cup of tea.","يريد كوب شاي.","بغا كاس أتاي.","هي وانتس أ كاب أوف تي","He wants a cup of tea with sugar."],
+["This soup is delicious.","هذه الحساء لذيذة.","هاد الشوربة بنينة.","ذيس سوب إز ديليشس","This soup is delicious, thank you."],
+["I don't eat meat.","لا آكل اللحم.","ما كنكلش اللحم.","آي دونت إيت ميت","I don't eat meat, I am vegetarian."],
+["Can I have some sugar?","هل يمكنني الحصول على بعض السكر؟","واش ممكن شوية دالسكر؟","كان آي هاف سام شوغر","Can I have some sugar for my tea?"],
+["The fruit is fresh.","الفاكهة طازجة.","الغلة طرية.","ذا فروت إز فرش","The fruit is fresh from the market."]
+]},
+{t:"في المطعم", sentences:[
+["A table for two, please.","طاولة لشخصين من فضلك.","طاولة ديال جوج ناس عافاك.","أ تيبل فور تو، بليز","A table for two, please, near the window."],
+["Can I see the menu?","هل يمكنني رؤية القائمة؟","واش ممكن نشوف المينو؟","كان آي سي ذا مينيو","Can I see the menu, please?"],
+["I would like to order.","أود أن أطلب.","بغيت نطلب.","آي وود لايك تو أوردر","I would like to order now, please."],
+["What do you recommend?","ماذا تنصح به؟","شنو كتنصحني بيه؟","وات دو يو ريكوموند","What do you recommend from the menu?"],
+["The food was delicious.","كان الطعام لذيذاً.","الماكلة كانت بنينة.","ذا فود واز ديليشس","The food was delicious, thank you."],
+["Can I have the bill, please?","هل يمكنني الحصول على الفاتورة؟","واش ممكن الفاكتير عافاك؟","كان آي هاف ذا بيل","Can I have the bill, please, we're finished."],
+["Is this dish spicy?","هل هذا الطبق حار؟","واش هاد الطبق حار؟","إز ذيس ديش سبايسي","Is this dish spicy? I don't like spicy food."],
+["I am a vegetarian.","أنا نباتي.","ما كنكلش اللحم.","آي آم أ فيجيتيريان","I am a vegetarian, no meat please."],
+["The restaurant is full.","المطعم ممتلئ.","المطعم عامر.","ذا رستورانت إز فول","The restaurant is full, let's wait."],
+["Thank you for the meal.","شكراً على الوجبة.","شكراً على الماكلة.","ثانك يو فور ذا ميل","Thank you for the meal, it was great."]
+]},
+{t:"التسوق", sentences:[
+["How much is this?","كم ثمن هذا؟","بشحال هادشي؟","هاو ماتش إز ذيس","How much is this shirt, please?"],
+["This is too expensive.","هذا غالٍ جداً.","هادشي غالي بزاف.","ذيس إز تو إكسبنسيف","This is too expensive for me."],
+["Do you have a smaller size?","هل لديك مقاس أصغر؟","واش عندك مقاس صغر؟","دو يو هاف أ سمولر سايز","Do you have a smaller size, please?"],
+["I want to buy shoes.","أريد شراء حذاء.","بغيت نشري صباط.","آي وانت تو باي شوز","I want to buy shoes for the trip."],
+["Can I try this on?","هل يمكنني تجربة هذا؟","واش ممكن نجرب هادشي؟","كان آي تراي ذيس أون","Can I try this on, please?"],
+["Where is the cashier?","أين الصندوق؟","فين الكيسة؟","وير إز ذا كاشير","Where is the cashier, please?"],
+["I'll take this one.","سآخذ هذا.","غادي ناخد هادشي.","آيل تيك ذيس وان","I'll take this one, thank you."],
+["Do you accept cards?","هل تقبلون البطاقات؟","واش كتقبلو الكارط؟","دو يو أكسبت كاردز","Do you accept cards or only cash?"],
+["This shop is closed.","هذا المتجر مغلق.","هاد الحانوت مسدود.","ذيس شوب إز كلوزد","This shop is closed on Sundays."],
+["I need a shopping bag.","أحتاج كيس تسوق.","خاصني ساك.","آي نيد أ شوبينغ باغ","I need a shopping bag, please."]
+]},
+{t:"الاتجاهات", sentences:[
+["Where is the bank?","أين البنك؟","فين كاين البنك؟","وير إز ذا بانك","Where is the bank near here?"],
+["Go straight ahead.","اذهب مباشرة.","سير نيشان.","غو ستريت أهيد","Go straight ahead and turn left."],
+["Turn left at the corner.","انعطف يساراً عند الزاوية.","دور ليسر فالزنقة.","تيرن ليفت آت ذا كورنر","Turn left at the corner, it's close."],
+["Turn right at the light.","انعطف يميناً عند الإشارة.","دور ليمن فالضو الحمر.","تيرن رايت آت ذا لايت","Turn right at the light and continue."],
+["It is near the school.","إنه قريب من المدرسة.","قريب من المدرسة.","إت إز نير ذا سكول","It is near the school, five minutes."],
+["It is far from here.","إنه بعيد من هنا.","بعيد من هنا.","إت إز فار فروم هير","It is far from here, take a taxi."],
+["Excuse me, where is the station?","عفواً، أين المحطة؟","سمحلي، فين المحطة؟","إكسكيوز مي، وير إز ذا ستيشن","Excuse me, where is the station, please?"],
+["The hospital is next to the park.","المستشفى بجانب الحديقة.","المستشفى حدا الحديقة.","ذا هوسبيتال إز نكست تو ذا بارك","The hospital is next to the park."],
+["Cross the street carefully.","اعبر الشارع بحذر.","قطع الزنقة بحذر.","كروس ذا ستريت كيرفولي","Cross the street carefully, look both ways."],
+["I am lost, can you help me?","أنا تائه، هل يمكنك مساعدتي؟","تهت الطريق، واش تقدر تعاوني؟","آي آم لوست، كان يو هيلب مي","I am lost, can you help me find the hotel?"]
+]},
+{t:"أجزاء الجسم", sentences:[
+["My head hurts.","رأسي يؤلمني.","راسي كيوجعني.","ماي هيد هيرتس","My head hurts, I need to rest."],
+["I have two hands.","لدي يدان.","عندي جوج ديال اليدين.","آي هاف تو هاندز","I have two hands and ten fingers."],
+["Her eyes are green.","عيناها خضراوان.","عينيها خضر.","هير آيز آر غرين","Her eyes are green and beautiful."],
+["He has a broken leg.","لديه ساق مكسورة.","رجلو مهروسة.","هي هاز أ بروكن ليغ","He has a broken leg from the accident."],
+["My back hurts a lot.","ظهري يؤلمني كثيراً.","ظهري كيوجعني بزاف.","ماي باك هيرتس أ لوت","My back hurts a lot after work."],
+["Open your mouth, please.","افتح فمك من فضلك.","حل فمك عافاك.","أوبن يور ماوث، بليز","Open your mouth, please, the doctor said."],
+["I wash my hands often.","أغسل يدي كثيراً.","كنغسل يدي بزاف.","آي واش ماي هاندز","I wash my hands often for hygiene."],
+["Her hair is long and black.","شعرها طويل وأسود.","الشعر ديالها طويل وكحل.","هير هير إز لونغ اند بلاك","Her hair is long and black."],
+["My stomach hurts.","معدتي تؤلمني.","كرشي كيوجعني.","ماي ستوماك هيرتس","My stomach hurts, I ate too much."],
+["He has strong arms.","لديه ذراعان قويتان.","عندو دراع قوي.","هي هاز سترونغ آرمز","He has strong arms from training."]
+]},
+{t:"الصحة", sentences:[
+["I feel sick today.","أشعر بالمرض اليوم.","حاسس مريض اليوم.","آي فيل سيك تودي","I feel sick today, I need a doctor."],
+["I have a fever.","لدي حمى.","عندي السخانة.","آي هاف أ فيفر","I have a fever and a headache."],
+["I need to see a doctor.","أحتاج لرؤية طبيب.","خاصني نشوف الطبيب.","آي نيد تو سي أ دوكتور","I need to see a doctor today."],
+["Take this medicine twice a day.","تناول هذا الدواء مرتين يومياً.","خود هاد الدوا جوج مرات فالنهار.","تيك ذيس مديسن توايس أ داي","Take this medicine twice a day after meals."],
+["I have a cough.","لدي سعال.","عندي الكحة.","آي هاف أ كوف","I have a cough and a sore throat."],
+["Get well soon.","تعافى قريباً.","نتمنى ليك الشفاء العاجل.","غيت ويل سون","Get well soon, we miss you."],
+["I need to rest.","أحتاج للراحة.","خاصني نرتاح.","آي نيد تو رست","I need to rest for a few days."],
+["The pharmacy is open now.","الصيدلية مفتوحة الآن.","الفارماسيان حالة دابا.","ذا فارماسي إز أوبن ناو","The pharmacy is open now until nine."],
+["My tooth hurts.","سني يؤلمني.","سني كيوجعني.","ماي توث هيرتس","My tooth hurts, I need a dentist."],
+["I feel much better now.","أشعر بتحسن كبير الآن.","حاسس بخير دابا.","آي فيل ماتش بيتر ناو","I feel much better now, thank you."]
+]},
+{t:"المنزل والأثاث", sentences:[
+["This is my house.","هذا منزلي.","هادا داري.","ذيس إز ماي هاوس","This is my house, welcome."],
+["The kitchen is small.","المطبخ صغير.","الكوزينة صغيرة.","ذا كيتشن إز سمول","The kitchen is small but nice."],
+["I sleep in this bedroom.","أنام في هذه الغرفة.","كنعس فهاد البيت.","آي سليب إن ذيس بيدروم","I sleep in this bedroom every night."],
+["The living room is big.","غرفة المعيشة كبيرة.","الصالون كبير.","ذا ليفينغ روم إز بيغ","The living room is big and bright."],
+["There is a table and two chairs.","توجد طاولة وكرسيان.","كاينة طابلة وجوج كراسي.","دير إز أ تيبل اند تو تشيرز","There is a table and two chairs in the kitchen."],
+["The bathroom is clean.","الحمام نظيف.","الحمام نقي.","ذا باثروم إز كلين","The bathroom is clean and modern."],
+["I close the window at night.","أغلق النافذة ليلاً.","كنسد الشرجم بالليل.","آي كلوز ذا ويندو آت نايت","I close the window at night because of the cold."],
+["The door is open.","الباب مفتوح.","الباب حال.","ذا دور إز أوبن","The door is open, come in."],
+["We have a small garden.","لدينا حديقة صغيرة.","عندنا جنان صغير.","وي هاف أ سمول غاردن","We have a small garden with flowers."],
+["The lamp is on the desk.","المصباح على المكتب.","المصباح فوق الطابلة.","ذا لامب إز أون ذا ديسك","The lamp is on the desk in my room."]
+]},
+{t:"الروتين اليومي", sentences:[
+["I wake up early.","أستيقظ باكراً.","كنفيق بكري.","آي ويك آب إيرلي","I wake up early every day."],
+["I brush my teeth every morning.","أنظف أسناني كل صباح.","كنغسل سنيني كل صباح.","آي براش ماي تيث","I brush my teeth every morning and night."],
+["She takes a shower every day.","تستحم كل يوم.","كتدوش كل نهار.","شي تيكس أ شاور","She takes a shower every day before work."],
+["I go to work by bus.","أذهب إلى العمل بالحافلة.","كنمشي للخدمة بالكار.","آي غو تو ورك باي باس","I go to work by bus every morning."],
+["We have lunch at noon.","نتناول الغداء عند الظهر.","كناكلو الغدا فنص النهار.","وي هاف لانش آت نون","We have lunch at noon together."],
+["He comes home at six.","يعود إلى البيت في السادسة.","كيرجع للدار فالستة.","هي كامز هوم آت سيكس","He comes home at six every evening."],
+["I do my homework in the evening.","أنجز واجباتي مساءً.","كندير الواجبات فالعشية.","آي دو ماي هومورك","I do my homework in the evening after dinner."],
+["We watch TV together.","نشاهد التلفاز معاً.","كنشوفو التلفزة مع بعض.","وي واتش تي في توگيذر","We watch TV together after dinner."],
+["I go to bed at ten.","أذهب للنوم في العاشرة.","كنمشي نعس فالعشرة.","آي غو تو بيد آت تن","I go to bed at ten every night."],
+["My day is very busy.","يومي مزدحم جداً.","نهاري مشغول بزاف.","ماي داي إز فيري بيزي","My day is very busy from morning to night."]
+]},
+{t:"المدرسة", sentences:[
+["I go to school every day.","أذهب إلى المدرسة كل يوم.","كنمشي للمدرسة كل نهار.","آي غو تو سكول","I go to school every day except Sunday."],
+["My favorite subject is English.","مادتي المفضلة هي الإنجليزية.","المادة لي كنبغي هي الإنجليزية.","ماي فيفريت سابجكت إز إنغليش","My favorite subject is English this year."],
+["The teacher is very kind.","المعلم لطيف جداً.","الأستاذ مزيان بزاف.","ذا تيتشر إز فيري كايند","The teacher is very kind to all students."],
+["I have an exam tomorrow.","لدي امتحان غداً.","عندي امتحان غدا.","آي هاف أن إكزام تومورو","I have an exam tomorrow morning."],
+["Please open your books.","من فضلكم افتحوا كتبكم.","عافاكم حلو الكتوب ديالكم.","بليز أوبن يور بوكس","Please open your books to page ten."],
+["I study hard every day.","أدرس بجد كل يوم.","كنقرا بجهد كل نهار.","آي ستادي هارد إيفري داي","I study hard every day for good grades."],
+["The classroom is quiet.","القسم هادئ.","القسم ساكت.","ذا كلاسروم إز كوايت","The classroom is quiet during the exam."],
+["I need a pen and a notebook.","أحتاج قلماً ودفتراً.","خاصني ستيلو وكراسة.","آي نيد أ بن اند أ نوتبوك","I need a pen and a notebook for class."],
+["School finishes at three.","تنتهي الدراسة في الثالثة.","الدراسة كتسالي فتلاتة.","سكول فينيشيز آت ثري","School finishes at three in the afternoon."],
+["I like my classmates.","أحب زملائي في الفصل.","كنبغي صحابي فالقسم.","آي لايك ماي كلاسميتس","I like my classmates, they are friendly."]
+]},
+{t:"الوظائف", sentences:[
+["What is your job?","ما هي وظيفتك؟","شنو هي الخدمة ديالك؟","وات إز يور جوب","What is your job? I am an engineer."],
+["I am a teacher.","أنا معلم.","أنا أستاذ.","آي آم أ تيتشر","I am a teacher at a primary school."],
+["She works in a hospital.","تعمل في مستشفى.","كتخدم فالمستشفى.","شي ووركس إن أ هوسبيتال","She works in a hospital as a nurse."],
+["He is an engineer.","هو مهندس.","هو مهندس.","هي إز آن إنجينير","He is an engineer at a big company."],
+["I work from nine to five.","أعمل من التاسعة إلى الخامسة.","كنخدم من تسعة حتى خمسة.","آي ورك فروم ناين تو فايف","I work from nine to five every day."],
+["My father is a driver.","والدي سائق.","بابا سائق.","ماي فاذر إز أ درايفر","My father is a driver for a company."],
+["She wants to be a doctor.","تريد أن تصبح طبيبة.","بغات تكون طبيبة.","شي وانتس تو بي أ دوكتور","She wants to be a doctor in the future."],
+["I like my job very much.","أحب عملي كثيراً.","كنبغي خدمتي بزاف.","آي لايك ماي جوب","I like my job very much, it's interesting."],
+["He is looking for a job.","إنه يبحث عن عمل.","كيقلب على خدمة.","هي إز لوكينغ فور أ جوب","He is looking for a job in the city."],
+["This is a difficult job.","هذه وظيفة صعبة.","هادي خدمة صعيبة.","ذيس إز أ ديفيكلت جوب","This is a difficult job but rewarding."]
+]},
+{t:"الهوايات", sentences:[
+["I like reading books.","أحب قراءة الكتب.","كنبغي نقرا الكتوب.","آي لايك ريدينغ بوكس","I like reading books in my free time."],
+["She likes painting.","تحب الرسم.","كتبغي الرسم.","شي لايكس بينتينغ","She likes painting landscapes and flowers."],
+["We enjoy playing football.","نستمتع بلعب كرة القدم.","كنستمتعو بلعب الكرة.","وي إنجوي پلينغ فوتبول","We enjoy playing football every weekend."],
+["He likes listening to music.","يحب الاستماع للموسيقى.","كيبغي يسمع الموسيقى.","هي لايكس ليسنينغ تو ميوزيك","He likes listening to music while studying."],
+["I love cooking new dishes.","أحب طهي أطباق جديدة.","كنبغي نطيب أطباق جداد.","آي لاف كوكينغ نيو ديشيز","I love cooking new dishes on weekends."],
+["My hobby is photography.","هوايتي التصوير.","الهواية ديالي التصوير.","ماي هوبي إز فوتوغرافي","My hobby is photography, I love nature."],
+["They like traveling a lot.","يحبون السفر كثيراً.","كيبغيو السفر بزاف.","ذاي لايك ترافلينغ أ لوت","They like traveling a lot every summer."],
+["I play the guitar every week.","أعزف الغيتار كل أسبوع.","كنلعب الگيطارة كل جمعة.","آي پلاي ذا غيتار","I play the guitar every week with friends."],
+["She enjoys dancing.","تستمتع بالرقص.","كتبغي ترقص.","شي إنجويز دانسينغ","She enjoys dancing at parties."],
+["What is your favorite hobby?","ما هي هوايتك المفضلة؟","شنو هي الهواية لي كتبغي؟","وات إز يور فيفريت هوبي","What is your favorite hobby? Mine is drawing."]
+]},
+{t:"الرياضة", sentences:[
+["I play football every weekend.","ألعب كرة القدم كل نهاية أسبوع.","كنلعب الكورة كل ويكاند.","آي پلاي فوتبول","I play football every weekend with my friends."],
+["She swims every morning.","تسبح كل صباح.","كتعوم كل صباح.","شي سويمز إيفري مورنينغ","She swims every morning before work."],
+["We run in the park.","نجري في الحديقة.","كنجريو فالحديقة.","وي ران إن ذا بارك","We run in the park every evening."],
+["He is a good basketball player.","هو لاعب كرة سلة جيد.","هو لاعب زوين ديال الباسكيت.","هي إز أ غود باسكيتبول پلاير","He is a good basketball player on the team."],
+["I like watching tennis matches.","أحب مشاهدة مباريات التنس.","كنبغي نتفرج على ماتشات التنيس.","آي لايك واتشينغ تينيس ماتشيز","I like watching tennis matches on TV."],
+["They train every day.","يتدربون كل يوم.","كيتدربو كل نهار.","ذاي تراين إيفري داي","They train every day for the competition."],
+["My team won the match.","فاز فريقي بالمباراة.","الفريق ديالي ربح الماتش.","ماي تيم ون ذا ماتش","My team won the match yesterday."],
+["I want to learn swimming.","أريد تعلم السباحة.","بغيت نتعلم العوم.","آي وانت تو لورن سويمينغ","I want to learn swimming this summer."],
+["Exercise is good for health.","الرياضة مفيدة للصحة.","الرياضة مفيدة للصحة.","إكسرسايز إز غود فور هيلث","Exercise is good for health and mind."],
+["Let's go to the gym.","هيا نذهب إلى صالة الرياضة.","اجي نمشيو للصالة.","ليتس غو تو ذا جيم","Let's go to the gym this evening."]
+]},
+{t:"المواصلات", sentences:[
+["I go to work by car.","أذهب إلى العمل بالسيارة.","كنمشي للخدمة بالطوموبيل.","آي غو تو ورك باي كار","I go to work by car every day."],
+["The bus is late today.","الحافلة متأخرة اليوم.","الكار متأخر اليوم.","ذا باس إز ليت تودي","The bus is late today, let's wait."],
+["I usually take the train.","عادة آخذ القطار.","غالباً كناخد التران.","آي يوجولي تيك ذا ترين","I usually take the train to work."],
+["Where is the nearest taxi stand?","أين أقرب موقف سيارات أجرة؟","فين أقرب محطة طاكسي؟","وير إز ذا نيرست تاكسي ستاند","Where is the nearest taxi stand, please?"],
+["I like riding my bicycle.","أحب ركوب دراجتي.","كنبغي نركب البيسكليت ديالي.","آي لايك رايدينغ ماي بايسيكل","I like riding my bicycle on weekends."],
+["The airport is far from here.","المطار بعيد من هنا.","المطار بعيد من هنا.","ذي إيربورت إز فار فروم هير","The airport is far from here, take a taxi."],
+["How much is a ticket?","كم ثمن التذكرة؟","بشحال الطيكي؟","هاو ماتش إز أ تيكيت","How much is a ticket to the city center?"],
+["The flight leaves at noon.","تغادر الرحلة عند الظهر.","الطيارة كتطير فنص النهار.","ذا فلايت ليفز آت نون","The flight leaves at noon tomorrow."],
+["I missed the bus.","فاتتني الحافلة.","فاتني الكار.","آي ميست ذا باس","I missed the bus, I'll take the next one."],
+["Let's walk, it's close.","هيا نمشي، إنه قريب.","اجي نمشيو على رجلينا، قريب.","ليتس ووك، إتس كلوز","Let's walk, it's close to here."]
+]},
+{t:"السفر", sentences:[
+["I want to travel to Spain.","أريد السفر إلى إسبانيا.","بغيت نسافر لإسبانيا.","آي وانت تو ترافل تو سبين","I want to travel to Spain next year."],
+["We need our passports.","نحتاج جوازات سفرنا.","خاصنا الجوازات ديالنا.","وي نيد آور پاسپورتس","We need our passports for the trip."],
+["The hotel is very nice.","الفندق جميل جداً.","الفندق زوين بزاف.","ذا هوتيل إز فيري نايس","The hotel is very nice and clean."],
+["I booked a room for two nights.","حجزت غرفة لليلتين.","حجزت بيت ديال جوج ليالي.","آي بوكت أ روم فور تو نايتس","I booked a room for two nights."],
+["What time does the flight leave?","في أي وقت تغادر الرحلة؟","فوقاش كتطير الطيارة؟","وات تايم دز ذا فلايت ليف","What time does the flight leave tomorrow?"],
+["I love visiting new places.","أحب زيارة أماكن جديدة.","كنبغي نزور بلايص جداد.","آي لاف فيزيتينغ نيو پليسيز","I love visiting new places every summer."],
+["Do you have a map of the city?","هل لديك خريطة للمدينة؟","واش عندك خريطة ديال المدينة؟","دو يو هاف أ ماب","Do you have a map of the city, please?"],
+["We took many photos.","التقطنا صوراً كثيرة.","طيحنا تصاور بزاف.","وي توك ميني فوتوز","We took many photos during the trip."],
+["The beach is beautiful here.","الشاطئ جميل هنا.","الپلاج زوين هنا.","ذا بيتش إز بيوتيفل هير","The beach is beautiful here in summer."],
+["I miss my country when I travel.","أفتقد وطني عندما أسافر.","كتوحشني بلادي ملي كنسافر.","آي ميس ماي كانتري","I miss my country when I travel far away."]
+]},
+{t:"الحيوانات", sentences:[
+["I have a small dog.","لدي كلب صغير.","عندي كلب صغير.","آي هاف أ سمول دوگ","I have a small dog, his name is Max."],
+["The cat is sleeping.","القطة نائمة.","القطة راقدة.","ذا كات إز سليپينگ","The cat is sleeping on the sofa."],
+["Birds can fly high.","تستطيع الطيور الطيران عالياً.","الطيور كيطيرو عالي.","بيردز كان فلاي هاي","Birds can fly high in the sky."],
+["The horse runs fast.","يجري الحصان بسرعة.","العود كيجري بزربة.","ذا هورس رانز فاست","The horse runs fast in the field."],
+["I am afraid of snakes.","أخاف من الأفاعي.","كنخاف من الحنش.","آي آم أفريد أوف سنيكس","I am afraid of snakes, they are dangerous."],
+["The fish swims in the water.","تسبح السمكة في الماء.","الحوتة كتعوم فالما.","ذا فيش سويمز إن ذا واتر","The fish swims in the water all day."],
+["Cows give us milk.","تعطينا الأبقار الحليب.","البقرة كتعطينا الحليب.","كاوز گيف أس ميلك","Cows give us milk every day."],
+["The lion is the king of the jungle.","الأسد ملك الغابة.","السبع هو ملك الغابة.","ذا لايون إز ذا كينگ","The lion is the king of the jungle."],
+["I saw a rabbit in the garden.","رأيت أرنباً في الحديقة.","شفت قنية فالجنان.","آي سو أ رابيت","I saw a rabbit in the garden this morning."],
+["The chicken lays eggs.","الدجاجة تبيض.","الجاجة كتبيض.","ذا تشيكن ليز إگز","The chicken lays eggs every morning."]
+]},
+{t:"الملابس", sentences:[
+["I am wearing a blue shirt.","أرتدي قميصاً أزرق.","لابس قميجة زرقة.","آي آم ويرينگ أ بلو شيرت","I am wearing a blue shirt today."],
+["She bought a new dress.","اشترت فستاناً جديداً.","شرات روب جديدة.","شي بوت أ نيو دريس","She bought a new dress for the party."],
+["He wears a hat every day.","يرتدي قبعة كل يوم.","لابس طرطور كل نهار.","هي ويرز أ هات إيفري داي","He wears a hat every day in summer."],
+["I need new shoes.","أحتاج حذاءً جديداً.","خاصني صباط جديد.","آي نيد نيو شوز","I need new shoes for winter."],
+["This jacket is very warm.","هذه السترة دافئة جداً.","هاد الفيسطة سخونة بزاف.","ذيس جاكيت إز فيري وورم","This jacket is very warm in winter."],
+["Her scarf is beautiful.","وشاحها جميل.","الفولار ديالها زوين.","هير سكارف إز بيوتيفل","Her scarf is beautiful and colorful."],
+["I forgot my gloves at home.","نسيت قفازاتي في المنزل.","نسيت الگانط ديالي فالدار.","آي فورگوت ماي گلوفز","I forgot my gloves at home today."],
+["These pants are too long.","هذا البنطال طويل جداً.","هاد السروال طويل بزاف.","ذيز پانتس آر تو لونگ","These pants are too long for me."],
+["He is wearing a suit today.","يرتدي بدلة اليوم.","لابس البدلة اليوم.","هي إز ويرينگ أ سوت","He is wearing a suit today for the meeting."],
+["I like simple clothes.","أحب الملابس البسيطة.","كنبغي الحوايج البسيطة.","آي لايك سيمپل كلوذز","I like simple clothes for everyday."]
+]},
+{t:"المشاعر", sentences:[
+["I am happy today.","أنا سعيد اليوم.","أنا فرحان اليوم.","آي آم هاپي تودي","I am happy today, I passed my exam."],
+["She is sad because of the news.","هي حزينة بسبب الخبر.","هي حزينة على خاطر الخبر.","شي إز ساد","She is sad because of the bad news."],
+["I am tired after work.","أنا متعب بعد العمل.","أنا عيان من الخدمة.","آي آم تايرد آفتر ورك","I am tired after work, I need to rest."],
+["He is angry with his friend.","هو غاضب من صديقه.","هو معصب على صاحبو.","هي إز آنگري","He is angry with his friend today."],
+["We are excited about the trip.","نحن متحمسون للرحلة.","حماسنا بزاف بالسفرة.","وي آر إكسايتد","We are excited about the trip next week."],
+["I am afraid of the dark.","أخاف من الظلام.","كنخاف من الضلمة.","آي آم أفريد أوف ذا دارك","I am afraid of the dark since childhood."],
+["She feels nervous before exams.","تشعر بالتوتر قبل الامتحانات.","كتحس بالقلق قبل الامتحانات.","شي فيلز نيرفس","She feels nervous before exams every time."],
+["I am proud of my son.","أنا فخور بابني.","أنا فخور بولدي.","آي آم پراود أوف ماي سان","I am proud of my son's success."],
+["They are surprised by the gift.","هم متفاجئون بالهدية.","تفاجاو بالهدية.","ذاي آر سرپرايزد","They are surprised by the gift, thank you."],
+["I feel bored at home.","أشعر بالملل في المنزل.","حاسس بالكلل فالدار.","آي فيل بورد آت هوم","I feel bored at home on rainy days."]
+]},
+{t:"وصف الأشخاص", sentences:[
+["He is tall and strong.","هو طويل وقوي.","هو طويل وقوي.","هي إز تول اند سترونگ","He is tall and strong like his father."],
+["She is short and smart.","هي قصيرة وذكية.","هي قصيرة وذكية.","شي إز شورت اند سمارت","She is short and smart, top of her class."],
+["My friend is very funny.","صديقي مضحك جداً.","صاحبي مضحك بزاف.","ماي فريند إز فيري فاني","My friend is very funny, he makes me laugh."],
+["He has curly hair.","لديه شعر مجعد.","عندو الشعر مفرفر.","هي هاز كيرلي هير","He has curly hair and brown eyes."],
+["She is young and kind.","هي شابة ولطيفة.","هي صغيرة ومزيانة.","شي إز يانگ اند كايند","She is young and kind to everyone."],
+["My teacher is patient.","معلمي صبور.","الأستاذ ديالي صبور.","ماي تيتشر إز پيشنت","My teacher is patient with all students."],
+["He is old but active.","هو كبير في السن لكن نشيط.","هو شايب ولكن نشيط.","هي إز اولد بت أكتيف","He is old but active, he walks every day."],
+["She has a beautiful smile.","لديها ابتسامة جميلة.","عندها بسمة زوينة.","شي هاز أ بيوتيفل سمايل","She has a beautiful smile every day."],
+["My brother is generous.","أخي كريم.","خويا كريم.","ماي براذر إز جينيروس","My brother is generous with everyone."],
+["He is honest and hardworking.","هو صادق ومجتهد.","هو صادق ومجتهد.","هي إز أونيست اند هاردووركينگ","He is honest and hardworking at his job."]
+]},
+{t:"التخطيط لمواعيد", sentences:[
+["Let's meet tomorrow.","هيا نلتقي غداً.","اجي نتلاقاو غدا.","ليتس ميت تومورو","Let's meet tomorrow at the cafe."],
+["Are you free this evening?","هل أنت متفرغ هذا المساء؟","واش خاوي هاد العشية؟","آر يو فري ذيس إيفنينگ","Are you free this evening for dinner?"],
+["I have a meeting at three.","لدي اجتماع في الثالثة.","عندي اجتماع فتلاتة.","آي هاف أ ميتينگ آت ثري","I have a meeting at three, sorry."],
+["Can we reschedule?","هل يمكننا تغيير الموعد؟","واش نقدرو نبدلو الموعد؟","كان وي ريشيديول","Can we reschedule for next week?"],
+["I will call you later.","سأتصل بك لاحقاً.","غادي نعيطلك من بعد.","آي ويل كول يو ليتر","I will call you later this evening."],
+["Let's go to the cinema tonight.","هيا نذهب للسينما الليلة.","اجي نمشيو للسينيما الليلة.","ليتس غو تو ذا سينيما","Let's go to the cinema tonight, okay?"],
+["What time works for you?","ما الوقت المناسب لك؟","شحال دالوقت يليق ليك؟","وات تايم ووركس فور يو","What time works for you tomorrow?"],
+["I am busy this week.","أنا مشغول هذا الأسبوع.","أنا مشغول هاد السيمانة.","آي آم بيزي ذيس ويك","I am busy this week, maybe next week."],
+["Let's plan a trip together.","هيا نخطط لرحلة معاً.","اجي نخططو لسفرة مع بعض.","ليتس پلان أ تريپ توگيذر","Let's plan a trip together this summer."],
+["See you next Monday.","أراك يوم الإثنين القادم.","نتلاقاو الإتنين الجاي.","سي يو نكست مانداي","See you next Monday at the office."]
+]},
+{t:"الهاتف والتكنولوجيا", sentences:[
+["Can I use your phone?","هل يمكنني استخدام هاتفك؟","واش نقدر نستعمل التيليفون ديالك؟","كان آي يوز يور فون","Can I use your phone, mine is dead."],
+["My phone battery is low.","بطارية هاتفي منخفضة.","الباطري ديال التيليفون خاوية.","ماي فون باتري إز لو","My phone battery is low, I need a charger."],
+["Please send me an email.","من فضلك أرسل لي بريداً إلكترونياً.","عافاك صيفط لي إيميل.","بليز سيند مي آن إيميل","Please send me an email today."],
+["I forgot my password.","نسيت كلمة السر.","نسيت الپاسوورد.","آي فورگوت ماي پاسوورد","I forgot my password again."],
+["The internet is very slow.","الإنترنت بطيء جداً.","الأنترنت بطيء بزاف.","ذي إنترنت إز فيري سلو","The internet is very slow today."],
+["I need to charge my laptop.","أحتاج شحن حاسوبي المحمول.","خاصني نشرجي اللابتوب.","آي نيد تو تشارج ماي لاپتوپ","I need to charge my laptop before the meeting."],
+["Can you take a photo of me?","هل يمكنك التقاط صورة لي؟","واش تقدر طيح لي تصويرة؟","كان يو تيك أ فوتو أوف مي","Can you take a photo of me, please?"],
+["I will text you the address.","سأرسل لك العنوان برسالة.","غادي نصيفط ليك العنوان.","آي ويل تكست يو ذي أدرس","I will text you the address now."],
+["This app is very useful.","هذا التطبيق مفيد جداً.","هاد الأپليكاسيون مفيدة بزاف.","ذيس آپ إز فيري يوسفول","This app is very useful for learning."],
+["I lost my phone yesterday.","فقدت هاتفي أمس.","ضيعت التيليفون ديالي البارح.","آي لوست ماي فون يستردي","I lost my phone yesterday at the station."]
+]},
+{t:"في السوق", sentences:[
+["I need to buy vegetables.","أحتاج شراء خضروات.","خاصني نشري الخضرة.","آي نيد تو باي فيجيتابلز","I need to buy vegetables for dinner."],
+["Where can I find milk?","أين أجد الحليب؟","فين نلقى الحليب؟","وير كان آي فايند ميلك","Where can I find milk in this shop?"],
+["These tomatoes are fresh.","هذا الطماطم طازج.","هاد الماطيشة طرية.","ذيز توميتوز آر فرش","These tomatoes are fresh from the farm."],
+["I bought a kilo of apples.","اشتريت كيلو تفاح.","شريت كيلو دالتفاح.","آي بوت أ كيلو أوف آپلز","I bought a kilo of apples today."],
+["The prices are high today.","الأسعار مرتفعة اليوم.","التمن غالي اليوم.","ذا پرايسيز آر هاي","The prices are high today at the market."],
+["Do you sell eggs here?","هل تبيعون البيض هنا؟","واش كتبيعو البيض هنا؟","دو يو سيل إگز هير","Do you sell eggs here, please?"],
+["I need a shopping list.","أحتاج قائمة تسوق.","خاصني ليستة ديال الشرا.","آي نيد أ شوپينگ ليست","I need a shopping list before I go."],
+["This bread is still warm.","هذا الخبز ما زال ساخناً.","هاد الخبز مازال سخون.","ذيس بريد إز ستيل وورم","This bread is still warm from the oven."],
+["I forgot my wallet at home.","نسيت محفظتي في المنزل.","نسيت المحفضة ديالي فالدار.","آي فورگوت ماي واليت","I forgot my wallet at home, sorry."],
+["Let's go to the market together.","هيا نذهب إلى السوق معاً.","اجي نمشيو للسوق مع بعض.","ليتس غو تو ذا ماركت","Let's go to the market together this morning."]
+]},
+{t:"طلب المساعدة", sentences:[
+["Can you help me, please?","هل يمكنك مساعدتي من فضلك؟","واش تقدر تعاوني عافاك؟","كان يو هيلپ مي، بليز","Can you help me, please, I am lost."],
+["I don't understand.","لا أفهم.","ما فهمتش.","آي دونت أندرستاند","I don't understand, can you repeat?"],
+["Can you speak slowly, please?","هل يمكنك التحدث ببطء؟","واش تقدر تهدر بشوية؟","كان يو سپيك سلولي","Can you speak slowly, please, I am learning."],
+["Could you repeat that?","هل يمكنك إعادة ذلك؟","واش تقدر تعاود؟","كود يو ريپيت ذات","Could you repeat that, please?"],
+["I need some information.","أحتاج بعض المعلومات.","خاصني شوية دالمعلومات.","آي نيد سام إنفورميشن","I need some information about the trip."],
+["Sorry, I don't speak English well.","آسف، لا أتحدث الإنجليزية جيداً.","سمحلي، ما كنهدرش الإنجليزية مزيان.","سوري، آي دونت سپيك إنغليش ويل","Sorry, I don't speak English well yet."],
+["Where is the exit, please?","أين الخروج من فضلك؟","فين الخروج عافاك؟","وير إز ذي إكزيت","Where is the exit, please?"],
+["I need help with my luggage.","أحتاج مساعدة في حقائبي.","خاصني المساعدة فالبگاج.","آي نيد هيلپ ويذ ماي لاگيج","I need help with my luggage, please."],
+["Is there someone who speaks Arabic?","هل يوجد من يتحدث العربية؟","واش كاين شي واحد كيهدر العربية؟","إز ذير سامون هو سپيكس أرابيك","Is there someone who speaks Arabic here?"],
+["Thank you for your help.","شكراً على مساعدتك.","شكراً على المساعدة.","ثانك يو فور يور هيلپ","Thank you for your help, I appreciate it."]
+]},
+{t:"مراجعة عامة", sentences:[
+["How are you today?","كيف حالك اليوم؟","لاباس عليك اليوم؟","هاو آر يو تودي","How are you today? I am fine, thanks."],
+["It was nice to meet you.","كان من الجميل مقابلتك.","كان فرحان بيك.","إت واز نايس تو ميت يو","It was nice to meet you, see you soon."],
+["I hope you have a good day.","أتمنى لك يوماً جميلاً.","نتمنى ليك نهار زوين.","آي هوپ يو هاف أ گود داي","I hope you have a good day today."],
+["Please, take a seat.","من فضلك، تفضل بالجلوس.","عافاك، گلس.","بليز، تيك أ سيت","Please, take a seat and relax."],
+["Congratulations on your success.","تهانينا على نجاحك.","مبروك على النجاح.","كونگراتيوليشنز أون يور سكسيس","Congratulations on your success, well done."],
+["I really appreciate your help.","أقدر مساعدتك حقاً.","نقدر المساعدة ديالك بزاف.","آي ريلي أپريشيت يور هيلپ","I really appreciate your help today."],
+["Everything is fine now.","كل شيء بخير الآن.","كلشي مزيان دابا.","إيفريثينگ إز فاين ناو","Everything is fine now, thank you."],
+["Let's practice English together.","هيا نتدرب على الإنجليزية معاً.","اجي نتمرنو على الإنجليزية مع بعض.","ليتس پراكتيس إنغليش توگيذر","Let's practice English together every day."],
+["I am learning something new every day.","أتعلم شيئاً جديداً كل يوم.","كنتعلم شي حاجة جديدة كل نهار.","آي آم لورنينگ سامثينگ نيو","I am learning something new every day now."],
+["Good luck with everything!","حظاً موفقاً في كل شيء!","الله يوفقك فكلشي!","گود لاك ويذ إيفريثينگ","Good luck with everything, you can do it!"]
+]}
+];
 
-    <!-- ============================================================ -->
-    <!-- المحتوى الرئيسي -->
-    <!-- ============================================================ -->
-    <main>
+/* Grammar lessons */
+const GRAMMAR = [
+{id:"tobe", ic:"🔤", title:"To Be (am / is / are)",
+ explain:"الفعل «to be» يُستعمل للتعريف بالحال أو الهوية أو الوصف. له ثلاثة أشكال في المضارع: am مع I، is مع he/she/it، are مع you/we/they.",
+ examples:[["I am a student.","أنا طالب."],["She is happy.","هي سعيدة."],["They are at home.","هم في المنزل."],["You are my friend.","أنت صديقي."],["It is cold today.","الجو بارد اليوم."]],
+ notes:"لا يوجد فعل «يكون» ظاهر في الجملة الاسمية بالعربية، لكن في الإنجليزية لا بد من ذكر to be دائماً، حتى مع الصفات: She is beautiful وليس She beautiful.",
+ mistakes:"خطأ شائع: قول I student بدل I am a student. تذكّر أن الفعل to be إجباري في كل جملة اسمية إنجليزية.",
+ quiz:[
+  {q:"She ___ a teacher.",opts:["am","is","are","be"],a:1},
+  {q:"They ___ from Morocco.",opts:["is","am","are","be"],a:2},
+  {q:"I ___ happy today.",opts:["is","are","am","be"],a:2},
+  {q:"We ___ students.",opts:["am","is","are","be"],a:2},
+  {q:"He ___ tired.",opts:["are","is","am","be"],a:1}
+ ]},
+{id:"pronouns", ic:"👤", title:"الضمائر الشخصية",
+ explain:"الضمائر الشخصية تحل محل الأسماء: I أنا، You أنت، He هو، She هي، It (لغير العاقل)، We نحن، You أنتم، They هم.",
+ examples:[["I like tea.","أحب الشاي."],["He is my brother.","هو أخي."],["We study English.","ندرس الإنجليزية."],["It is a book.","إنه كتاب."],["They live in Rabat.","يعيشون في الرباط."]],
+ notes:"الضمير It يُستعمل للأشياء والحيوانات وليس عادة للأشخاص. في الإنجليزية الضمير إجباري دائماً قبل الفعل، بعكس العربية أحياناً.",
+ mistakes:"خطأ شائع: استعمال He أو She للأشياء بدل It. مثال خاطئ: He is a table، والصحيح: It is a table.",
+ quiz:[
+  {q:"___ is my sister.",opts:["He","She","It","They"],a:1},
+  {q:"___ is a car.",opts:["He","She","It","We"],a:2},
+  {q:"___ are my parents.",opts:["It","He","They","She"],a:2},
+  {q:"___ study every day. (أنا)",opts:["He","I","It","She"],a:1},
+  {q:"___ live in Casablanca. (نحن)",opts:["We","It","He","She"],a:0}
+ ]},
+{id:"present-simple", ic:"⏱️", title:"المضارع البسيط",
+ explain:"يُستعمل المضارع البسيط للعادات والحقائق الثابتة. نضيف s أو es للفعل مع he/she/it. مثال: I work لكن He works.",
+ examples:[["I play football.","ألعب كرة القدم."],["She works every day.","تعمل كل يوم."],["We eat breakfast at seven.","نأكل الفطور في السابعة."],["He goes to school.","يذهب إلى المدرسة."],["They don't like coffee.","لا يحبون القهوة."]],
+ notes:"في النفي والسؤال نستعمل do/does: Does he work? / He doesn't work. لا نضيف s للفعل عند استعمال does أو doesn't.",
+ mistakes:"خطأ شائع: نسيان s مع he/she/it: He go بدل He goes. خطأ آخر: Does he goes بدل Does he go.",
+ quiz:[
+  {q:"She ___ to school every day.",opts:["go","goes","going","gone"],a:1},
+  {q:"They ___ football on Sundays.",opts:["plays","play","playing","played"],a:1},
+  {q:"He ___ not like tea.",opts:["do","does","is","are"],a:1},
+  {q:"___ you like English?",opts:["Do","Does","Is","Are"],a:0},
+  {q:"My mother ___ dinner every night.",opts:["cook","cooks","cooking","cooked"],a:1}
+ ]},
+{id:"articles", ic:"🔡", title:"أدوات التعريف والتنكير (a / an / the)",
+ explain:"نستعمل a قبل الكلمات التي تبدأ بصوت ساكن، و an قبل الكلمات التي تبدأ بصوت متحرك (a, e, i, o, u)، و the للشيء المعروف أو المحدد.",
+ examples:[["I have a book.","لدي كتاب."],["She has an apple.","لديها تفاحة."],["The sun is hot.","الشمس حارة."],["He is an engineer.","هو مهندس."],["I saw the movie yesterday.","شاهدت الفيلم أمس."]],
+ notes:"the تُستعمل عندما يكون الشيء معروفاً للمتكلم والمستمع، بينما a/an تُستعملان عند ذكر الشيء لأول مرة.",
+ mistakes:"خطأ شائع: قول a apple بدل an apple. تذكّر أن العبرة بالصوت وليس بالحرف: an hour رغم أن h حرف ساكن لأن الصوت متحرك.",
+ quiz:[
+  {q:"I have ___ orange.",opts:["a","an","the","-"],a:1},
+  {q:"She is ___ doctor.",opts:["a","an","the","-"],a:0},
+  {q:"___ moon is bright tonight.",opts:["A","An","The","-"],a:2},
+  {q:"He bought ___ umbrella.",opts:["a","an","the","-"],a:1},
+  {q:"I saw ___ cat in the garden.",opts:["a","an","the","-"],a:0}
+ ]},
+{id:"plurals", ic:"➕", title:"صيغة الجمع",
+ explain:"لجمع معظم الأسماء نضيف s: book → books. إذا انتهى الاسم بـ s,x,ch,sh نضيف es: box → boxes. بعض الأسماء لها جمع شاذ: man → men, child → children.",
+ examples:[["one book, two books","كتاب، كتابان"],["one box, two boxes","صندوق، صندوقان"],["one child, two children","طفل، طفلان"],["one man, two men","رجل، رجلان"],["one city, two cities","مدينة، مدينتان"]],
+ notes:"إذا انتهى الاسم بـ y مسبوقة بحرف ساكن، تتحول y إلى ies: city → cities. أما إذا سبقها حرف متحرك تبقى كما هي: boy → boys.",
+ mistakes:"خطأ شائع: قول mans بدل men أو childs بدل children. هذه أسماء جمعها شاذ ويجب حفظها.",
+ quiz:[
+  {q:"one child, two ___",opts:["childs","children","childes","child"],a:1},
+  {q:"one city, two ___",opts:["citys","cityes","cities","city"],a:2},
+  {q:"one box, two ___",opts:["boxs","boxes","box","boxies"],a:1},
+  {q:"one man, two ___",opts:["mans","men","men's","manes"],a:1},
+  {q:"one book, two ___",opts:["book","bookes","books","bookies"],a:2}
+ ]},
+{id:"adjectives", ic:"🎨", title:"الصفات (Adjectives)",
+ explain:"الصفة تصف الاسم وتأتي عادة قبله في الإنجليزية، بعكس العربية: a big house بيت كبير. الصفة لا تتغير حسب الجمع أو المفرد.",
+ examples:[["a big house","بيت كبير"],["a beautiful girl","فتاة جميلة"],["two small cats","قطتان صغيرتان"],["an old car","سيارة قديمة"],["This is interesting.","هذا مثير للاهتمام."]],
+ notes:"الصفة في الإنجليزية ثابتة ولا تتغير مع المذكر أو المؤنث أو الجمع، بعكس العربية: small تبقى small سواء مع boy أو girl أو boys.",
+ mistakes:"خطأ شائع: وضع الصفة بعد الاسم كما في العربية: a house big بدل a big house.",
+ quiz:[
+  {q:"She has a ___ car.",opts:["red","reds","redly","redness"],a:0},
+  {q:"اختر الترتيب الصحيح:",opts:["house big a","a big house","big a house","house a big"],a:1},
+  {q:"They are ___ students.",opts:["good","goods","gooder","well"],a:0},
+  {q:"This is a ___ day.",opts:["beautifully","beautiful","beauty","beautify"],a:1},
+  {q:"He has ___ eyes.",opts:["blue","blues","blueness","bluely"],a:0}
+ ]},
+{id:"prepositions", ic:"📍", title:"حروف الجر المكانية",
+ explain:"in داخل، on فوق (ملامس)، under تحت، next to بجانب، between بين. تُستعمل لتحديد مكان الشيء.",
+ examples:[["The book is on the table.","الكتاب فوق الطاولة."],["The cat is under the chair.","القطة تحت الكرسي."],["She is in the kitchen.","هي في المطبخ."],["The bank is next to the school.","البنك بجانب المدرسة."],["He sits between his parents.","يجلس بين والديه."]],
+ notes:"in تُستعمل للأماكن المغلقة أو المدن والدول، on للأسطح، at للنقاط المحددة مثل at home أو at school.",
+ mistakes:"خطأ شائع: الخلط بين in و on: in the table بدل on the table.",
+ quiz:[
+  {q:"The pen is ___ the table.",opts:["in","on","under","between"],a:1},
+  {q:"She lives ___ Rabat.",opts:["on","at","in","under"],a:2},
+  {q:"The cat is ___ the box.",opts:["in","on","at","between"],a:0},
+  {q:"The shop is ___ the bank and the school.",opts:["in","on","between","under"],a:2},
+  {q:"I am ___ home now.",opts:["in","on","at","under"],a:2}
+ ]},
+{id:"questions", ic:"❓", title:"صياغة الأسئلة",
+ explain:"في المضارع البسيط نبدأ السؤال بـ Do أو Does، وفي حالة to be نقدّم الفعل على الفاعل: Are you ready؟ Is she home؟",
+ examples:[["Do you like tea?","هل تحب الشاي؟"],["Does she work here?","هل تعمل هنا؟"],["Are you ready?","هل أنت جاهز؟"],["Where do you live?","أين تسكن؟"],["What is your name?","ما اسمك؟"]],
+ notes:"أدوات الاستفهام Wh (What, Where, When, Who, Why, How) تأتي في بداية الجملة قبل do/does/is/are.",
+ mistakes:"خطأ شائع: نسيان do/does في السؤال: You like tea? بدل Do you like tea؟",
+ quiz:[
+  {q:"___ you like coffee?",opts:["Do","Does","Are","Is"],a:0},
+  {q:"___ she a teacher?",opts:["Do","Does","Is","Are"],a:2},
+  {q:"___ is your name?",opts:["What","Do","Is","Are"],a:0},
+  {q:"___ they live in Fes?",opts:["Do","Does","Is","Are"],a:0},
+  {q:"___ your brother work here?",opts:["Do","Does","Is","Are"],a:1}
+ ]},
+{id:"negation", ic:"🚫", title:"صياغة النفي",
+ explain:"لنفي المضارع البسيط نستعمل don't مع I/you/we/they و doesn't مع he/she/it. لنفي to be نضيف not: is not / are not / am not.",
+ examples:[["I don't like fish.","لا أحب السمك."],["He doesn't work today.","لا يعمل اليوم."],["She is not happy.","هي ليست سعيدة."],["They are not at home.","ليسوا في المنزل."],["I am not sure.","لست متأكداً."]],
+ notes:"يمكن اختصار don't إلى don't وis not إلى isn't وare not إلى aren't في الكلام العادي.",
+ mistakes:"خطأ شائع: قول He don't بدل He doesn't. تذكّر doesn't مع he/she/it دائماً.",
+ quiz:[
+  {q:"He ___ like milk.",opts:["don't","doesn't","isn't","aren't"],a:1},
+  {q:"I ___ tired.",opts:["don't","doesn't","am not","isn't"],a:2},
+  {q:"They ___ live here.",opts:["doesn't","don't","isn't","aren't"],a:1},
+  {q:"She ___ happy today.",opts:["don't","doesn't","isn't","aren't"],a:2},
+  {q:"We ___ ready yet.",opts:["isn't","aren't","doesn't","don't"],a:1}
+ ]},
+{id:"possessives", ic:"🔑", title:"صفات وضمائر الملكية",
+ explain:"صفات الملكية: my, your, his, her, its, our, their تأتي قبل الاسم. مثال: my book, her car.",
+ examples:[["This is my book.","هذا كتابي."],["Her name is Sara.","اسمها سارة."],["Our house is big.","بيتنا كبير."],["Their car is new.","سيارتهم جديدة."],["His phone is on the table.","هاتفه على الطاولة."]],
+ notes:"لا تخلط بين her (صفة ملكية: كتابها) وhers (ضمير ملكية: هذا لها). مثال: This is her book / This book is hers.",
+ mistakes:"خطأ شائع: استعمال him بدل his: This is him book بدل This is his book.",
+ quiz:[
+  {q:"This is ___ car. (لها)",opts:["he","him","her","his"],a:2},
+  {q:"___ house is big. (لنا)",opts:["We","Our","Us","Ours"],a:1},
+  {q:"This is ___ pen. (له)",opts:["he","his","him","her"],a:1},
+  {q:"___ names are Ali and Sara.",opts:["Them","They","Their","Theirs"],a:2},
+  {q:"Is this ___ bag? (لك)",opts:["you","your","yours","yourself"],a:1}
+ ]}
+];
 
-        <!-- ===== تبويب الرئيسية ===== -->
-        <div id="tab-home" class="tab-content active">
-            <div class="hero">
-                <h2>🌟 تعلم 10 جمل يومياً</h2>
-                <p>مستوى A1 · 30 يوماً · مع النطق الصوتي</p>
+/* =================== STATE & STORAGE =================== */
+let STATE = {
+  view:"home",
+  day:1,
+  fcIndex:0,
+  fcFlipped:false,
+  quizDay:null,
+  quizQuestions:[],
+  quizIndex:0,
+  quizScore:0,
+  quizAnswered:false,
+  gramId:null,
+  progress:{completedDays:[], dayScores:{}, gramDone:[]}
+};
 
-                <div class="progress-ring">
-                    <span id="day-display">اليوم 1 / 30</span>
-                    <div class="bar"><div id="progress-bar" style="width:3%"></div></div>
-                </div>
+async function loadProgress(){
+  try{
+    const r = await window.storage.get('progress', false);
+    if(r && r.value){ STATE.progress = JSON.parse(r.value); }
+  }catch(e){ /* no saved progress yet */ }
+  render();
+}
+async function saveProgress(){
+  try{ await window.storage.set('progress', JSON.stringify(STATE.progress), false); }catch(e){}
+}
 
-                <div class="stats">
-                    <div><div class="num" id="total-sentences">300</div><div class="label">إجمالي الجمل</div></div>
-                    <div><div class="num" id="learned-count">0</div><div class="label">تم تعلمها</div></div>
-                </div>
+/* =================== UTIL =================== */
+function speak(text){
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.92;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function normalizeAr(s){ return s.replace(/[\u064B-\u065F\u0670]/g,'').replace(/[إأآا]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').trim().toLowerCase(); }
+function goto(view, extra){ STATE.view=view; Object.assign(STATE, extra||{}); window.scrollTo(0,0); render(); }
+function isDayUnlocked(i){ return i===0 || STATE.progress.completedDays.includes(i-1) || STATE.progress.completedDays.includes(i); }
 
-                <button class="btn-primary" onclick="switchTab('flashcards')">🚀 ابدأ اليوم</button>
-            </div>
+/* =================== QUIZ GENERATION =================== */
+function buildQuizForDay(dayIdx){
+  const sentences = DAYS[dayIdx].sentences;
+  const types = ["mcq","order","write"];
+  const qs = sentences.map((s,i)=>{
+    const type = types[i % 3];
+    if(type==="mcq"){
+      const distractors = shuffle(sentences.filter((_,j)=>j!==i)).slice(0,3).map(x=>x[1]);
+      const opts = shuffle([s[1], ...distractors]);
+      return {type, en:s[0], correctText:s[1], opts, correctIndex:opts.indexOf(s[1]), pron:s[3]};
+    } else if(type==="order"){
+      const words = s[0].replace(/[.,?!]/g,'').split(' ');
+      return {type, en:s[0], ar:s[1], words: shuffle(words), correctWords: words};
+    } else {
+      return {type, en:s[0], ar:s[1], darija:s[2]};
+    }
+  });
+  return qs;
+}
 
-            <div style="background:white; border-radius:20px; padding:24px; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
-                <h3 style="margin-bottom:12px;">📅 أيام التعلم</h3>
-                <div style="display:flex; flex-wrap:wrap; gap:8px;" id="day-buttons"></div>
-            </div>
+/* =================== RENDER =================== */
+function render(){
+  const app = document.getElementById('app');
+  const totalCompleted = STATE.progress.completedDays.length;
+  const navItems = [
+    {id:'home', ic:'🏠', label:'الرئيسية'},
+    {id:'lessons', ic:'📚', label:'الدروس اليومية'},
+    {id:'flashcards', ic:'🗂️', label:'البطاقات'},
+    {id:'grammar', ic:'📖', label:'القواعد'},
+    {id:'quizzes', ic:'📝', label:'الاختبارات'},
+  ];
+  app.innerHTML = `
+    <div class="sidebar">
+      <div class="brand"><div class="mark">EN</div><div><h1>English A1</h1><span>تعلّم الإنجليزية خطوة بخطوة</span></div></div>
+      ${navItems.map(n=>`<button class="nav-item ${STATE.view===n.id?'active':''}" data-nav="${n.id}"><span class="ic">${n.ic}</span>${n.label}</button>`).join('')}
+      <div class="sidebar-foot">تقدمك محفوظ تلقائياً ✨</div>
+    </div>
+    <main id="main"></main>
+    <div class="bottom-nav">
+      ${navItems.map(n=>`<button class="${STATE.view===n.id?'active':''}" data-nav="${n.id}"><span class="ic">${n.ic}</span>${n.label}</button>`).join('')}
+    </div>
+  `;
+  document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click', ()=>goto(b.dataset.nav)));
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  main.classList.add('fade-in');
+  if(STATE.view==='home') renderHome(main);
+  else if(STATE.view==='lessons') renderLessons(main);
+  else if(STATE.view==='flashcards') renderFlashcardsHub(main);
+  else if(STATE.view==='flashcards-day') renderFlashcardDay(main);
+  else if(STATE.view==='grammar') renderGrammarHub(main);
+  else if(STATE.view==='grammar-detail') renderGrammarDetail(main);
+  else if(STATE.view==='quizzes') renderQuizzesHub(main);
+  else if(STATE.view==='quiz-run') renderQuizRun(main);
+  else if(STATE.view==='quiz-result') renderQuizResult(main);
+}
+
+function renderHome(main){
+  const totalCompleted = STATE.progress.completedDays.length;
+  const pct = Math.round((totalCompleted/30)*100);
+  const nextDay = Math.min(totalCompleted+1, 30);
+  const totalSentences = totalCompleted*10;
+  main.innerHTML = `
+    <div class="hero">
+      <div class="hero-ring">
+        <svg width="132" height="132" viewBox="0 0 132 132">
+          <circle cx="66" cy="66" r="56" stroke="rgba(255,255,255,.18)" stroke-width="12" fill="none"/>
+          <circle cx="66" cy="66" r="56" stroke="#e8795a" stroke-width="12" fill="none"
+            stroke-dasharray="${2*Math.PI*56}" stroke-dashoffset="${2*Math.PI*56*(1-pct/100)}"
+            stroke-linecap="round" transform="rotate(-90 66 66)"/>
+        </svg>
+        <div class="ring-num"><b>${totalCompleted}/30</b><span>يوم مكتمل</span></div>
+      </div>
+      <div class="hero-text">
+        <span class="pill" style="background:rgba(255,255,255,.15); color:#fff;">مستوى A1 — المبتدئون</span>
+        <h2 style="margin-top:12px;">مرحباً بك في رحلتك لتعلّم الإنجليزية 🌱</h2>
+        <p>٣٠ يوماً، ٣٠٠ جملة، وطريقك نحو الطلاقة يبدأ من هنا. تعلّم يومياً ولو ١٠ دقائق فقط.</p>
+        <button class="btn btn-primary" id="continueBtn">${totalCompleted===0?'ابدأ اليوم الأول':'أكمل من اليوم '+nextDay}</button>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>${totalCompleted}</b><span>أيام مكتملة</span></div>
+      <div class="stat"><b>${totalSentences}</b><span>جملة تعلمتها</span></div>
+      <div class="stat"><b>${pct}%</b><span>من المستوى A1</span></div>
+    </div>
+    <div class="section-title">الأيام</div>
+    <div class="section-sub">اضغط على أي يوم مفتوح للبدء بالبطاقات ثم الاختبار</div>
+    <div class="day-grid">
+      ${DAYS.map((d,i)=>{
+        const unlocked = isDayUnlocked(i);
+        const done = STATE.progress.completedDays.includes(i);
+        return `<div class="day-tile ${!unlocked?'locked':''} ${done?'done':''}">
+          ${done?'<span class="chk">✅</span>':''}
+          <div class="num">${i+1}</div>
+          <div class="topic">${d.t}</div>
+          <button class="btn ${done?'btn-ghost':'btn-primary'}" style="font-size:12px; padding:8px 10px;" ${!unlocked?'disabled':''} data-day="${i}">${done?'مراجعة':'ابدأ'}</button>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  main.querySelector('#continueBtn').addEventListener('click', ()=>goto('flashcards-day',{day:nextDay-1, fcIndex:0, fcFlipped:false}));
+  main.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click', ()=>goto('flashcards-day',{day:parseInt(b.dataset.day), fcIndex:0, fcFlipped:false})));
+}
+
+function renderLessons(main){
+  main.innerHTML = `
+    <div class="section-title">الدروس اليومية</div>
+    <div class="section-sub">٣٠ يوماً، كل يوم يحتوي ١٠ جمل جديدة</div>
+    ${DAYS.map((d,i)=>{
+      const unlocked = isDayUnlocked(i);
+      const done = STATE.progress.completedDays.includes(i);
+      const score = STATE.progress.dayScores[i];
+      return `<div class="lesson-row" style="${!unlocked?'opacity:.5':''}">
+        <div class="badge ${done?'done':''}">${i+1}</div>
+        <div class="info"><b>${d.t}</b><span>${d.sentences.length} جمل ${score!==undefined?' · نتيجة الاختبار: '+score+'/10':''}</span></div>
+        <button class="btn ${done?'btn-ghost':'btn-primary'}" ${!unlocked?'disabled':''} data-open="${i}">${done?'مراجعة':'ابدأ'}</button>
+      </div>`;
+    }).join('')}
+  `;
+  main.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click', ()=>goto('flashcards-day',{day:parseInt(b.dataset.open), fcIndex:0, fcFlipped:false})));
+}
+
+function renderFlashcardsHub(main){
+  main.innerHTML = `
+    <div class="section-title">البطاقات التفاعلية</div>
+    <div class="section-sub">اختر يوماً لعرض بطاقاته العشر</div>
+    <div class="day-grid">
+      ${DAYS.map((d,i)=>{
+        const unlocked = isDayUnlocked(i);
+        return `<div class="day-tile ${!unlocked?'locked':''}">
+          <div class="num">${i+1}</div><div class="topic">${d.t}</div>
+          <button class="btn btn-ghost" style="font-size:12px; padding:8px 10px;" ${!unlocked?'disabled':''} data-fc="${i}">فتح البطاقات</button>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  main.querySelectorAll('[data-fc]').forEach(b=>b.addEventListener('click', ()=>goto('flashcards-day',{day:parseInt(b.dataset.fc), fcIndex:0, fcFlipped:false})));
+}
+
+function renderFlashcardDay(main){
+  const day = DAYS[STATE.day];
+  const s = day.sentences[STATE.fcIndex];
+  const pct = ((STATE.fcIndex+1)/10)*100;
+  main.innerHTML = `
+    <button class="back-link" id="backBtn">→ رجوع</button>
+    <div class="topbar">
+      <div class="section-title" style="margin-bottom:0;">اليوم ${STATE.day+1}: ${day.t}</div>
+      <span class="pill">${STATE.fcIndex+1} / 10</span>
+    </div>
+    <div class="fc-wrap">
+      <div class="fc-progress"><i style="width:${pct}%"></i></div>
+      <div class="flashcard" id="flipCard">
+        ${!STATE.fcFlipped ? `
+          <span class="side-label">EN</span>
+          <div class="fc-en">${s[0]}</div>
+          <div class="fc-pron">${s[3]}</div>
+          <div class="fc-hint">👆 اضغط لرؤية الترجمة</div>
+        ` : `
+          <div class="fc-back">
+            <span class="side-label">AR</span>
+            <div class="ar-block"><div class="ar-label">بالفصحى</div><div class="ar-text">${s[1]}</div></div>
+            <div class="ar-block"><div class="ar-label">بالدارجة المغربية</div><div class="ar-text darija">${s[2]}</div></div>
+            <div class="example"><b>مثال إضافي:</b><br>${s[4]}</div>
+          </div>
+        `}
+      </div>
+      <div class="fc-controls">
+        <button class="audio-btn" id="audioBtn" title="استمع للنطق">🔊</button>
+      </div>
+      <div class="fc-dots">${day.sentences.map((_,i)=>`<span class="${i===STATE.fcIndex?'on':''}"></span>`).join('')}</div>
+      <div class="fc-nav">
+        <button class="btn btn-ghost" id="prevBtn" ${STATE.fcIndex===0?'disabled':''}>◀ السابقة</button>
+        ${STATE.fcIndex===9 ?
+          `<button class="btn btn-primary" id="toQuizBtn">اذهب للاختبار 📝</button>` :
+          `<button class="btn btn-primary" id="nextBtn">التالية ▶</button>`}
+      </div>
+    </div>
+  `;
+  main.querySelector('#backBtn').addEventListener('click', ()=>goto('lessons'));
+  main.querySelector('#flipCard').addEventListener('click', ()=>{ STATE.fcFlipped=!STATE.fcFlipped; render(); });
+  main.querySelector('#audioBtn').addEventListener('click', (e)=>{ e.stopPropagation(); speak(s[0]); });
+  const prev = main.querySelector('#prevBtn');
+  if(prev) prev.addEventListener('click', ()=>{ STATE.fcIndex--; STATE.fcFlipped=false; render(); });
+  const next = main.querySelector('#nextBtn');
+  if(next) next.addEventListener('click', ()=>{ STATE.fcIndex++; STATE.fcFlipped=false; render(); });
+  const toQuiz = main.querySelector('#toQuizBtn');
+  if(toQuiz) toQuiz.addEventListener('click', ()=> startQuiz(STATE.day));
+}
+
+/* ---------- Quizzes ---------- */
+function renderQuizzesHub(main){
+  main.innerHTML = `
+    <div class="section-title">الاختبارات والنتائج</div>
+    <div class="section-sub">اختبر نفسك بعد إنهاء بطاقات كل يوم</div>
+    ${DAYS.map((d,i)=>{
+      const unlocked = isDayUnlocked(i);
+      const score = STATE.progress.dayScores[i];
+      return `<div class="lesson-row" style="${!unlocked?'opacity:.5':''}">
+        <div class="badge ${score!==undefined?'done':''}">${i+1}</div>
+        <div class="info"><b>${d.t}</b><span>${score!==undefined?'نتيجتك: '+score+'/10':'لم تُجرِ الاختبار بعد'}</span></div>
+        <button class="btn btn-primary" ${!unlocked?'disabled':''} data-quiz="${i}">${score!==undefined?'أعد الاختبار':'ابدأ الاختبار'}</button>
+      </div>`;
+    }).join('')}
+  `;
+  main.querySelectorAll('[data-quiz]').forEach(b=>b.addEventListener('click', ()=>startQuiz(parseInt(b.dataset.quiz))));
+}
+
+function startQuiz(dayIdx){
+  STATE.quizDay = dayIdx;
+  STATE.quizQuestions = buildQuizForDay(dayIdx);
+  STATE.quizIndex = 0;
+  STATE.quizScore = 0;
+  STATE.quizAnswered = false;
+  goto('quiz-run');
+}
+
+function renderQuizRun(main){
+  const q = STATE.quizQuestions[STATE.quizIndex];
+  const total = STATE.quizQuestions.length;
+  let bodyHtml = '';
+  if(q.type==='mcq'){
+    bodyHtml = `
+      <div class="q-type">اختر الترجمة الصحيحة</div>
+      <div class="q-prompt en">${q.en}</div>
+      <div class="opt-list" id="optList">
+        ${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}
+      </div>
+      <div id="fb"></div>
+    `;
+  } else if(q.type==='order'){
+    bodyHtml = `
+      <div class="q-type">رتّب الكلمات لتكوين الجملة الصحيحة</div>
+      <div class="q-prompt">${q.ar}</div>
+      <div class="word-slots" id="slots"></div>
+      <div class="word-bank" id="bank">${q.words.map((w,i)=>`<button class="word-chip" data-w="${w}" data-i="${i}">${w}</button>`).join('')}</div>
+      <div id="fb"></div>
+    `;
+  } else {
+    bodyHtml = `
+      <div class="q-type">اكتب الترجمة بالعربية (فصحى أو دارجة)</div>
+      <div class="q-prompt en">${q.en}</div>
+      <input type="text" class="text-input" id="writeInput" placeholder="اكتب الترجمة هنا...">
+      <button class="btn btn-primary" id="checkWrite">تحقق</button>
+      <div id="fb"></div>
+    `;
+  }
+  main.innerHTML = `
+    <div class="quiz-wrap">
+      <div class="q-head">
+        <button class="back-link" id="backBtn" style="margin:0;">→ خروج</button>
+        <span class="q-score">السؤال ${STATE.quizIndex+1} من ${total} · النقاط: ${STATE.quizScore}</span>
+      </div>
+      <div class="fc-progress"><i style="width:${((STATE.quizIndex)/total)*100}%"></i></div>
+      <div class="q-card" style="margin-top:16px;">
+        ${bodyHtml}
+        <div class="q-actions">
+          <button class="audio-btn" id="qAudio">🔊</button>
+          <button class="btn btn-primary" id="nextQ" style="display:none;">${STATE.quizIndex===total-1?'إنهاء الاختبار':'السؤال التالي'} ▶</button>
         </div>
+      </div>
+    </div>
+  `;
+  main.querySelector('#backBtn').addEventListener('click', ()=>goto('quizzes'));
+  main.querySelector('#qAudio').addEventListener('click', ()=>speak(q.en));
 
-        <!-- ===== تبويب البطاقات ===== -->
-        <div id="tab-flashcards" class="tab-content">
-            <div class="day-selector">
-                <label>📅 اختر اليوم:
-                    <input type="number" id="day-input" min="1" max="30" value="1" />
-                </label>
-                <button class="btn-primary" id="load-day" style="padding:10px 30px; font-size:0.95rem;">عرض</button>
-                <button class="btn-secondary" onclick="playAllAudio()">🔊 تشغيل الكل</button>
-                <span style="margin-right:auto; font-weight:500; color:#4a5e7a;" id="day-title">اليوم 1</span>
-            </div>
+  if(q.type==='mcq'){
+    main.querySelectorAll('#optList .opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(STATE.quizAnswered) return;
+        STATE.quizAnswered = true;
+        const i = parseInt(btn.dataset.i);
+        const correct = i===q.correctIndex;
+        if(correct) STATE.quizScore++;
+        main.querySelectorAll('#optList .opt').forEach((o,idx)=>{
+          if(idx===q.correctIndex) o.classList.add('correct');
+          else if(idx===i && !correct) o.classList.add('wrong');
+        });
+        showFeedback(main, correct, q.correctText);
+        main.querySelector('#nextQ').style.display='block';
+      });
+    });
+  } else if(q.type==='order'){
+    const slots = main.querySelector('#slots');
+    const chosen = [];
+    function refreshBank(){
+      main.querySelectorAll('#bank .word-chip').forEach(c=>{
+        c.style.display = chosen.includes(c.dataset.i) ? 'none' : 'inline-block';
+      });
+    }
+    main.querySelectorAll('#bank .word-chip').forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        if(STATE.quizAnswered) return;
+        chosen.push(chip.dataset.i);
+        const span = document.createElement('button');
+        span.className='word-chip'; span.textContent = chip.dataset.w;
+        span.addEventListener('click', ()=>{
+          if(STATE.quizAnswered) return;
+          const idx = chosen.indexOf(chip.dataset.i);
+          if(idx>-1) chosen.splice(idx,1);
+          span.remove(); refreshBank();
+        });
+        slots.appendChild(span);
+        refreshBank();
+        if(chosen.length===q.words.length){
+          STATE.quizAnswered = true;
+          const built = chosen.map(i=>q.words[i]).join(' ');
+          const correct = built.toLowerCase()===q.correctWords.join(' ').toLowerCase();
+          if(correct) STATE.quizScore++;
+          showFeedback(main, correct, q.correctWords.join(' '));
+          main.querySelector('#nextQ').style.display='block';
+        }
+      });
+    });
+  } else {
+    main.querySelector('#checkWrite').addEventListener('click', ()=>{
+      if(STATE.quizAnswered) return;
+      STATE.quizAnswered = true;
+      const val = normalizeAr(main.querySelector('#writeInput').value);
+      const correct = val.length>0 && (normalizeAr(q.ar).includes(val) || val.includes(normalizeAr(q.ar).slice(0,4)) || normalizeAr(q.darija).includes(val));
+      const exact = normalizeAr(val)===normalizeAr(q.ar) || normalizeAr(val)===normalizeAr(q.darija);
+      const ok = exact || correct;
+      if(ok) STATE.quizScore++;
+      showFeedback(main, ok, q.ar + ' / ' + q.darija);
+      main.querySelector('#nextQ').style.display='block';
+      main.querySelector('#checkWrite').disabled = true;
+    });
+  }
 
-            <div id="flashcard-container"></div>
+  const nextBtn = main.querySelector('#nextQ');
+  nextBtn.addEventListener('click', ()=>{
+    if(STATE.quizIndex < total-1){
+      STATE.quizIndex++;
+      STATE.quizAnswered = false;
+      render();
+    } else {
+      finishQuiz();
+    }
+  });
+}
 
-            <!-- الاختبار -->
-            <div id="quiz-container">
-                <h3>🧪 اختبر نفسك</h3>
-                <div class="quiz-progress" id="quiz-progress">السؤال 1 / 10</div>
-                <p id="quiz-question">اضغط "عرض" لبدء الاختبار</p>
-                <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
-                    <input type="text" id="quiz-answer" placeholder="اكتب الترجمة..." />
-                    <button class="btn-primary" id="check-answer" style="padding:10px 28px; font-size:0.95rem;">✅ تحقق</button>
-                    <button class="btn-secondary" id="skip-question">⏭ تخطي</button>
-                </div>
-                <p id="quiz-feedback"></p>
-            </div>
+function showFeedback(main, correct, correctText){
+  const fb = main.querySelector('#fb');
+  fb.innerHTML = `<div class="feedback ${correct?'ok':'bad'}">${correct?'✅ إجابة صحيحة! أحسنت.':'❌ إجابة غير صحيحة. الصحيح هو: '}${!correct?correctText:''}</div>`;
+}
+
+function finishQuiz(){
+  const d = STATE.quizDay;
+  const prevBest = STATE.progress.dayScores[d] || 0;
+  STATE.progress.dayScores[d] = Math.max(prevBest, STATE.quizScore);
+  if(STATE.quizScore >= 6 && !STATE.progress.completedDays.includes(d)){
+    STATE.progress.completedDays.push(d);
+  }
+  saveProgress();
+  goto('quiz-result');
+}
+
+function renderQuizResult(main){
+  const total = STATE.quizQuestions.length;
+  const pct = Math.round((STATE.quizScore/total)*100);
+  const passed = STATE.quizScore>=6;
+  main.innerHTML = `
+    <div class="quiz-wrap">
+      <div class="q-card result-card">
+        <div style="font-size:44px;">${passed?'🎉':'💪'}</div>
+        <div class="big">${STATE.quizScore}/${total}</div>
+        <p>${passed? 'أحسنت! لقد أكملت اليوم '+(STATE.quizDay+1)+' بنجاح ('+pct+'%)' : 'نتيجة جيدة، حاول المراجعة مرة أخرى لتحسين نتيجتك ('+pct+'%)'}</p>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-ghost" id="retryBtn">إعادة الاختبار</button>
+          <button class="btn btn-primary" id="homeBtn">${passed && STATE.quizDay<29 ? 'الانتقال لليوم التالي' : 'العودة للرئيسية'}</button>
         </div>
+      </div>
+    </div>
+  `;
+  main.querySelector('#retryBtn').addEventListener('click', ()=>startQuiz(STATE.quizDay));
+  main.querySelector('#homeBtn').addEventListener('click', ()=>{
+    if(passed && STATE.quizDay<29) goto('flashcards-day',{day:STATE.quizDay+1, fcIndex:0, fcFlipped:false});
+    else goto('home');
+  });
+}
 
-        <!-- ===== تبويب القواعد ===== -->
-        <div id="tab-grammar" class="tab-content">
-            <!-- القاعدة 1: المضارع البسيط -->
-            <div class="grammar-section">
-                <h2>🔹 المضارع البسيط (Present Simple)</h2>
-                <p style="font-size:1.05rem; margin-bottom:12px;"><strong>الاستخدام:</strong> للحقائق العامة، العادات، الروتين اليومي.</p>
+/* ---------- Grammar ---------- */
+function renderGrammarHub(main){
+  main.innerHTML = `
+    <div class="section-title">القواعد — Grammar</div>
+    <div class="section-sub">شرح مفصّل لقواعد مستوى A1 مع أمثلة وأخطاء شائعة واختبار بعد كل درس</div>
+    <div class="gram-grid">
+      ${GRAMMAR.map(g=>{
+        const done = STATE.progress.gramDone.includes(g.id);
+        return `<button class="gram-tile" data-g="${g.id}">
+          <div class="ic">${g.ic}</div><b>${g.title}</b><span>${done?'✅ مكتمل':'اضغط للدراسة'}</span>
+        </button>`;
+      }).join('')}
+    </div>
+  `;
+  main.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click', ()=>goto('grammar-detail',{gramId:b.dataset.g})));
+}
 
-                <h3>📌 التكوين</h3>
-                <ul>
-                    <li><strong>I / You / We / They</strong> → الفعل المجرد (مثال: <b>I eat</b>)</li>
-                    <li><strong>He / She / It</strong> → الفعل + <b>s</b> (مثال: <b>She eats</b>)</li>
-                </ul>
+function renderGrammarDetail(main){
+  const g = GRAMMAR.find(x=>x.id===STATE.gramId);
+  main.innerHTML = `
+    <button class="back-link" id="backBtn">→ رجوع للقواعد</button>
+    <div class="section-title">${g.ic} ${g.title}</div>
+    <div class="card gram-detail">
+      <div class="block">
+        <h3>📘 الشرح المبسّط</h3>
+        <p>${g.explain}</p>
+      </div>
+      <div class="block">
+        <h3>✏️ أمثلة</h3>
+        ${g.examples.map(e=>`<div class="ex-line"><span class="e">${e[0]}</span><span class="a">${e[1]}</span></div>`).join('')}
+      </div>
+      <div class="block">
+        <h3>💡 ملاحظات مهمة</h3>
+        <div class="note-box">${g.notes}</div>
+      </div>
+      <div class="block">
+        <h3>⚠️ أخطاء شائعة</h3>
+        <div class="mistake-box">${g.mistakes}</div>
+      </div>
+      <button class="btn btn-primary" id="startGramQuiz">ابدأ اختبار الدرس 📝</button>
+    </div>
+  `;
+  main.querySelector('#backBtn').addEventListener('click', ()=>goto('grammar'));
+  main.querySelector('#startGramQuiz').addEventListener('click', ()=>startGrammarQuiz(g));
+}
 
-                <div class="examples">
-                    <h4>✅ أمثلة</h4>
-                    <ul>
-                        <li>I <b>wake up</b> at 7 AM every day.</li>
-                        <li>She <b>drinks</b> coffee in the morning.</li>
-                        <li>They <b>play</b> football on Fridays.</li>
-                        <li>He <b>works</b> in a hospital.</li>
-                    </ul>
-                </div>
+function startGrammarQuiz(g){
+  STATE.quizQuestions = g.quiz.map(item=>({type:'gmcq', q:item.q, opts:item.opts, correctIndex:item.a}));
+  STATE.quizDay = 'gram-'+g.id;
+  STATE.quizIndex = 0;
+  STATE.quizScore = 0;
+  STATE.quizAnswered = false;
+  STATE.gramId = g.id;
+  goto('quiz-run-gram');
+}
 
-                <div class="grammar-quiz">
-                    <h4>🧪 اختبار القاعدة</h4>
-                    <p style="font-size:1.1rem; margin:10px 0;">She ___ (eat / eats) an apple every day.</p>
-                    <div class="options">
-                        <button onclick="checkGrammar('eat')">eat</button>
-                        <button onclick="checkGrammar('eats')">eats</button>
-                    </div>
-                    <p id="grammar-feedback1" style="margin-top:10px; font-weight:600;"></p>
-                </div>
-            </div>
+// extend render for grammar quiz
+const _origRender = render;
+render = function(){
+  const app = document.getElementById('app');
+  _origRender.call(this);
+  if(STATE.view==='quiz-run-gram'){
+    renderGrammarQuizRun(document.getElementById('main'));
+  }
+};
 
-            <!-- القاعدة 2: الماضي البسيط -->
-            <div class="grammar-section">
-                <h2>🔹 الماضي البسيط (Past Simple)</h2>
-                <p style="font-size:1.05rem; margin-bottom:12px;"><strong>الاستخدام:</strong> لأحداث انتهت في الماضي.</p>
-
-                <h3>📌 التكوين</h3>
-                <ul>
-                    <li><strong>الأفعال المنتظمة:</strong> الفعل + <b>ed</b> (مثال: walk → walked)</li>
-                    <li><strong>الأفعال الشاذة:</strong> تغيير كامل (مثال: go → went)</li>
-                </ul>
-
-                <div class="examples">
-                    <h4>✅ أمثلة</h4>
-                    <ul>
-                        <li>I <b>walked</b> to school yesterday.</li>
-                        <li>She <b>watched</b> TV last night.</li>
-                        <li>We <b>went</b> to the park on Sunday.</li>
-                    </ul>
-                </div>
-
-                <div class="grammar-quiz">
-                    <h4>🧪 اختبار القاعدة</h4>
-                    <p style="font-size:1.1rem; margin:10px 0;">I ___ (go / went) to the store yesterday.</p>
-                    <div class="options">
-                        <button onclick="checkGrammar2('go')">go</button>
-                        <button onclick="checkGrammar2('went')">went</button>
-                    </div>
-                    <p id="grammar-feedback2" style="margin-top:10px; font-weight:600;"></p>
-                </div>
-            </div>
-
-            <!-- القاعدة 3: الضمائر -->
-            <div class="grammar-section">
-                <h2>🔹 ضمائر الفاعل (Subject Pronouns)</h2>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:14px 0;">
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>I</b> ← أنا</div>
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>You</b> ← أنت / أنتم</div>
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>He</b> ← هو</div>
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>She</b> ← هي</div>
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>It</b> ← هو/هي (لغير العاقل)</div>
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>We</b> ← نحن</div>
-                    <div style="background:#f4f8ff; padding:12px; border-radius:12px; text-align:center;"><b>They</b> ← هم</div>
-                </div>
-            </div>
+function renderGrammarQuizRun(main){
+  const q = STATE.quizQuestions[STATE.quizIndex];
+  const total = STATE.quizQuestions.length;
+  main.innerHTML = `
+    <div class="quiz-wrap">
+      <div class="q-head">
+        <button class="back-link" id="backBtn" style="margin:0;">→ خروج</button>
+        <span class="q-score">سؤال ${STATE.quizIndex+1} من ${total} · النقاط: ${STATE.quizScore}</span>
+      </div>
+      <div class="fc-progress"><i style="width:${(STATE.quizIndex/total)*100}%"></i></div>
+      <div class="q-card" style="margin-top:16px;">
+        <div class="q-type">اختر الإجابة الصحيحة</div>
+        <div class="q-prompt en">${q.q}</div>
+        <div class="opt-list" id="optList">
+          ${q.opts.map((o,i)=>`<button class="opt en" data-i="${i}">${o}</button>`).join('')}
         </div>
+        <div id="fb"></div>
+        <div class="q-actions"><span></span><button class="btn btn-primary" id="nextQ" style="display:none;">${STATE.quizIndex===total-1?'إنهاء':'التالي'} ▶</button></div>
+      </div>
+    </div>
+  `;
+  main.querySelector('#backBtn').addEventListener('click', ()=>goto('grammar-detail',{gramId:STATE.gramId}));
+  main.querySelectorAll('#optList .opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(STATE.quizAnswered) return;
+      STATE.quizAnswered = true;
+      const i = parseInt(btn.dataset.i);
+      const correct = i===q.correctIndex;
+      if(correct) STATE.quizScore++;
+      main.querySelectorAll('#optList .opt').forEach((o,idx)=>{
+        if(idx===q.correctIndex) o.classList.add('correct');
+        else if(idx===i && !correct) o.classList.add('wrong');
+      });
+      const fb = main.querySelector('#fb');
+      fb.innerHTML = `<div class="feedback ${correct?'ok':'bad'}">${correct?'✅ صحيح!':'❌ غير صحيح. الإجابة الصحيحة: '+q.opts[q.correctIndex]}</div>`;
+      main.querySelector('#nextQ').style.display='block';
+    });
+  });
+  main.querySelector('#nextQ').addEventListener('click', ()=>{
+    if(STATE.quizIndex<total-1){ STATE.quizIndex++; STATE.quizAnswered=false; render(); }
+    else{
+      if(STATE.quizScore>=3 && !STATE.progress.gramDone.includes(STATE.gramId)){
+        STATE.progress.gramDone.push(STATE.gramId); saveProgress();
+      }
+      goto('quiz-result-gram');
+    }
+  });
+}
 
-    </main>
+const _origRender2 = render;
+render = function(){
+  _origRender2.call(this);
+  if(STATE.view==='quiz-result-gram'){
+    const main = document.getElementById('main');
+    const total = STATE.quizQuestions.length;
+    const passed = STATE.quizScore>=3;
+    main.innerHTML = `
+      <div class="quiz-wrap">
+        <div class="q-card result-card">
+          <div style="font-size:44px;">${passed?'🎉':'💪'}</div>
+          <div class="big">${STATE.quizScore}/${total}</div>
+          <p>${passed?'أحسنت! أتقنت هذه القاعدة.':'حاول المراجعة مرة أخرى لإتقان القاعدة.'}</p>
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn btn-ghost" id="retryG">إعادة الاختبار</button>
+            <button class="btn btn-primary" id="backG">العودة للقواعد</button>
+          </div>
+        </div>
+      </div>
+    `;
+    main.querySelector('#retryG').addEventListener('click', ()=>startGrammarQuiz(GRAMMAR.find(g=>g.id===STATE.gramId)));
+    main.querySelector('#backG').addEventListener('click', ()=>goto('grammar'));
+  }
+};
 
-    <!-- ============================================================ -->
-    <!-- JavaScript -->
-    <!-- ============================================================ -->
-    <script>
-        // =============================================================
-        // 1. البيانات: 30 يوم × 10 جمل
-        // =============================================================
-        const baseSentences = [
-            { en: "I am a student.", ar: "أنا طالب." },
-            { en: "You are here.", ar: "أنت هنا." },
-            { en: "He is my friend.", ar: "هو صديقي." },
-            { en: "She likes coffee.", ar: "هي تحب القهوة." },
-            { en: "We go to school.", ar: "نحن نذهب إلى المدرسة." },
-            { en: "They play football.", ar: "هم يلعبون كرة القدم." },
-            { en: "I have a book.", ar: "لدي كتاب." },
-            { en: "She reads every day.", ar: "هي تقرأ كل يوم." },
-            { en: "We eat lunch at 1 PM.", ar: "نحن نتناول الغداء الساعة 1." },
-            { en: "They live in London.", ar: "هم يعيشون في لندن." }
-        ];
-
-        // نضيف جمل إضافية لتنويع الأيام
-        const extraSentences = [
-            { en: "I like pizza.", ar: "أنا أحب البيتزا." },
-            { en: "He drives a car.", ar: "هو يقود سيارة." },
-            { en: "She writes a letter.", ar: "هي تكتب رسالة." },
-            { en: "We watch TV.", ar: "نحن نشاهد التلفاز." },
-            { en: "They buy groceries.", ar: "هم يشترون البقالة." },
-            { en: "I speak English.", ar: "أنا أتحدث الإنجليزية." },
-            { en: "He studies hard.", ar: "هو يدرس بجد." },
-            { en: "She sings well.", ar: "هي تغني بشكل جيد." },
-            { en: "We travel together.", ar: "نحن نسافر معاً." },
-            { en: "They cook dinner.", ar: "هم يطبخون العشاء." }
-        ];
-
-        // توليد 30 يوم (كل يوم 10 جمل)
-        const allDays = [];
-        for (let day = 0; day < 30; day++) {
-            const startIdx = (day * 3) % extraSentences.length;
-            const daySentences = [];
-            for (let i = 0; i < 10; i++) {
-                const base = baseSentences[i % baseSentences.length];
-                const extra = extraSentences[(startIdx + i) % extraSentences.length];
-                // نخلط بين القاعدية والإضافية
-                const useExtra = i % 2 === 0;
-                const s = useExtra ? extra : base;
-                daySentences.push({
-                    en: s.en,
-                    ar: s.ar,
-                    example: `📌 مثال: ${s.en.replace('.', '')} في جملة مفيدة.`
-                });
-            }
-            allDays.push(daySentences);
-        }
-
-        // =============================================================
-        // 2. النطق (Speech Synthesis)
-        // =============================================================
-        function speakText(text, lang = 'en-US') {
-            if (!window.speechSynthesis) {
-                alert('متصفحك لا يدعم النطق الصوتي');
-                return;
-            }
-            window.speechSynthesis.cancel(); // إيقاف أي نطق سابق
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang;
-            utterance.rate = 0.9;
-            utterance.pitch = 1;
-            utterance.volume = 1;
-            // اختيار صوت إنجليزي إن وجد
-            const voices = window.speechSynthesis.getVoices();
-            const enVoice = voices.find(v => v.lang.startsWith('en'));
-            if (enVoice) utterance.voice = enVoice;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        // تحميل الأصوات مسبقاً (للتأكد من جاهزيتها)
-        if (window.speechSynthesis) {
-            window.speechSynthesis.getVoices();
-            window.speechSynthesis.onvoiceschanged = () => {
-                window.speechSynthesis.getVoices();
-            };
-        }
-
-        // =============================================================
-        // 3. إدارة التبويبات
-        // =============================================================
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
-            document.querySelector(`nav a[data-tab="${tabId}"]`).classList.add('active');
-
-            if (tabId === 'flashcards') {
-                const day = parseInt(document.getElementById('day-input').value) || 1;
-                loadFlashcards(day);
-            }
-            if (tabId === 'home') updateHomeStats();
-        }
-
-        document.querySelectorAll('nav a').forEach(a => {
-            a.addEventListener('click', (e) => {
-                e.preventDefault();
-                switchTab(a.dataset.tab);
-            });
-        });
-
-        // =============================================================
-        // 4. عرض البطاقات
-        // =============================================================
-        let currentDaySentences = [];
-        let currentDayIndex = 0;
-
-        function loadFlashcards(day) {
-            const index = day - 1;
-            if (index < 0 || index >= allDays.length) {
-                document.getElementById('flashcard-container').innerHTML = '<p style="padding:20px;">⚠️ اليوم غير متاح</p>';
-                return;
-            }
-            currentDayIndex = index;
-            currentDaySentences = allDays[index];
-            const container = document.getElementById('flashcard-container');
-            document.getElementById('day-title').textContent = `📅 اليوم ${day}`;
-
-            container.innerHTML = currentDaySentences.map((s, i) => `
-                <div class="flashcard" data-index="${i}">
-                    <div class="texts">
-                        <div class="en">${s.en}</div>
-                        <div class="ar">🔹 ${s.ar}</div>
-                        <div class="example">${s.example}</div>
-                    </div>
-                    <button class="audio-btn" onclick="speakText('${s.en.replace(/'/g, "\\'")}')" title="استمع للنطق">
-                        🔊
-                    </button>
-                </div>
-            `).join('');
-
-            // إعداد الاختبار
-            setupQuiz(currentDaySentences);
-        }
-
-        // =============================================================
-        // 5. الاختبار التفاعلي
-        // =============================================================
-        let quizList = [];
-        let quizIndex = 0;
-        let correctCount = 0;
-
-        function setupQuiz(list) {
-            quizList = list;
-            quizIndex = 0;
-            correctCount = 0;
-            showQuestion();
-        }
-
-        function showQuestion() {
-            const qEl = document.getElementById('quiz-question');
-            const input = document.getElementById('quiz-answer');
-            const fb = document.getElementById('quiz-feedback');
-            const progress = document.getElementById('quiz-progress');
-
-            if (!qEl) return;
-
-            if (quizIndex < quizList.length) {
-                const s = quizList[quizIndex];
-                qEl.textContent = `📝 اكتب ترجمة: "${s.en}"`;
-                input.value = '';
-                input.style.display = 'inline-block';
-                document.getElementById('check-answer').style.display = 'inline-block';
-                fb.textContent = '';
-                fb.style.color = '#1a2a44';
-                progress.textContent = `السؤال ${quizIndex + 1} / ${quizList.length}`;
-                input.focus();
-            } else {
-                qEl.textContent = `🎉 انتهى الاختبار! ✅ ${correctCount} إجابة صحيحة من ${quizList.length}`;
-                input.style.display = 'none';
-                document.getElementById('check-answer').style.display = 'none';
-                fb.textContent = '';
-                progress.textContent = '✨ مكتمل!';
-            }
-        }
-
-        function checkQuizAnswer() {
-            const input = document.getElementById('quiz-answer');
-            const fb = document.getElementById('quiz-feedback');
-            if (!input || !fb || quizIndex >= quizList.length) return;
-
-            const userAnswer = input.value.trim();
-            const correct = quizList[quizIndex]?.ar;
-
-            if (!userAnswer) {
-                fb.textContent = '✏️ اكتب إجابتك أولاً';
-                fb.style.color = '#f59e0b';
-                return;
-            }
-
-            // مقارنة بسيطة (يمكن تحسينها لاحقاً)
-            if (userAnswer === correct) {
-                fb.innerHTML = '✅ إجابة صحيحة! 🌟';
-                fb.style.color = '#22c55e';
-                correctCount++;
-                quizIndex++;
-                setTimeout(showQuestion, 900);
-            } else {
-                fb.innerHTML = `❌ خطأ، حاول مجدداً<br><span style="font-size:0.9rem; color:#6a7e9a;">الإجابة الصحيحة: "${correct}"</span>`;
-                fb.style.color = '#ef4444';
-                // لا نزيد المؤشر، نعطي فرصة أخرى
-            }
-        }
-
-        // تخطي السؤال
-        document.getElementById('skip-question')?.addEventListener('click', () => {
-            if (quizIndex < quizList.length) {
-                quizIndex++;
-                showQuestion();
-            }
-        });
-
-        // ربط زر التحقق
-        document.getElementById('check-answer')?.addEventListener('click', checkQuizAnswer);
-        document.getElementById('quiz-answer')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkQuizAnswer();
-        });
-
-        // =============================================================
-        // 6. تشغيل الصوت لكل البطاقات
-        // =============================================================
-        function playAllAudio() {
-            if (currentDaySentences.length === 0) {
-                alert('لا توجد جمل للاستماع');
-                return;
-            }
-            let i = 0;
-            function playNext() {
-                if (i >= currentDaySentences.length) return;
-                speakText(currentDaySentences[i].en);
-                i++;
-                setTimeout(playNext, 1800);
-            }
-            playNext();
-        }
-
-        // =============================================================
-        // 7. اختبارات القواعد
-        // =============================================================
-        function checkGrammar(answer) {
-            const fb = document.getElementById('grammar-feedback1');
-            const correct = 'eats';
-            if (answer === correct) {
-                fb.innerHTML = '✅ صحيح! "She eats" لأن الفاعل مفرد مؤنث.';
-                fb.style.color = '#22c55e';
-            } else {
-                fb.innerHTML = '❌ خطأ. الإجابة الصحيحة: "eats" (نضيف s مع He/She/It)';
-                fb.style.color = '#ef4444';
-            }
-        }
-
-        function checkGrammar2(answer) {
-            const fb = document.getElementById('grammar-feedback2');
-            const correct = 'went';
-            if (answer === correct) {
-                fb.innerHTML = '✅ صحيح! "went" هو الماضي من "go".';
-                fb.style.color = '#22c55e';
-            } else {
-                fb.innerHTML = '❌ خطأ. الإجابة الصحيحة: "went" (فعل شاذ)';
-                fb.style.color = '#ef4444';
-            }
-        }
-
-        // =============================================================
-        // 8. الصفحة الرئيسية
-        // =============================================================
-        function updateHomeStats() {
-            const today = new Date().getDate() % 30 || 30;
-            document.getElementById('day-display').textContent = `اليوم ${today} / 30`;
-            document.getElementById('progress-bar').style.width = `${(today / 30) * 100}%`;
-            document.getElementById('learned-count').textContent = today * 10;
-        }
-
-        // أزرار الأيام السريعة
-        function generateDayButtons() {
-            const container = document.getElementById('day-buttons');
-            if (!container) return;
-            for (let i = 1; i <= 30; i++) {
-                const btn = document.createElement('button');
-                btn.textContent = i;
-                btn.className = 'btn-secondary';
-                btn.style.padding = '8px 14px';
-                btn.style.minWidth = '40px';
-                btn.onclick = () => {
-                    document.getElementById('day-input').value = i;
-                    switchTab('flashcards');
-                };
-                container.appendChild(btn);
-            }
-        }
-        generateDayButtons();
-
-        // =============================================================
-        // 9. تحميل اليوم عند الضغط على "عرض"
-        // =============================================================
-        document.getElementById('load-day')?.addEventListener('click', () => {
-            const day = parseInt(document.getElementById('day-input').value) || 1;
-            if (day < 1) document.getElementById('day-input').value = 1;
-            if (day > 30) document.getElementById('day-input').value = 30;
-            loadFlashcards(parseInt(document.getElementById('day-input').value));
-        });
-
-        // =============================================================
-        // 10. التهيئة عند تحميل الصفحة
-        // =============================================================
-        document.addEventListener('DOMContentLoaded', function() {
-            // تفعيل التبويب الرئيسي
-            switchTab('home');
-
-            // تحميل اليوم الحالي في البطاقات
-            const today = new Date().getDate() % 30 || 30;
-            document.getElementById('day-input').value = today;
-            loadFlashcards(today);
-
-            // بدء الاختبار مع اليوم الحالي
-            setupQuiz(allDays[today - 1]);
-        });
-
-        // إعادة تهيئة الأصوات عند تحميل الصفحة (للمتصفحات)
-        if (window.speechSynthesis) {
-            setTimeout(() => window.speechSynthesis.getVoices(), 300);
-        }
-
-        console.log('🚀 موقع A1 جاهز! استمتع بتعلم الإنجليزية.');
-    </script>
-
+loadProgress();
+</script>
 </body>
 </html>
