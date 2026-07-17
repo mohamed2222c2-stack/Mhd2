@@ -1,273 +1,1027 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحدي 30 يوم الإنجليزي A1</title>
-    <!-- Tailwind CSS للتحكم في الألوان والتصميم بسرعة -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome للأيقونات مثل الترس والإرسال -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #0b0f19;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-        /* تخصيص شريط التمرير للدردشة */
-        .chat-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-scroll::-webkit-scrollbar-track {
-            background: #0b0f19;
-        }
-        .chat-scroll::-webkit-scrollbar-thumb {
-            background: #1f2937;
-            border-radius: 10px;
-        }
-    </style>
-</head>
-<body class="text-gray-100 flex flex-col min-h-screen">
+```react
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  BookOpen, 
+  CheckCircle, 
+  Volume2, 
+  Award, 
+  ChevronRight, 
+  ChevronLeft, 
+  Calendar, 
+  Sparkles, 
+  BookOpenCheck, 
+  Check, 
+  RefreshCw,
+  Search,
+  BookMarked,
+  HelpCircle,
+  Eye,
+  ArrowLeft,
+  ArrowRight,
+  Info
+} from 'lucide-react';
 
-    <!-- شريط الرأس (Header) -->
-    <header class="bg-[#111827] border-b border-gray-800 p-4 sticky top-0 z-10 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="bg-purple-600 text-white p-2.5 rounded-xl">
-                <i class="fa-solid fa-graduation-cap text-xl"></i>
+// قاعدة البيانات المفصلة لـ 30 يوماً مع تفاصيل القواعد واختباراتها
+const DAYS_DATA = [
+  {
+    day: 1,
+    title: "التحيات والتعارف الأساسي",
+    grammarTitle: "فعل الكينونة (Verb to Be) في المضارع البسيط",
+    grammarDetails: {
+      explanation: "فعل الكينونة (Verb to Be) هو أهم فعل في اللغة الإنجليزية. نستخدمه لتعريف أنفسنا، وصف الأشياء، أو الحديث عن الحالات الحالية. يتغير شكل الفعل حسب الضمير (Subject Pronoun):",
+      rules: [
+        { subject: "I (أنا)", verb: "am", example: "I am a student." },
+        { subject: "He (هو) / She (هي) / It (هو/هي لغير العاقل)", verb: "is", example: "She is Moroccan." },
+        { subject: "You (أنت/أنتم) / We (نحن) / They (هم)", verb: "are", example: "They are ready." }
+      ],
+      examples: [
+        { en: "I am a fast learner.", ar: "أنا متعلم سريع.", note: "استعمال am مع الضمير I" },
+        { en: "It is a sunny day today.", ar: "إنه يوم مشمس اليوم.", note: "استعمال is مع المفرد غير العاقل It" },
+        { en: "We are in the classroom.", ar: "نحن في الفصل الدراسي.", note: "استعمال are مع ضمير الجمع We" }
+      ],
+      quiz: {
+        question: "اختر الكلمة الصحيحة لملء الفراغ: 'They ____ very happy today.'",
+        options: ["am", "is", "are"],
+        correctIndex: 2,
+        explanation: "نستخدم 'are' لأن الفاعل هو 'They' (ضمير جمع)."
+      }
+    },
+    sentences: [
+      { en: "Hello, my name is John.", ar: "مرحباً، اسمي جون." },
+      { en: "How are you doing today?", ar: "كيف حالك اليوم؟" },
+      { en: "I am fine, thank you.", ar: "أنا بخير، شكراً لك." },
+      { en: "Nice to meet you.", ar: "سررت بلقائك." },
+      { en: "Where are you from?", ar: "من أين أنت؟" },
+      { en: "I am from Morocco.", ar: "أنا من المغرب." },
+      { en: "She is a wonderful teacher.", ar: "هي معلمة رائعة." },
+      { en: "They are my friends.", ar: "هم أصدقائي." },
+      { en: "What is your phone number?", ar: "ما هو رقم هاتفك؟" },
+      { en: "Goodbye, see you tomorrow.", ar: "وداعاً، أراك غداً." }
+    ]
+  },
+  {
+    day: 2,
+    title: "العائلة والقرابة",
+    grammarTitle: "صفات الملكية (Possessive Adjectives)",
+    grammarDetails: {
+      explanation: "تُستخدم صفات الملكية لتحديد من يملك الشيء، وتأتي دائماً قبل الاسم المملوك مباشرة ولا تتغير بتغير الاسم (سواء كان مفرداً أو جمعاً):",
+      rules: [
+        { subject: "I", verb: "my", example: "This is my book (كتابي)" },
+        { subject: "He / She", verb: "his / her", example: "His car (سيارته) / Her bag (حقيبتها)" },
+        { subject: "You / We / They", verb: "your / our / their", example: "Our house (منزلنا)" }
+      ],
+      examples: [
+        { en: "Her mother is an artist.", ar: "والدتها فنانة.", note: "استعمال Her للإشارة لملكية الأنثى الغائبة" },
+        { en: "They love their big family.", ar: "هم يحبون عائلتهم الكبيرة.", note: "استعمال their للإشارة لملكية المجموع الغائب" },
+        { en: "What is your father's job?", ar: "ما هي وظيفة والدك؟", note: "استعمال your للمخاطب المباشر" }
+      ],
+      quiz: {
+        question: "اختر الإجابة الصحيحة: 'I lost ____ keys yesterday.'",
+        options: ["my", "his", "her"],
+        correctIndex: 0,
+        explanation: "نستخدم 'my' لأن الفاعل المتحدث هو 'I'."
+      }
+    },
+    sentences: [
+      { en: "This is my beloved mother.", ar: "هذه أمي الحبيبة." },
+      { en: "He lives with his father.", ar: "هو يعيش مع والده." },
+      { en: "Do you have any brothers?", ar: "هل لديك أي إخوة؟" },
+      { en: "My sister is a doctor.", ar: "أختي طبيبة." },
+      { en: "Her daughter is very smart.", ar: "ابنتها ذكية جداً." },
+      { en: "We love our big family.", ar: "نحن نحب عائلتنا الكبيرة." },
+      { en: "Is that your brother?", ar: "هل هذا شقيقك؟" },
+      { en: "Their house is beautiful.", ar: "منزلهم جميل." },
+      { en: "I have two young sons.", ar: "لدي ابنان صغيران." },
+      { en: "She has one older sister.", ar: "لدى شقيقتها أخت واحدة أكبر سناً." }
+    ]
+  },
+  {
+    day: 3,
+    title: "الوقت والأرقام",
+    grammarTitle: "حروف الجر الخاصة بالوقت (At, On, In)",
+    grammarDetails: {
+      explanation: "نستعمل حروف الجر المحددة (At, On, In) لتحديد أوقات الأنشطة والأحداث بدقة حسب الحجم الزمني:",
+      rules: [
+        { subject: "At", verb: "للساعات والأوقات المحددة", example: "at 5:00 PM, at midnight, at lunchtime" },
+        { subject: "On", verb: "للأيام والتواريخ الخاصة", example: "on Monday, on my birthday, on July 4th" },
+        { subject: "In", verb: "للفترات الطويلة والشهور والسنوات والفصول", example: "in the morning, in summer, in 2026, in July" }
+      ],
+      examples: [
+        { en: "The store opens at eight o'clock.", ar: "يفتح المتجر في الساعة الثامنة تماماً.", note: "At مع الوقت المحدد" },
+        { en: "We don't work on Fridays.", ar: "نحن لا نعمل أيام الجمعة.", note: "On مع أيام الأسبوع" },
+        { en: "It gets very cold in January.", ar: "الطقس يصبح بارداً جداً في يناير.", note: "In مع الشهور" }
+      ],
+      quiz: {
+        question: "اختر الحرف الصحيح: 'My birthday is ____ October.'",
+        options: ["at", "on", "in"],
+        correctIndex: 2,
+        explanation: "نستخدم 'in' لأن 'October' شهر من شهور السنة."
+      }
+    },
+    sentences: [
+      { en: "I wake up at six o'clock.", ar: "أستيقظ في الساعة السادسة تماماً." },
+      { en: "The English lesson starts on Monday.", ar: "يبدأ درس اللغة الإنجليزية يوم الاثنين." },
+      { en: "We drink coffee in the morning.", ar: "نشرب القهوة في الصباح." },
+      { en: "What time is it now?", ar: "كم الساعة الآن؟" },
+      { en: "It is half past nine.", ar: "إنها التاسعة والنصف." },
+      { en: "I sleep late on weekends.", ar: "أنام متأخراً في عطلة نهاية الأسبوع." },
+      { en: "Her birthday is in July.", ar: "عيد ميلادها في شهر يوليو." },
+      { en: "He works from nine to five.", ar: "هو يعمل من التاسعة إلى الخامسة." },
+      { en: "The train leaves in ten minutes.", ar: "يغادر القطار خلال عشر دقائق." },
+      { en: "It is too late to go out.", ar: "الوقت متأخر جداً للخروج." }
+    ]
+  },
+  // سنقوم بتوليد باقي الأيام ديناميكياً مع هيكلية قواعد واختبارات كاملة لضمان عمل الموقع لـ 30 يوماً
+  ...Array.from({ length: 27 }, (_, i) => {
+    const dayNum = i + 4;
+    const topics = [
+      {
+        title: "الأطعمة والمشروبات",
+        grammarTitle: "أدوات النكرة والتجزئة (A, An, Some)",
+        explanation: "نستخدم أدوات التحديد لتنظيم الأسماء القابلة للعد والغير قابلة للعد في المطبخ والمطعم:",
+        rules: [
+          { subject: "A", verb: "قبل اسم مفرد مبدوء بحرف ساكن", example: "a banana, a cup" },
+          { subject: "An", verb: "قبل اسم مفرد مبدوء بحرف متحرك (a,e,i,o,u)", example: "an orange, an egg" },
+          { subject: "Some", verb: "مع الكميات غير المعدودة أو الجمع في الإثبات", example: "some water, some apples" }
+        ],
+        examples: [
+          { en: "I would like some milk.", ar: "أود بعض الحليب.", note: "Some مع غير المعدود" },
+          { en: "She bought an onion.", ar: "اشترت بصلة واحدة.", note: "An مع اسم يبدأ بحرف متحرك" }
+        ],
+        quiz: {
+          question: "اختر الخيار المناسب: 'He eats ____ apple every afternoon.'",
+          options: ["a", "an", "some"],
+          correctIndex: 1,
+          explanation: "نستخدم 'an' لأن كلمة apple تبدأ بحرف علة متحرك (A)."
+        },
+        sentences: [
+          { en: "I want to eat an apple.", ar: "أريد أن آكل تفاحة." },
+          { en: "Would you like some water?", ar: "هل ترغب في بعض الماء؟" },
+          { en: "He drinks milk every morning.", ar: "هو يشرب الحليب كل صباح." },
+          { en: "This restaurant serves delicious food.", ar: "يقدم هذا المطعم طعاماً لذيذاً." },
+          { en: "I do not like coffee.", ar: "أنا لا أحب القهوة." },
+          { en: "She is cooking a fresh meal.", ar: "هي تطبخ وجبة طازجة." },
+          { en: "Can I have the menu, please?", ar: "هل يمكنني الحصول على قائمة الطعام من فضلك؟" },
+          { en: "Bread is on the table.", ar: "الخبز على الطاولة." },
+          { en: "We need some salt and pepper.", ar: "نحتاج إلى بعض الملح والفلفل." },
+          { en: "They love eating fresh fish.", ar: "هم يحبون أكل السمك الطازج." }
+        ]
+      },
+      {
+        title: "الروتين اليومي والأنشطة",
+        grammarTitle: "زمن المضارع البسيط وصيغة الغائب (Present Simple)",
+        explanation: "المضارع البسيط يعبر عن العادات والروتين. تذكر إضافة حرف S للفعل دائماً مع المفرد الغائب فقط:",
+        rules: [
+          { subject: "I / You / We / They", verb: "الفعل في المصدر بدون أي إضافات", example: "I go, they sleep" },
+          { subject: "He / She / It", verb: "نضيف s أو es لنهاية الفعل", example: "He goes, she sleeps" }
+        ],
+        examples: [
+          { en: "She brushes her teeth daily.", ar: "هي تنظف أسنانها يومياً.", note: "إضافة es لأن الفعل ينتهي بـ sh" },
+          { en: "They play soccer on Sunday.", ar: "هم يلعبون كرة القدم يوم الأحد.", note: "الفعل بدون إضافات مع الجمع" }
+        ],
+        quiz: {
+          question: "اختر الفعل الصحيح: 'My brother ____ in London.'",
+          options: ["live", "lives", "living"],
+          correctIndex: 1,
+          explanation: "نختار 'lives' المضاف إليها S لأن الفاعل مفرد غائب (My brother = He)."
+        },
+        sentences: [
+          { en: "I brush my teeth daily.", ar: "أنظف أسناني يومياً." },
+          { en: "She goes to school by bus.", ar: "هي تذهب إلى المدرسة بالحافلة." },
+          { en: "He washes his face first.", ar: "يغسل وجهه أولاً." },
+          { en: "They play football in the afternoon.", ar: "يلعبون كرة القدم في المساء." },
+          { en: "I do my homework before dinner.", ar: "أقوم بحل واجباتي المدرسية قبل العشاء." },
+          { en: "We watch TV in the evening.", ar: "نشاهد التلفاز في المساء." },
+          { en: "My father reads the newspaper.", ar: "والدي يقرأ الجريدة." },
+          { en: "She cleans her room every Saturday.", ar: "هي تنظف غرفتها كل سبت." },
+          { en: "I take a shower before bed.", ar: "آخذ حماماً قبل النوم." },
+          { en: "The sun rises in the east.", ar: "تشرق الشمس من الشرق." }
+        ]
+      }
+    ];
+
+    const currentTopic = topics[i % topics.length];
+    return {
+      day: dayNum,
+      title: `${currentTopic.title} (اليوم ${dayNum})`,
+      grammarTitle: currentTopic.grammarTitle,
+      grammarDetails: {
+        explanation: currentTopic.explanation,
+        rules: currentTopic.rules,
+        examples: currentTopic.examples,
+        quiz: currentTopic.quiz
+      },
+      sentences: currentTopic.sentences
+    };
+  })
+];
+
+export default function App() {
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
+  const [completedDays, setCompletedDays] = useState([]);
+  const [activeTab, setActiveTab] = useState('study'); // 'study' (Flashcards), 'grammar' (صفحة القواعد), 'quiz' (الاختبار)
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // حالات الفلاش كاردز (Flashcards)
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [viewedCards, setViewedCards] = useState([0]);
+  
+  // حالات اختبار الجمل (جملة بجملة)
+  const [currentQuizStep, setCurrentQuizStep] = useState(0);
+  const [quizInput, setQuizInput] = useState('');
+  const [quizResults, setQuizResults] = useState([]); // لتخزين نتيجة كل خطوة [{userAnswer, isCorrect, score}]
+  const [showStepFeedback, setShowStepFeedback] = useState(false);
+  const [isStepCorrect, setIsStepCorrect] = useState(false);
+  const [quizFinished, setQuizFinished] = useState(false);
+
+  // حالات اختبار القواعد المدمج
+  const [selectedGrammarOption, setSelectedGrammarOption] = useState(null);
+  const [grammarAnswerChecked, setGrammarAnswerChecked] = useState(false);
+
+  const [speakingSentenceId, setSpeakingSentenceId] = useState(null);
+  const lessonRef = useRef(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('english_30days_completed');
+    if (saved) {
+      try {
+        setCompletedDays(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
+
+  const currentDay = DAYS_DATA[currentDayIndex];
+
+  // تصفير وتهيئة الحالات عند تبديل الأيام
+  const handleDaySelect = (index) => {
+    setCurrentDayIndex(index);
+    setActiveTab('study');
+    setCurrentCardIndex(0);
+    setIsFlipped(false);
+    setViewedCards([0]);
+    resetSentenceQuiz();
+    resetGrammarQuiz();
+    
+    setTimeout(() => {
+      lessonRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  };
+
+  const toggleDayCompletion = (dayNumber) => {
+    let updated;
+    if (completedDays.includes(dayNumber)) {
+      updated = completedDays.filter(d => d !== dayNumber);
+    } else {
+      updated = [...completedDays, dayNumber];
+    }
+    setCompletedDays(updated);
+    localStorage.setItem('english_30days_completed', JSON.stringify(updated));
+  };
+
+  // التحكم ببطاقات الاستذكار
+  const handleNextCard = () => {
+    if (currentCardIndex < 9) {
+      setIsFlipped(false);
+      setTimeout(() => {
+        const nextIndex = currentCardIndex + 1;
+        setCurrentCardIndex(nextIndex);
+        if (!viewedCards.includes(nextIndex)) {
+          setViewedCards([...viewedCards, nextIndex]);
+        }
+      }, 120);
+    }
+  };
+
+  const handlePrevCard = () => {
+    if (currentCardIndex > 0) {
+      setIsFlipped(false);
+      setTimeout(() => {
+        setCurrentCardIndex(currentCardIndex - 1);
+      }, 120);
+    }
+  };
+
+  // النطق الصوتي للجمل
+  const speakSentence = (text, id) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.82;
+
+      utterance.onstart = () => setSpeakingSentenceId(id);
+      utterance.onend = () => setSpeakingSentenceId(null);
+      utterance.onerror = () => setSpeakingSentenceId(null);
+
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("متصفحك لا يدعم تحويل النص إلى كلام.");
+    }
+  };
+
+  // ميكانيزم اختبار الجمل التفاعلي (خطوة بخطوة)
+  const handleCheckStep = () => {
+    const currentSentence = currentDay.sentences[currentQuizStep];
+    const cleanedUser = quizInput.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    const cleanedCorrect = currentSentence.en.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    
+    // احتساب الإجابة صحيحة إذا تطابقت أو كان التطابق شبه كامل لتسهيل الـ A1
+    const correct = cleanedUser === cleanedCorrect || (cleanedCorrect.includes(cleanedUser) && cleanedUser.length > 3);
+    
+    setIsStepCorrect(correct);
+    setShowStepFeedback(true);
+
+    const stepResult = {
+      step: currentQuizStep,
+      userAnswer: quizInput,
+      correctAnswer: currentSentence.en,
+      arabicTranslation: currentSentence.ar,
+      isCorrect: correct
+    };
+
+    const updatedResults = [...quizResults];
+    updatedResults[currentQuizStep] = stepResult;
+    setQuizResults(updatedResults);
+  };
+
+  const handleNextStep = () => {
+    setShowStepFeedback(false);
+    setQuizInput('');
+    if (currentQuizStep < 9) {
+      setCurrentQuizStep(currentQuizStep + 1);
+    } else {
+      setQuizFinished(true);
+      // حساب النسبة المئوية الإجمالية
+      const correctCount = quizResults.filter(r => r.isCorrect).length;
+      const score = correctCount * 10;
+      if (score >= 70 && !completedDays.includes(currentDay.day)) {
+        toggleDayCompletion(currentDay.day);
+      }
+    }
+  };
+
+  const resetSentenceQuiz = () => {
+    setCurrentQuizStep(0);
+    setQuizInput('');
+    setQuizResults([]);
+    setShowStepFeedback(false);
+    setQuizFinished(false);
+  };
+
+  // التحكم باختبار القواعد
+  const handleCheckGrammar = () => {
+    setGrammarAnswerChecked(true);
+  };
+
+  const resetGrammarQuiz = () => {
+    setSelectedGrammarOption(null);
+    setGrammarAnswerChecked(false);
+  };
+
+  const progressPercentage = Math.round((completedDays.length / 30) * 100);
+
+  // البحث السريع في الجمل
+  const allSentences = DAYS_DATA.flatMap(d => 
+    d.sentences.map(s => ({ ...s, day: d.day, dayTitle: d.title }))
+  );
+
+  const filteredSentences = searchQuery 
+    ? allSentences.filter(s => 
+        s.en.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        s.ar.includes(searchQuery)
+      )
+    : [];
+
+  return (
+    <div className="min-h-screen bg-[#FAF8F5] text-slate-800 font-sans selection:bg-amber-100 selection:text-amber-900 pb-12">
+      
+      {/* ستايل مخصص للبطاقات والتحولات */}
+      <style>{`
+        .perspective-1000 { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+      `}</style>
+
+      {/* رأس الصفحة الأنيق */}
+      <header className="border-b border-amber-100/60 bg-white/90 backdrop-blur sticky top-0 z-40 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="bg-amber-100 p-2 rounded-xl text-amber-800">
+              <BookOpen className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div>
-                <h1 class="text-lg font-bold text-white">تحدي 30 يوم الإنجليزي A1</h1>
-                <p class="text-xs text-gray-400">تطبيق مطور مخصص لمحمد 🇲🇦</p>
+              <h1 className="text-lg font-bold text-slate-900 tracking-wide flex items-center gap-2">
+                مسار الـ 30 يوماً لتعلم الإنجليزية
+                <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold">مستوى A1</span>
+              </h1>
+              <p className="text-[11px] text-slate-500">نظام فلاش كاردز تفاعلي واختبارات مبسطة يومية</p>
             </div>
-        </div>
-        <!-- زر الإعدادات لتغيير API Key -->
-        <button id="settingsBtn" class="text-gray-400 hover:text-white p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
-            <i class="fa-solid fa-gear text-lg"></i>
-        </button>
-    </header>
+          </div>
 
-    <!-- منطقة الشات الرئيسية -->
-    <main class="flex-1 max-w-2xl w-full mx-auto p-4 flex flex-col gap-4 overflow-hidden">
+          {/* تتبع التقدم العام */}
+          <div className="flex items-center gap-4 bg-amber-50/70 border border-amber-100/40 p-2 px-3 rounded-xl w-full md:w-auto">
+            <div className="flex-1 md:flex-none">
+              <div className="flex justify-between text-[11px] text-amber-900 font-semibold mb-0.5">
+                <span>إنجاز التحدي</span>
+                <span>{progressPercentage}% ({completedDays.length}/30 يوم)</span>
+              </div>
+              <div className="w-full md:w-40 bg-amber-200/40 h-2 rounded-full overflow-hidden">
+                <div 
+                  className="bg-amber-700 h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${progressPercentage}%` }}
+                ></div>
+              </div>
+            </div>
+            <div className="bg-white p-1.5 rounded-lg border border-amber-100 flex items-center justify-center">
+              <Award className="w-5 h-5 text-amber-700" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- بطاقة الأستاذ المساعد -->
-        <div class="bg-[#161b26] border border-purple-950/40 rounded-2xl p-4 flex items-center justify-between shadow-lg">
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-[#161b26] rounded-full"></span>
-                </div>
-                <div>
-                    <h2 class="font-bold text-white text-sm sm:text-base">الأستاذ الذكي المساعد</h2>
-                    <span class="text-xs text-green-400 font-medium">● نشط حالياً (بالدارجة)</span>
-                </div>
-            </div>
-            <button onclick="clearChat()" class="text-xs text-red-400 hover:text-red-300 bg-red-500/10 px-3 py-1.5 rounded-lg border border-red-500/20 transition">
-                <i class="fa-regular fa-trash-can mr-1"></i> مسح السجل
-            </button>
-        </div>
+        {/* العمود الجانبي: شبكة الأيام والبحث */}
+        <section className="lg:col-span-4 bg-white border border-amber-100/40 rounded-2xl p-4 shadow-sm h-fit">
+          <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-100">
+            <h2 className="font-bold text-slate-950 flex items-center gap-2 text-xs">
+              <Calendar className="w-3.5 h-3.5 text-amber-700" />
+              أيام التحدي الـ 30
+            </h2>
+            <span className="text-[10px] text-slate-500">اختر اليوم للمذاكرة</span>
+          </div>
 
-        <!-- صندوق الرسائل -->
-        <div id="chatBox" class="flex-1 bg-[#0f1422] border border-gray-800 rounded-2xl p-4 overflow-y-auto chat-scroll flex flex-col gap-3 min-h-[350px]">
-            <!-- رسالة الترحيب التلقائية -->
-            <div class="flex gap-2 items-end max-w-[85%]">
-                <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shrink-0">🤖</div>
-                <div class="bg-[#1a2035] text-gray-200 p-3 rounded-2xl rounded-br-none text-sm leading-relaxed">
-                    مرحباً محمد! واجد لشي تمرين سريع دابا ديال الإنجليزية أولا عندك شي سؤال؟ أنا هنا باش نعاونك بالدارجة المغربية. 🌟
-                </div>
-            </div>
-        </div>
+          <div className="grid grid-cols-5 gap-2 max-h-[300px] overflow-y-auto pr-1">
+            {DAYS_DATA.map((day, idx) => {
+              const isSelected = idx === currentDayIndex;
+              const isCompleted = completedDays.includes(day.day);
+              return (
+                <button
+                  key={day.day}
+                  onClick={() => handleDaySelect(idx)}
+                  className={`relative p-2.5 rounded-xl font-bold text-xs transition-all flex flex-col items-center justify-center gap-0.5 cursor-pointer
+                    ${isSelected 
+                      ? 'bg-amber-800 text-white shadow-sm shadow-amber-950/20 scale-105' 
+                      : isCompleted 
+                        ? 'bg-emerald-50 text-emerald-800 border border-emerald-100 hover:bg-emerald-100'
+                        : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/50'
+                    }`}
+                >
+                  <span className="text-[9px] opacity-70 font-normal">يوم</span>
+                  <span className="text-sm">{day.day}</span>
+                  {isCompleted && (
+                    <span className="absolute -top-1 -right-1 bg-emerald-500 text-white rounded-full p-0.5">
+                      <Check className="w-2 h-2" />
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
 
-        <!-- حقل الإدخال والإرسال -->
-        <div class="flex gap-2 items-center">
-            <input type="text" id="userInput" placeholder="اكتب سؤالك هنا للأستاذ الذكي..." 
-                   class="flex-1 bg-[#161b26] border border-gray-700 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-purple-500 transition placeholder-gray-500">
-            <button id="sendBtn" class="w-12 h-12 rounded-xl bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center transition shadow-lg shrink-0">
-                <i class="fa-solid fa-paper-plane text-sm transform -rotate-45"></i>
-            </button>
-        </div>
-
-    </main>
-
-    <!-- نافذة الإعدادات المنبثقة (Modal) -->
-    <div id="settingsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-[#161b26] border border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                <i class="fa-solid fa-key text-purple-500"></i> إعدادات الـ API Key
+          {/* البحث السريع */}
+          <div className="mt-4 pt-4 border-t border-slate-100">
+            <h3 className="font-bold text-slate-800 text-[11px] mb-2 flex items-center gap-1.5">
+              <Search className="w-3.5 h-3.5 text-amber-700" />
+              البحث الفوري في الجمل
             </h3>
-            <p class="text-xs text-gray-400 mb-4 leading-relaxed">
-                دخل هنا ساروت OpenRouter ديالك. كيتخزن بشكل آمن في المتصفح ديالك فقط ومكتشوفوش أي جهة أخرى أو GitHub.
-            </p>
-            
-            <div class="mb-4">
-                <label class="block text-xs text-gray-300 font-bold mb-2">مفتاح OpenRouter API Key:</label>
-                <input type="password" id="apiKeyInput" placeholder="Sk-or-v1-..." 
-                       class="w-full bg-[#0f1422] border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="اكتب كلمة بالإنجليزية أو العربية..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg py-2 pl-3 pr-8 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all text-right"
+              />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5" />
             </div>
 
-            <div class="flex gap-2 justify-end">
-                <button id="closeModal" class="px-4 py-2 text-xs bg-gray-800 hover:bg-gray-700 rounded-lg transition text-gray-300">إلغاء</button>
-                <button id="saveKeyBtn" class="px-4 py-2 text-xs bg-purple-600 hover:bg-purple-500 rounded-lg transition text-white font-semibold">حفظ الساروت</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- كود الـ JavaScript للتحكم والتواصل مع OpenRouter -->
-    <script>
-        const chatBox = document.getElementById('chatBox');
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const settingsBtn = document.getElementById('settingsBtn');
-        const settingsModal = document.getElementById('settingsModal');
-        const closeModal = document.getElementById('closeModal');
-        const saveKeyBtn = document.getElementById('saveKeyBtn');
-        const apiKeyInput = document.getElementById('apiKeyInput');
-
-        // تحميل المفتاح المخزن في المتصفح ديريكت في حقل الإدخال عند الفتح
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedKey = localStorage.getItem('openrouter_api_key');
-            if (savedKey) {
-                apiKeyInput.value = savedKey;
-            }
-        });
-
-        // فتح وإغلاق النافذة المنبثقة
-        settingsBtn.addEventListener('click', () => settingsModal.classList.remove('hidden'));
-        closeModal.addEventListener('click', () => settingsModal.classList.add('hidden'));
-
-        // حفظ المفتاح في الـ LocalStorage ديريكت في المتصفح
-        saveKeyBtn.addEventListener('click', () => {
-            const key = apiKeyInput.value.trim();
-            if (key.startsWith('sk-or-')) {
-                localStorage.setItem('openrouter_api_key', key);
-                alert('🎉 تم حفظ الساروت في متصفحك بنجاح!');
-                settingsModal.classList.add('hidden');
-            } else {
-                alert('❌ الساروت اللي دخلتيه كيبان ماشي صحيح، تأكد أنه كيبدا بـ sk-or-');
-            }
-        });
-
-        // إرسال الرسالة عند الضغط على الزر أو Enter
-        sendBtn.addEventListener('click', handleUserSend);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleUserSend();
-        });
-
-        // دالة إرسال الرسالة من المستخدم
-        async function handleUserSend() {
-            const text = userInput.value.trim();
-            if (!text) return;
-
-            // التحقق من وجود الساروت في المتصفح قبل الإرسال
-            const apiKey = localStorage.getItem('openrouter_api_key');
-            if (!apiKey) {
-                alert('⚠️ عافاك دخل الـ API Key ديالك أولاً من زر الإعدادات ⚙️ الفوق!');
-                settingsModal.classList.remove('hidden');
-                return;
-            }
-
-            // إضافة رسالة المستخدم للشات
-            appendMessage(text, 'user');
-            userInput.value = '';
-
-            // إضافة مؤشر التحميل "جاري التفكير..."
-            const loadingId = appendLoading();
-
-            try {
-                const aiResponse = await askAI(text, apiKey);
-                removeLoading(loadingId);
-                appendMessage(aiResponse, 'ai');
-            } catch (error) {
-                removeLoading(loadingId);
-                appendMessage("عذراً محمد، كاين تذبذب في الاتصال بخادم الروبوت حالياً. تأكد من صحة الـ API Key ديالك في الإعدادات.", 'ai');
-            }
-        }
-
-        // دالة التواصل مع OpenRouter (Gemini 2.5 Flash)
-        async function askAI(userMessage, apiKey) {
-            const url = "https://openrouter.ai/api/v1/chat/completions";
-            const systemPrompt = "أنت أستاذ لغة إنجليزية ذكي ومرح، تدرس وتساعد طالب مبتدئ اسمه محمد (مستوى A1). تتكلم بالدارجة المغربية بأسلوب مشجع ومبسط، وتستخدم الإنجليزية فقط لتعليم الكلمات والجمل وتصحيحها.";
-
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${apiKey}`,
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": "https://mohamed2222c2-stack.github.io",
-                    "X-Title": "English Learning App"
-                },
-                body: JSON.stringify({
-                    model: "google/gemini-2.5-flash",
-                    messages: [
-                        { role: "system", content: systemPrompt },
-                        { role: "user", content: userMessage }
-                    ]
-                })
-            });
-
-            const data = await response.json();
-            if (data.choices && data.choices[0]) {
-                return data.choices[0].message.content;
-            } else {
-                throw new Error("استجابة غير صالحة");
-            }
-        }
-
-        // إضافة رسالة للواجهة
-        function appendMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex gap-2 items-end max-w-[85%] ${sender === 'user' ? 'self-end flex-row-reverse' : ''}`;
-            
-            const avatar = sender === 'user' ? '👤' : '🤖';
-            const bgClass = sender === 'user' ? 'bg-purple-600 text-white rounded-bl-none' : 'bg-[#1a2035] text-gray-200 rounded-br-none';
-
-            msgDiv.innerHTML = `
-                <div class="w-8 h-8 rounded-full ${sender === 'user' ? 'bg-gray-800' : 'bg-purple-600'} flex items-center justify-center text-sm shrink-0">${avatar}</div>
-                <div class="${bgClass} p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line">${text}</div>
-            `;
-            
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        // إضافة مؤشر تحميل مؤقت
-        function appendLoading() {
-            const id = 'loading_' + Date.now();
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = id;
-            loadingDiv.className = "flex gap-2 items-end max-w-[85%]";
-            loadingDiv.innerHTML = `
-                <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shrink-0">🤖</div>
-                <div class="bg-[#1a2035] text-gray-400 p-3 rounded-2xl rounded-br-none text-sm flex gap-1 items-center">
-                    <span>جاري التفكير</span>
-                    <span class="animate-bounce">.</span>
-                    <span class="animate-bounce delay-100">.</span>
-                    <span class="animate-bounce delay-200">.</span>
-                </div>
-            `;
-            chatBox.appendChild(loadingDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            return id;
-        }
-
-        function removeLoading(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
-
-        // مسح الشات
-        function clearChat() {
-            if (confirm("واش متأكد بغيتي تمسح سجل المحادثة؟")) {
-                chatBox.innerHTML = `
-                    <div class="flex gap-2 items-end max-w-[85%]">
-                        <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shrink-0">🤖</div>
-                        <div class="bg-[#1a2035] text-gray-200 p-3 rounded-2xl rounded-br-none text-sm">
-                            تم مسح السجل بنجاح! كيفاش نقدر نعاونك دابا يا محمد؟ 🌟
-                        </div>
+            {searchQuery && (
+              <div className="mt-2 bg-amber-50/40 border border-amber-100 rounded-xl p-2 max-h-[180px] overflow-y-auto space-y-2">
+                {filteredSentences.length > 0 ? (
+                  filteredSentences.map((s, idx) => (
+                    <div key={idx} className="bg-white p-2 rounded-lg border border-amber-50 text-[11px] space-y-1">
+                      <div className="flex justify-between items-start gap-1">
+                        <span className="font-medium text-slate-900 text-left block flex-1">{s.en}</span>
+                        <button onClick={() => speakSentence(s.en, `search-${idx}`)} className="text-amber-800 hover:bg-amber-100 p-0.5 rounded cursor-pointer">
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-slate-600 text-right">{s.ar}</p>
+                      <span className="inline-block text-[9px] text-amber-800 bg-amber-100/50 px-1 rounded">اليوم {s.day}</span>
                     </div>
-                `;
-            }
-        }
-    </script>
-</body>
-</html>
+                  ))
+                ) : (
+                  <p className="text-[11px] text-slate-400 text-center py-1">لا توجد نتائج مطابقة.</p>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* العمود الرئيسي للدرس والأقسام */}
+        <section ref={lessonRef} className="lg:col-span-8 space-y-5 scroll-mt-24">
+          
+          {/* لوحة تعريف اليوم والتحكم في حالته */}
+          <div className="bg-gradient-to-br from-amber-900 to-amber-950 text-amber-50 rounded-2xl p-5 shadow-sm relative overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+              <span className="bg-amber-500/25 text-amber-200 border border-amber-500/30 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+                اليوم {currentDay.day} من 30 يوماً
+              </span>
+              
+              <button 
+                onClick={() => toggleDayCompletion(currentDay.day)}
+                className={`flex items-center gap-1 text-[11px] font-bold px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                  completedDays.includes(currentDay.day)
+                    ? 'bg-emerald-600 border-emerald-500 text-white'
+                    : 'bg-white/10 border-white/20 hover:bg-white/25 text-white'
+                }`}
+              >
+                {completedDays.includes(currentDay.day) ? (
+                  <><CheckCircle className="w-3.5 h-3.5" /> تم إنجاز هذا اليوم</>
+                ) : (
+                  <><BookOpenCheck className="w-3.5 h-3.5" /> تحديد كمنجز</>
+                )}
+              </button>
+            </div>
+            <h2 className="text-xl font-bold text-white">{currentDay.title}</h2>
+            <div className="text-amber-200/90 text-xs mt-1 bg-amber-950/40 p-2.5 px-3 rounded-xl border border-amber-800/30 flex items-center gap-2">
+              <Info className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>قاعدة اليوم: <strong className="text-white">{currentDay.grammarTitle}</strong></span>
+            </div>
+          </div>
+
+          {/* تبويبات الانتقال المنظمة */}
+          <div className="flex border-b border-amber-100">
+            <button
+              onClick={() => setActiveTab('study')}
+              className={`flex-1 py-3 text-center font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                activeTab === 'study' 
+                  ? 'border-amber-800 text-amber-950 bg-amber-50/30 font-extrabold' 
+                  : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <BookMarked className="w-4 h-4" />
+              البطاقات التعليمية (Flashcards)
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab('grammar');
+                resetGrammarQuiz();
+              }}
+              className={`flex-1 py-3 text-center font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                activeTab === 'grammar' 
+                  ? 'border-amber-800 text-amber-950 bg-amber-50/30 font-extrabold' 
+                  : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <HelpCircle className="w-4 h-4" />
+              شرح القواعد المفصل
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab('quiz');
+                resetSentenceQuiz();
+              }}
+              className={`flex-1 py-3 text-center font-bold text-xs border-b-2 transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                activeTab === 'quiz' 
+                  ? 'border-amber-800 text-amber-950 bg-amber-50/30 font-extrabold' 
+                  : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              اختبار الجمل (واحد بواحد)
+            </button>
+          </div>
+
+          {/* التبويب الأول: البطاقات التعليمية Flashcards */}
+          {activeTab === 'study' && (
+            <div className="space-y-4">
+              <div className="bg-white border border-amber-100/50 p-3.5 rounded-2xl shadow-sm flex items-center justify-between text-xs">
+                <div>
+                  <h4 className="font-bold text-slate-800">معدل مراجعة البطاقات اليومية:</h4>
+                  <p className="text-[10px] text-slate-500">ادرس الـ 10 بطاقات قبل الانتقال إلى اختبار الجمل والقواعد</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-amber-900">{viewedCards.length} / 10</span>
+                  <div className="w-20 bg-amber-100 h-2 rounded-full overflow-hidden">
+                    <div 
+                      className="bg-amber-700 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${(viewedCards.length / 10) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* بطاقة الاستذكار ثلاثية الأبعاد */}
+              <div className="perspective-1000 w-full h-64 relative">
+                <div 
+                  onClick={() => setIsFlipped(!isFlipped)}
+                  className={`w-full h-full absolute rounded-2xl cursor-pointer transition-transform duration-500 preserve-3d shadow-sm hover:shadow-md border border-amber-100/50 bg-white
+                    ${isFlipped ? 'rotate-y-180' : ''}`}
+                >
+                  {/* وجه البطاقة (الإنجليزية) */}
+                  <div className="absolute w-full h-full rounded-2xl backface-hidden p-6 flex flex-col justify-between items-center text-center">
+                    <div className="flex justify-between items-center w-full text-[10px] text-slate-400 font-bold">
+                      <span className="bg-amber-50 text-amber-800 px-2.5 py-0.5 rounded-full">English Card</span>
+                      <span>بطاقة {currentCardIndex + 1} من 10</span>
+                    </div>
+
+                    <div className="space-y-3 my-auto">
+                      <p className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight font-serif px-2">
+                        {activeSentence.en}
+                      </p>
+                      
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation(); // منع قلب الكرت عند الضغط على زر الصوت
+                          speakSentence(activeSentence.en, currentCardIndex);
+                        }}
+                        className={`mx-auto p-2.5 rounded-full transition-all flex items-center justify-center cursor-pointer ${
+                          speakingSentenceId === currentCardIndex 
+                            ? 'bg-amber-800 text-white scale-110 shadow-sm' 
+                            : 'bg-amber-50 text-amber-800 hover:bg-amber-100'
+                        }`}
+                      >
+                        <Volume2 className={`w-5 h-5 ${speakingSentenceId === currentCardIndex ? 'animate-bounce' : ''}`} />
+                      </button>
+                    </div>
+
+                    <span className="text-[10px] text-amber-800 font-semibold flex items-center gap-1 bg-amber-50/50 px-3 py-1 rounded-lg">
+                      <Eye className="w-3 h-3" /> اضغط لقلب البطاقة ومعرفة الترجمة
+                    </span>
+                  </div>
+
+                  {/* ظهر البطاقة (العربية) */}
+                  <div className="absolute w-full h-full rounded-2xl backface-hidden rotate-y-180 p-6 flex flex-col justify-between items-center text-center bg-amber-50/20">
+                    <div className="flex justify-between items-center w-full text-[10px] text-slate-400 font-bold">
+                      <span className="bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded-full">الترجمة العربية</span>
+                      <span>بطاقة {currentCardIndex + 1} من 10</span>
+                    </div>
+
+                    <div className="my-auto">
+                      <p className="text-xl sm:text-2xl font-bold text-slate-950 leading-relaxed px-2">
+                        {activeSentence.ar}
+                      </p>
+                    </div>
+
+                    <span className="text-[10px] text-emerald-800 font-semibold flex items-center gap-1 bg-emerald-50 px-3 py-1 rounded-lg">
+                      <Check className="w-3 h-3" /> اضغط للعودة إلى الإنجليزية
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* أزرار التحكم بالبطاقات والأيام */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                <div className="flex items-center gap-2 w-full sm:w-auto justify-center">
+                  <button
+                    disabled={currentCardIndex === 0}
+                    onClick={handlePrevCard}
+                    className="flex items-center justify-center gap-1 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-3.5 py-2.5 rounded-xl disabled:opacity-40 text-xs font-bold transition-all cursor-pointer flex-1 sm:flex-none"
+                  >
+                    <ChevronRight className="w-4 h-4" /> السابقة
+                  </button>
+
+                  <span className="text-xs font-bold text-slate-600 px-3 min-w-[70px] text-center">
+                    {currentCardIndex + 1} / 10
+                  </span>
+
+                  <button
+                    disabled={currentCardIndex === 9}
+                    onClick={handleNextCard}
+                    className="flex items-center justify-center gap-1 bg-amber-800 hover:bg-amber-900 text-white px-3.5 py-2.5 rounded-xl disabled:opacity-40 text-xs font-bold transition-all shadow-sm cursor-pointer flex-1 sm:flex-none"
+                  >
+                    التالية <ChevronLeft className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="flex justify-between w-full sm:w-auto gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100">
+                  <button
+                    disabled={currentDayIndex === 0}
+                    onClick={() => handleDaySelect(currentDayIndex - 1)}
+                    className="text-xs text-slate-600 hover:text-amber-900 font-semibold cursor-pointer"
+                  >
+                    اليوم السابق
+                  </button>
+                  <span className="text-xs text-slate-400">|</span>
+                  <button
+                    disabled={currentDayIndex === DAYS_DATA.length - 1}
+                    onClick={() => handleDaySelect(currentDayIndex + 1)}
+                    className="text-xs text-amber-800 hover:text-amber-950 font-bold cursor-pointer"
+                  >
+                    اليوم التالي
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* التبويب الثاني: الشرح المفصل للقواعد مع أمثلة واختبار خاص بها */}
+          {activeTab === 'grammar' && (
+            <div className="bg-white border border-amber-100/50 rounded-2xl p-5 shadow-sm space-y-6">
+              
+              {/* قسم الشرح */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 border-b border-amber-100 pb-2">
+                  <div className="p-1 bg-amber-100 text-amber-900 rounded-lg">
+                    <BookMarked className="w-4 h-4" />
+                  </div>
+                  <h3 className="font-bold text-slate-900 text-sm">شرح تفصيلي: {currentDay.grammarTitle}</h3>
+                </div>
+                <p className="text-xs text-slate-700 leading-relaxed text-right">
+                  {currentDay.grammarDetails.explanation}
+                </p>
+              </div>
+
+              {/* الجداول أو القواعد الفرعية */}
+              {currentDay.grammarDetails.rules && (
+                <div className="bg-slate-50/80 rounded-xl p-4 border border-slate-100">
+                  <h4 className="font-bold text-slate-800 text-xs mb-2 text-right">الصياغة والتركيب:</h4>
+                  <div className="space-y-2">
+                    {currentDay.grammarDetails.rules.map((rule, idx) => (
+                      <div key={idx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-2.5 bg-white rounded-lg border border-slate-150 text-xs gap-1.5">
+                        <span className="font-semibold text-slate-900 bg-amber-50 px-2 py-0.5 rounded text-left font-serif">{rule.subject}</span>
+                        <span className="text-amber-800 font-bold font-serif">{rule.verb}</span>
+                        <span className="text-slate-600 text-left font-serif font-semibold">{rule.example}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* الأمثلة التطبيقية الإضافية */}
+              <div className="space-y-3">
+                <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5 text-right">
+                  <span className="w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
+                  أمثلة تطبيقية ممتازة:
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {currentDay.grammarDetails.examples.map((ex, idx) => (
+                    <div key={idx} className="bg-amber-50/20 border border-amber-100/30 rounded-xl p-3 space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-serif font-bold text-slate-900 text-left">{ex.en}</span>
+                        <button onClick={() => speakSentence(ex.en, `ex-${idx}`)} className="text-amber-800 hover:bg-amber-100 p-0.5 rounded cursor-pointer">
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-[11px] text-slate-700 text-right">{ex.ar}</p>
+                      <p className="text-[9px] text-amber-800 bg-amber-50/50 p-1 rounded text-right">{ex.note}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* اختبار القواعد المدمج والخاص بدرس اليوم */}
+              <div className="bg-amber-50/30 border border-amber-100/50 rounded-2xl p-4 space-y-4">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-700" />
+                  <h4 className="font-bold text-slate-900 text-xs">اختبار القواعد السريع لليوم:</h4>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold text-slate-800 bg-white p-3 rounded-xl border border-amber-150 text-left font-serif leading-relaxed">
+                    {currentDay.grammarDetails.quiz.question}
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {currentDay.grammarDetails.quiz.options.map((opt, idx) => {
+                      const isSelected = selectedGrammarOption === idx;
+                      const isCorrect = idx === currentDay.grammarDetails.quiz.correctIndex;
+                      
+                      let btnStyle = "bg-white border-slate-200 text-slate-800";
+                      if (grammarAnswerChecked) {
+                        if (isCorrect) btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-950 font-bold";
+                        else if (isSelected) btnStyle = "bg-rose-50 border-rose-200 text-rose-950";
+                      } else if (isSelected) {
+                        btnStyle = "bg-amber-800 border-amber-800 text-white font-bold scale-[1.02]";
+                      }
+
+                      return (
+                        <button
+                          key={idx}
+                          disabled={grammarAnswerChecked}
+                          onClick={() => setSelectedGrammarOption(idx)}
+                          className={`border rounded-xl py-2.5 text-xs font-semibold font-serif transition-all cursor-pointer ${btnStyle}`}
+                        >
+                          {opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {!grammarAnswerChecked ? (
+                    <button
+                      disabled={selectedGrammarOption === null}
+                      onClick={handleCheckGrammar}
+                      className="w-full bg-slate-900 hover:bg-slate-850 text-white py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-40 cursor-pointer mt-2"
+                    >
+                      تأكيد إجابتي بالقواعد
+                    </button>
+                  ) : (
+                    <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5 text-right">
+                      <p className="text-[11px] font-bold text-slate-900">
+                        {selectedGrammarOption === currentDay.grammarDetails.quiz.correctIndex ? (
+                          <span className="text-emerald-700">🎉 إجابة صحيحة وممتازة!</span>
+                        ) : (
+                          <span className="text-rose-700">❌ إجابة خاطئة، انتبه للتفسير التالي:</span>
+                        )}
+                      </p>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        {currentDay.grammarDetails.quiz.explanation}
+                      </p>
+                      <button
+                        onClick={resetGrammarQuiz}
+                        className="text-[10px] text-amber-800 bg-amber-50 p-1.5 px-3 rounded-lg font-bold hover:bg-amber-100 cursor-pointer"
+                      >
+                        إعادة المحاولة
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* التبويب الثالث: اختبار الجمل (خطوة بخطوة / جملة بجملة) */}
+          {activeTab === 'quiz' && (
+            <div className="bg-white border border-amber-100/50 rounded-2xl p-5 shadow-sm space-y-5">
+              
+              {!quizFinished ? (
+                <div className="space-y-4">
+                  
+                  {/* الرأس ومؤشر الخطوات */}
+                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-sm">اختبار الجمل التفاعلي اليومي</h3>
+                      <p className="text-[10px] text-slate-500">اكتب الترجمة الصحيحة بكل دقة لتثبيت الحفظ</p>
+                    </div>
+                    <span className="text-xs font-extrabold text-amber-800 bg-amber-50 px-3 py-1 rounded-full">
+                      الجملة {currentQuizStep + 1} من 10
+                    </span>
+                  </div>
+
+                  {/* شريط الإنجاز الداخلي للاختبار */}
+                  <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                    <div 
+                      className="bg-amber-700 h-1.5 rounded-full transition-all duration-300"
+                      style={{ width: `${((currentQuizStep) / 10) * 100}%` }}
+                    ></div>
+                  </div>
+
+                  {/* صندوق السؤال */}
+                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-150 space-y-4 text-center">
+                    <span className="text-[11px] font-bold text-amber-800 bg-amber-50 p-1 px-2.5 rounded">ترجم الجملة التالية إلى الإنجليزية:</span>
+                    <p className="text-lg font-extrabold text-slate-950 mt-2">
+                      {currentDay.sentences[currentQuizStep].ar}
+                    </p>
+                  </div>
+
+                  {/* حقل الإدخال */}
+                  <div className="space-y-3">
+                    <input
+                      type="text"
+                      disabled={showStepFeedback}
+                      value={quizInput}
+                      onChange={(e) => setQuizInput(e.target.value)}
+                      placeholder="اكتب ترجمة الجملة بالإنجليزية هنا..."
+                      className="w-full bg-white border border-slate-200 focus:border-amber-700 focus:ring-1 focus:ring-amber-500 text-slate-950 rounded-xl py-3 px-4 focus:outline-none text-left font-serif transition-all font-semibold"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && quizInput.trim() && !showStepFeedback) {
+                          handleCheckStep();
+                        }
+                      }}
+                      required
+                    />
+
+                    {!showStepFeedback ? (
+                      <button
+                        type="button"
+                        disabled={!quizInput.trim()}
+                        onClick={handleCheckStep}
+                        className="w-full bg-amber-800 hover:bg-amber-900 text-white font-bold py-3 rounded-xl transition-all shadow-sm text-xs cursor-pointer disabled:opacity-40"
+                      >
+                        تحقق من صحة إجابتي
+                      </button>
+                    ) : (
+                      <div className="space-y-3">
+                        {/* بطاقة التقييم الفوري للجملة */}
+                        <div className={`p-4 rounded-xl border text-right space-y-2 ${isStepCorrect ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/50 border-rose-200'}`}>
+                          <div className="flex justify-between items-center text-xs">
+                            <span className={`px-2 py-0.5 rounded font-extrabold ${isStepCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                              {isStepCorrect ? 'ممتاز، إجابة صحيحة' : 'تحتاج لمراجعة'}
+                            </span>
+                            <span className="font-bold text-slate-500">الجملة النموذجية:</span>
+                          </div>
+                          
+                          <div className="text-left font-serif space-y-1 pt-1">
+                            <p className="text-sm font-bold text-slate-950 flex items-center gap-1.5">
+                              {currentDay.sentences[currentQuizStep].en}
+                              <button onClick={() => speakSentence(currentDay.sentences[currentQuizStep].en, `quiz-correct-${currentQuizStep}`)} className="text-amber-800 p-0.5 hover:bg-amber-100 rounded">
+                                <Volume2 className="w-3.5 h-3.5" />
+                              </button>
+                            </p>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={handleNextStep}
+                          className="w-full bg-slate-900 hover:bg-slate-850 text-white font-bold py-3 rounded-xl transition-all text-xs cursor-pointer flex items-center justify-center gap-2"
+                        >
+                          {currentQuizStep < 9 ? 'الجملة التالية' : 'عرض النتيجة النهائية'}
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              ) : (
+                // شاشة النتيجة النهائية وحصر الأخطاء لترسيخ الفهم
+                <div className="text-center py-6 space-y-5">
+                  <div className="inline-block p-5 bg-amber-50 rounded-full border-4 border-amber-100/50 shadow-inner">
+                    <span className="text-3xl font-black text-amber-950">
+                      {quizResults.filter(r => r.isCorrect).length * 10} / 100
+                    </span>
+                  </div>
+
+                  <div className="max-w-md mx-auto space-y-1">
+                    <h4 className="text-base font-extrabold text-slate-950">
+                      {quizResults.filter(r => r.isCorrect).length >= 8 ? "تبارك الله عليك، أداء بطل! 🎉" : quizResults.filter(r => r.isCorrect).length >= 5 ? "أداء ممتاز ومستوى رائع، كمل هكا! 👍" : "محاولة جيدة، مراجعة بسيطة وغادي تحفظهم كاملين! 📚"}
+                    </h4>
+                    <p className="text-[10px] text-slate-500">تم احتساب هذا اليوم كمكتمل في التحدي عند تخطي نسبة 70%.</p>
+                  </div>
+
+                  {/* التفاصيل الكاملة للمراجعة المصححة */}
+                  <div className="text-right space-y-3 pt-4 border-t border-slate-100">
+                    <h5 className="font-extrabold text-slate-900 text-xs mb-2">مراجعة عامة وتصحيح لكافة الجمل:</h5>
+                    
+                    {quizResults.map((res, idx) => (
+                      <div key={idx} className={`p-3 rounded-xl border text-[11px] space-y-1.5 ${res.isCorrect ? 'bg-emerald-50/20 border-emerald-100' : 'bg-rose-50/20 border-rose-100'}`}>
+                        <div className="flex justify-between items-center">
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${res.isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                            {res.isCorrect ? 'صحيحة' : 'مراجعة'}
+                          </span>
+                          <span className="font-extrabold text-slate-800">{res.arabicTranslation}</span>
+                        </div>
+                        <div className="text-left font-serif space-y-1">
+                          <p className="text-slate-500 text-[10px]">كتابتك: <span className={res.isCorrect ? 'text-emerald-900 font-semibold' : 'text-rose-900 font-medium'}>{res.userAnswer || "— لم تجب —"}</span></p>
+                          <p className="text-slate-900 font-bold flex items-center gap-1.5">
+                            الترجمة الصحيحة: {res.correctAnswer}
+                            <button onClick={() => speakSentence(res.correctAnswer, `review-${idx}`)} className="text-amber-800 p-0.5 hover:bg-amber-100 rounded">
+                              <Volume2 className="w-3.5 h-3.5" />
+                            </button>
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-2 justify-center pt-3">
+                    <button
+                      onClick={resetSentenceQuiz}
+                      className="bg-slate-950 hover:bg-slate-900 text-white font-bold py-2.5 px-6 rounded-xl text-xs cursor-pointer transition-all"
+                    >
+                      إعادة الاختبار من جديد
+                    </button>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
+
+          {/* بطاقة النصيحة اليومية */}
+          <div className="bg-amber-50/40 border border-amber-100/50 rounded-2xl p-4 flex items-start gap-3">
+            <div className="p-2 bg-amber-100 text-amber-800 rounded-lg shrink-0">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-xs mb-0.5">نصيحة اليوم لحفظ دائم وسريع:</h4>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                استخدم صفحة **شرح القواعد** أولاً، وقم بحل الاختبار السريع الخاص بها، ثم قم بدراسة البطاقات بالترتيب مع النطق الصوتي بصوت مرتفع لتنشيط الذاكرة السمعية والبصرية معاً.
+              </p>
+            </div>
+          </div>
+
+        </section>
+      </main>
+
+      <footer className="max-w-5xl mx-auto px-4 mt-12 pt-6 border-t border-amber-100/60 text-center space-y-1">
+        <p className="text-[11px] text-slate-400">مسار الـ 30 يوماً لتعليم الإنجليزية الأساسية للمستوى المبتدئ</p>
+        <p className="text-[10px] text-slate-400">مطور بدقة عالية لراحة بصرية فائقة ومثالية تليق بك يا محمد.</p>
+      </footer>
+    </div>
+  );
+}
+
+```
