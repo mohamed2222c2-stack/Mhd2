@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ar-MA" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="description" content="CHEGDANI STORE — IPTV and Server subscriptions" />
+    <title>متجر الشگداني | CHEGDANI STORE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84MrjtWZ9LdvQMFp3WaOoO2BYPLkno9F0EIRl0gScNGeu2qR2X2HSGTp+T44c2PZxE6ctNVpHoU8+BDwQEA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" href="/manus-storage/chegdani-signal-mark_ad10b109.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { ink: '#0f172a', signal: '#f6b73c', violet: '#1e1b4b' },
+            fontFamily: { cairo: ['Cairo', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Design system: «إشارة كهرمانية» — modern digital editorial, night glass, #F6B73C signal accents. */
+      :root { --ink: #0f172a; --ink-2: #1e1b4b; --signal: #f6b73c; --warm: #ffd77b; --panel: rgba(15, 23, 42, .66); --border: rgba(255,255,255,.12); --ease: cubic-bezier(.23,1,.32,1); }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; background: var(--ink); }
+      body { min-width: 320px; margin: 0; background: linear-gradient(135deg, #0f172a 0%, #121b40 46%, #1e1b4b 100%); color: #f8fafc; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
+      body.ltr { font-family: 'Poppins', sans-serif; }
+      body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .2; z-index: 0; background-image: radial-gradient(rgba(255,255,255,.22) .55px, transparent .55px); background-size: 5px 5px; mix-blend-mode: soft-light; }
+      body::after { content: ''; position: fixed; width: 34rem; height: 34rem; top: -15rem; inset-inline-end: -12rem; border-radius: 999px; pointer-events: none; z-index: 0; background: rgba(246,183,60,.12); filter: blur(90px); }
+      .site-shell { position: relative; z-index: 1; }
+      .glass { background: linear-gradient(145deg, rgba(30,41,80,.6), rgba(15,23,42,.48)); border: 1px solid var(--border); box-shadow: 0 24px 60px rgba(2,6,23,.28), inset 0 1px 0 rgba(255,255,255,.06); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+      .nav-glass { background: rgba(15,23,42,.69); border: 1px solid rgba(255,255,255,.1); box-shadow: 0 14px 45px rgba(2,6,23,.28); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+      .signal-line { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, rgba(246,183,60,.75), transparent); }
+      .signal-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--signal); box-shadow: 0 0 0 5px rgba(246,183,60,.11), 0 0 24px rgba(246,183,60,.7); }
+      .brand-mark { width: 46px; height: 46px; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(246,183,60,.18)); }
+      .brand-lockup { position: relative; }
+      .brand-lockup::after { content: ''; position: absolute; bottom: -3px; inset-inline-start: 58px; width: 48px; height: 2px; background: linear-gradient(90deg, var(--signal), transparent); opacity: .9; }
+      #brandArabic { font-size: 1rem; font-weight: 800; letter-spacing: -.045em; text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 7px 16px rgba(2,6,23,.6); }
+      .language-button { display: inline-flex; align-items: center; justify-content: center; gap: .42rem; padding: .48rem .7rem; border-radius: 999px; color: rgba(255,255,255,.7); font-size: .76rem; font-weight: 700; border: 1px solid transparent; transition: transform 160ms var(--ease), background 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease); }
+      .language-button:hover { color: #fff; transform: translateY(-1px); }
+      .language-button:active, .order-button:active, .whatsapp-button:active { transform: scale(.97); }
+      .language-button.active { color: #182039; background: var(--signal); border-color: var(--warm); box-shadow: 0 7px 22px rgba(246,183,60,.2); }
+      .hero-background { position: absolute; inset: 0; background-image: linear-gradient(90deg, rgba(15,23,42,.98) 3%, rgba(15,23,42,.86) 42%, rgba(15,23,42,.36) 100%), url('/manus-storage/chegdani-hero-signal_a416ab05.jpg'); background-size: cover; background-position: center; opacity: .9; }
+      .hero-background::before { content: ''; position: absolute; inset: 0; opacity: .34; background: repeating-radial-gradient(ellipse 82% 125% at 100% 104%, transparent 0 38px, rgba(246,183,60,.22) 39px 40px, transparent 41px 72px); }
+      .hero-background::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,.05), rgba(15,23,42,.78)); }
+      .hero-orbit { position: absolute; width: 520px; height: 520px; border: 1px solid rgba(246,183,60,.18); border-radius: 50%; inset-inline-end: -180px; bottom: -220px; transform: rotate(-22deg); }
+      .hero-orbit::before, .hero-orbit::after { content: ''; position: absolute; border: 1px solid rgba(255,255,255,.1); border-radius: inherit; inset: 48px; }
+      .hero-orbit::after { inset: 98px; border-color: rgba(246,183,60,.13); }
+      .eyebrow { display: inline-flex; align-items: center; gap: .55rem; letter-spacing: .08em; font-size: .73rem; font-weight: 800; color: var(--warm); text-transform: uppercase; }
+      .hero-title { text-wrap: balance; line-height: 1.16; letter-spacing: -.025em; }
+      .whatsapp-button { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; border-radius: 1rem; padding: .92rem 1.25rem; color: #211907; font-weight: 800; background: linear-gradient(135deg, #ffd976, #f6b73c); border: 1px solid rgba(255,248,215,.58); box-shadow: 0 14px 28px rgba(246,183,60,.2); transition: transform 160ms var(--ease), box-shadow 160ms var(--ease); }
+      .whatsapp-button:hover { transform: translateY(-2px); box-shadow: 0 18px 35px rgba(246,183,60,.35); }
+      .whatsapp-icon { color: #139d45; text-shadow: 0 1px 0 rgba(255,255,255,.34); }
+      .overview-card { position: relative; overflow: hidden; min-height: 100%; transition: transform 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease); }
+      .overview-card::after { content: ''; position: absolute; width: 9rem; height: 9rem; border-radius: 50%; background: rgba(246,183,60,.09); filter: blur(20px); inset-inline-end: -4rem; bottom: -5rem; pointer-events: none; }
+      .overview-card:hover { transform: translateY(-4px); border-color: rgba(246,183,60,.36); }
+      .feature-pip { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; flex: 0 0 auto; border-radius: .28rem; color: var(--signal); background: linear-gradient(135deg, rgba(246,183,60,.2), rgba(246,183,60,.06)); border: 1px solid rgba(246,183,60,.28); box-shadow: inset 0 0 0 1px rgba(2,6,23,.34); font-size: .65rem; transform: rotate(45deg); }
+      .feature-pip i { transform: rotate(-45deg); }
+      .price-group { position: relative; padding: 1.25rem 0 0; }
+      .price-group::before { content: ''; position: absolute; inset: 0 -1rem auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(246,183,60,.28), transparent); }
+      .group-header { display: grid; gap: 1rem; align-items: end; margin-bottom: 1.25rem; }
+      @media (min-width: 700px) { .group-header { grid-template-columns: minmax(15rem, .72fr) 1fr; } }
+      .group-title { position: relative; display: flex; align-items: center; gap: .9rem; font-weight: 800; color: #fff; font-size: clamp(1.25rem, 2vw, 1.75rem); }
+      .group-title::after { content: ''; height: 1px; flex: 1; background: linear-gradient(90deg, rgba(246,183,60,.55), transparent); }
+      [dir='rtl'] .group-title::after { background: linear-gradient(270deg, rgba(246,183,60,.55), transparent); }
+      .group-icon { position: relative; overflow: hidden; }
+      .group-icon::after { content: ''; position: absolute; inset-inline-start: -15%; bottom: 5px; width: 130%; height: 1px; background: var(--signal); transform: rotate(-24deg); }
+      .group-kicker { display: block; margin-bottom: .08rem; font-family: 'Poppins', sans-serif; color: var(--warm); font-size: .6rem; letter-spacing: .15em; }
+      .group-lede { max-width: 38rem; margin: 0; color: rgba(226,232,240,.66); font-size: .86rem; font-weight: 600; line-height: 1.75; }
+      .pricing-card { position: relative; overflow: hidden; padding: 1.35rem; border-radius: 1.2rem; min-height: 278px; display: flex; flex-direction: column; transition: transform 220ms var(--ease), border-color 220ms var(--ease), box-shadow 220ms var(--ease); }
+      .pricing-card:hover { transform: translateY(-5px); border-color: rgba(246,183,60,.46); box-shadow: 0 28px 56px rgba(2,6,23,.36), 0 0 0 1px rgba(246,183,60,.08) inset; }
+      .pricing-card.featured { background: linear-gradient(150deg, rgba(246,183,60,.18), rgba(30,41,80,.7) 54%, rgba(15,23,42,.72)); border-color: rgba(246,183,60,.46); }
+      .pricing-card::before { content: ''; position: absolute; top: 1.1rem; inset-inline-end: 1.1rem; height: .55rem; width: 2.2rem; background-image: radial-gradient(circle, rgba(246,183,60,.9) 1px, transparent 1.5px); background-size: 8px 8px; opacity: .55; }
+      .signal-route { display: flex; align-items: center; gap: .65rem; min-height: 1.75rem; }
+      .package-chip { display: inline-flex; align-items: center; gap: .36rem; padding: .36rem .52rem; border: 1px solid rgba(246,183,60,.4); border-radius: .38rem; background: rgba(246,183,60,.1); color: var(--warm); font-family: 'Poppins', sans-serif; font-size: .58rem; font-weight: 800; letter-spacing: .1em; line-height: 1; }
+      .package-chip i { font-size: .55rem; }
+      .signal-track { display: flex; flex: 1; align-items: center; gap: 4px; min-width: 2rem; }
+      .signal-track::before { content: ''; height: 1px; flex: 1; background: repeating-linear-gradient(90deg, rgba(246,183,60,.9) 0 5px, transparent 5px 10px); }
+      .signal-track span { height: 5px; width: 5px; border-radius: 999px; background: var(--signal); box-shadow: 0 0 12px rgba(246,183,60,.85); }
+      .route-beacon { height: 1.55rem; width: 1.55rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(246,183,60,.35); border-radius: 999px; color: var(--signal); background: rgba(246,183,60,.08); font-size: .6rem; }
+      .price-stage { position: relative; padding-inline-start: .9rem; }
+      [dir='rtl'] .price-stage { padding-inline-start: 0; padding-inline-end: .9rem; }
+      .price-stage::before { content: ''; position: absolute; width: 1px; height: calc(100% + .4rem); top: -.3rem; inset-inline-start: 0; background: linear-gradient(var(--signal), rgba(246,183,60,.16)); }
+      .price-value { line-height: .9; letter-spacing: -.055em; color: #fff; font-size: 2.5rem; font-weight: 800; }
+      .price-currency { color: var(--warm); font-size: 1rem; font-weight: 800; letter-spacing: 0; }
+      .card-signal { position: relative; margin-top: auto; height: 1px; width: 100%; background: repeating-linear-gradient(90deg, rgba(246,183,60,.8) 0 6px, transparent 6px 13px); opacity: .74; }
+      .card-signal::after { content: ''; position: absolute; top: -3px; inset-inline-end: 8%; width: 7px; height: 7px; border-radius: 999px; background: var(--signal); box-shadow: 0 0 12px rgba(246,183,60,.8); }
+      .order-button { display: inline-flex; align-items: center; justify-content: center; gap: .52rem; width: 100%; margin-top: 1rem; padding: .76rem 1rem; color: #192238; background: var(--signal); border: 1px solid rgba(255,255,255,.28); border-radius: .8rem; font-size: .88rem; font-weight: 800; transition: transform 160ms var(--ease), background 160ms var(--ease), box-shadow 160ms var(--ease); }
+      .order-button:hover { background: #ffd05d; box-shadow: 0 12px 22px rgba(246,183,60,.17); }
+      .texture-band { position: relative; isolation: isolate; }
+      .texture-band::before { content: ''; position: absolute; z-index: -1; inset: 0; opacity: .18; background: url('/manus-storage/chegdani-glass-texture_d719a638.jpg') center/cover; mix-blend-mode: screen; }
+      .fade-in { animation: rise .65s var(--ease) both; }
+      .fade-1 { animation-delay: .05s; } .fade-2 { animation-delay: .12s; } .fade-3 { animation-delay: .19s; }
+      @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      .footer-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); }
+      .status-pill { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; background: rgba(2,6,23,.26); color: rgba(255,255,255,.75); padding: .45rem .7rem; font-size: .75rem; font-weight: 700; }
+      .muted { color: rgba(226,232,240,.68); }
+      a:focus-visible, button:focus-visible { outline: 3px solid rgba(246,183,60,.82); outline-offset: 3px; }
+      @media (max-width: 640px) { .brand-mark { width: 39px; height: 39px; } .language-button { font-size: .68rem; padding: .45rem .5rem; } .hero-background { background-position: 62% center; } .hero-title { font-size: 2.35rem; } .hero-orbit { width: 380px; height: 380px; inset-inline-end: -180px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="sticky top-0 z-30 px-3 pt-3 sm:px-5">
+        <nav class="nav-glass mx-auto flex max-w-6xl flex-col gap-3 rounded-2xl px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4" aria-label="Main navigation">
+          <a href="#top" class="brand-lockup flex items-center gap-3" aria-label="CHEGDANI STORE home">
+            <img src="/manus-storage/chegdani-signal-mark_ad10b109.png" class="brand-mark" alt="CHEGDANI STORE symbol" />
+            <span class="leading-tight">
+              <span class="block text-[.92rem] font-extrabold text-white" id="brandArabic">متجر الشگداني</span>
+              <span class="block font-poppins text-[.64rem] font-bold tracking-[.16em] text-amber-200">CHEGDANI STORE</span>
+            </span>
+          </a>
+          <div class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end" role="group" aria-label="Language switcher">
+            <span class="hidden text-xs font-bold text-slate-400 md:inline" id="languageLabel">اختار اللغة</span>
+            <div class="flex items-center gap-1 rounded-full border border-white/10 bg-slate-950/30 p-1">
+              <button class="language-button active" type="button" data-lang="ar" aria-pressed="true">🇲🇦 <span>الدارجة</span></button>
+              <button class="language-button" type="button" data-lang="fr" aria-pressed="false">🇫🇷 <span>Français</span></button>
+              <button class="language-button" type="button" data-lang="en" aria-pressed="false">🇬🇧 <span>English</span></button>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="relative isolate overflow-hidden px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
+          <div class="hero-background" aria-hidden="true"></div>
+          <div class="hero-orbit" aria-hidden="true"></div>
+          <div class="relative mx-auto grid max-w-6xl items-end gap-10 lg:grid-cols-[1.15fr_.85fr]">
+            <div class="max-w-3xl">
+              <p class="eyebrow fade-in fade-1"><span class="signal-dot"></span><span id="heroEyebrow">اشتراكات IPTV وخوادم بلا تعقيد</span></p>
+              <h1 class="hero-title fade-in fade-2 mt-5 text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl" id="heroTitle">الترفيه ديالك، بإشارة واضحة.</h1>
+              <p class="fade-in fade-3 mt-5 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg" id="heroCopy">اختار الباقة اللي كتوافقك، وطلبها مباشرة عبر واتساب. أثمنة واضحة، وتواصل سريع مع متجر الشگداني.</p>
+              <div class="fade-in fade-3 mt-8 flex flex-wrap items-center gap-4">
+                <a class="whatsapp-button" href="https://wa.me/212712250019" target="_blank" rel="noopener noreferrer" id="heroWhatsApp"><i class="fa-brands fa-whatsapp text-xl whatsapp-icon"></i><span>تواصل معنا فواتساب</span><i class="fa-solid fa-arrow-left text-sm arrow-icon"></i></a>
+                <span class="status-pill"><span class="signal-dot !h-2 !w-2"></span><span id="heroNote">كتختار، كتراسل، وكاتكمل الطلب</span></span>
+              </div>
+            </div>
+            <aside class="glass fade-in fade-3 rounded-3xl p-5 sm:p-6 lg:mb-1" aria-label="Store promise">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-sm font-bold text-amber-200" id="sideLabel">كيفاش كتمشي؟</p>
+                  <p class="mt-1 text-xl font-extrabold text-white" id="sideTitle">ثلاث خطوات فقط</p>
+                </div>
+                <span class="flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-300/25 bg-amber-300/10 text-lg text-amber-300"><i class="fa-solid fa-signal"></i></span>
+              </div>
+              <div class="mt-6 space-y-4 text-sm" id="stepsList"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="texture-band px-4 py-14 sm:px-6 sm:py-18">
+          <div class="mx-auto max-w-6xl">
+            <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p class="eyebrow"><span class="signal-dot"></span><span id="overviewEyebrow">نظرة سريعة</span></p>
+                <h2 class="mt-2 text-3xl font-extrabold text-white" id="overviewTitle">جوج اختيارات VIP، كل وحدة بهدف واضح.</h2>
+              </div>
+              <p class="max-w-md text-sm leading-7 text-slate-300" id="overviewCopy">قارن المزايا، اختار المدة، وخلي رسالة واتساب توصلنا بالتفاصيل ديال الطلب ديالك.</p>
+            </div>
+            <div id="overviewCards" class="grid gap-5 md:grid-cols-2"></div>
+          </div>
+        </section>
+
+        <section id="prices" class="px-4 py-16 sm:px-6 sm:py-20">
+          <div class="mx-auto max-w-6xl">
+            <div class="mb-10 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div>
+                <p class="eyebrow"><span class="signal-dot"></span><span id="pricingEyebrow">الباقات والأثمنة</span></p>
+                <h2 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl" id="pricingTitle">اختار الوقت اللي يوافق مشاهدتك.</h2>
+              </div>
+              <a class="inline-flex items-center gap-2 self-start rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-slate-100 transition hover:border-amber-300/40 hover:bg-amber-300/10 lg:self-auto" href="https://wa.me/212712250019" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-lg text-green-400"></i><span id="pricingContact">باغي مساعدة فاختيار الباقة؟ راسلنا</span></a>
+            </div>
+            <div id="pricingGroups" class="space-y-14"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="px-4 pb-8 pt-3 sm:px-6">
+        <div class="mx-auto max-w-6xl">
+          <div class="footer-rule"></div>
+          <div class="flex flex-col gap-4 py-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <p id="footerText">متجر الشگداني — الاشتراك اللي بغيتي، فمحادثة وحدة.</p>
+            <a class="inline-flex items-center gap-2 font-bold text-amber-200 transition hover:text-white" href="https://wa.me/212712250019" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-lg"></i><span>+212 712 250 019</span></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      /* Single-file UI logic: instant language, document direction, localized WhatsApp order text. */
+      const phone = '212712250019';
+      const content = {
+        ar: {
+          dir: 'rtl', lang: 'ar-MA', family: 'cairo', brand: 'متجر الشگداني', languageLabel: 'اختار اللغة',
+          heroEyebrow: 'اشتراكات IPTV وخوادم بلا تعقيد', heroTitle: 'الترفيه ديالك، بإشارة واضحة.', heroCopy: 'اختار الباقة اللي كتوافقك، وطلبها مباشرة عبر واتساب. أثمنة واضحة، وتواصل سريع مع متجر الشگداني.', heroWhatsApp: 'تواصل معنا فواتساب', heroNote: 'كتختار، كتراسل، وكاتكمل الطلب',
+          sideLabel: 'كيفاش كتمشي؟', sideTitle: 'ثلاث خطوات فقط', steps: ['اختار الباقة والمدة اللي تناسبك', 'ضغط على «طلب دابا»', 'صيفط الرسالة فالواتساب وخلي الباقي علينا'],
+          overviewEyebrow: 'نظرة سريعة', overviewTitle: 'جوج اختيارات VIP، كل وحدة بهدف واضح.', overviewCopy: 'قارن المزايا، اختار المدة، وخلي رسالة واتساب توصلنا بالتفاصيل ديال الطلب ديالك.',
+          pricingEyebrow: 'الباقات والأثمنة', pricingTitle: 'اختار الوقت اللي يوافق مشاهدتك.', pricingContact: 'باغي مساعدة فاختيار الباقة؟ راسلنا', order: 'طلب دابا', per: 'المدة', footer: 'متجر الشگداني — الاشتراك اللي بغيتي، فمحادثة وحدة.',
+          groups: [
+            { name: 'VIP Package', label: 'VIP 1', icon: 'fa-crown', items: [{ duration: 'شهر واحد', price: '90' }, { duration: '3 شهور', price: '150', featured: true }, { duration: '6 شهور', price: '260' }, { duration: 'عام واحد', price: '450' }] },
+            { name: 'VIP 2 Special', label: 'VIP 2', icon: 'fa-star', items: [{ duration: '3 شهور', price: '170' }, { duration: 'عرض خاص', price: '210', featured: true }, { duration: 'عام واحد', price: '490' }] },
+            { name: 'Forever Server', label: 'FOREVER', icon: 'fa-server', items: [{ duration: 'شهر واحد', price: '30' }, { duration: '3 شهور', price: '60' }, { duration: 'عام واحد', price: '160' }] },
+            { name: 'Funcam Server', label: 'FUNCAM', icon: 'fa-tower-broadcast', items: [{ duration: 'شهر واحد', price: '25' }, { duration: '3 شهور', price: '45' }, { duration: 'عام واحد', price: '90' }] },
+            { name: 'Apollo App', label: 'APOLLO', icon: 'fa-mobile-screen-button', items: [{ duration: 'شهر واحد', price: '30' }, { duration: '3 شهور', price: '60' }, { duration: 'عام واحد', price: '160' }] },
+          ],
+          overview: [
+            { label: 'VIP 1', title: 'VIP Package', icon: 'fa-crown', text: 'اختيار VIP مباشر للمشاهدة اليومية.', features: ['قنوات BeIN 1–9', 'باقات Forever', 'مدد من شهر حتى عام'] },
+            { label: 'VIP 2', title: 'VIP 2 Special', icon: 'fa-star', text: 'VIP موسّع للي بغا عروض ومزايا إضافية.', features: ['قنوات BeIN 1–9', 'بطولات جديدة: كأس آسيا، CAN وغيرها', 'باقات Forever حصرية', 'تطبيق Apollo أو Dates'] },
+          ],
+          groupGuides: { 'VIP 1': 'اختيار يومي مباشر، بمدد مرنة وقيمة واضحة.', 'VIP 2': 'مزايا موسّعة وعروض للبطولات والتطبيقات.', 'FOREVER': 'خادم بمسار بسيط وثلاث مدد للاختيار.', 'FUNCAM': 'خيار خفيف، سريع وواضح للاتصال.', 'APOLLO': 'مدد مباشرة لتطبيق Apollo، من شهر حتى عام.' },
+          orderMessage: (group, duration, price) => `سلام متجر الشگداني، بغيت نطلب: ${group} — ${duration} (${price} DH). عافاك عطيني التفاصيل.`
+        },
+        fr: {
+          dir: 'ltr', lang: 'fr', family: 'poppins', brand: 'CHEGDANI STORE', languageLabel: 'Choisir la langue',
+          heroEyebrow: 'Abonnements IPTV et serveurs, sans détour', heroTitle: 'Votre divertissement, avec un signal clair.', heroCopy: 'Choisissez la formule qui vous convient et commandez directement sur WhatsApp. Des prix clairs, un contact rapide avec CHEGDANI STORE.', heroWhatsApp: 'Nous contacter sur WhatsApp', heroNote: 'Choisissez, écrivez, finalisez',
+          sideLabel: 'Comment ça marche ?', sideTitle: 'Trois étapes seulement', steps: ['Choisissez votre formule et sa durée', 'Cliquez sur « Commander »', 'Envoyez le message WhatsApp et nous nous occupons du reste'],
+          overviewEyebrow: 'Aperçu rapide', overviewTitle: 'Deux options VIP, chacune avec un objectif clair.', overviewCopy: 'Comparez les avantages, choisissez la durée, puis envoyez-nous automatiquement le détail de votre commande par WhatsApp.',
+          pricingEyebrow: 'Formules et tarifs', pricingTitle: 'Choisissez le temps qui correspond à votre visionnage.', pricingContact: 'Besoin d’aide pour choisir ? Écrivez-nous', order: 'Commander', per: 'Durée', footer: 'CHEGDANI STORE — l’abonnement qu’il vous faut, en une conversation.',
+          groups: [
+            { name: 'Forfait VIP', label: 'VIP 1', icon: 'fa-crown', items: [{ duration: '1 mois', price: '90' }, { duration: '3 mois', price: '150', featured: true }, { duration: '6 mois', price: '260' }, { duration: '1 an', price: '450' }] },
+            { name: 'VIP 2 Spécial', label: 'VIP 2', icon: 'fa-star', items: [{ duration: '3 mois', price: '170' }, { duration: 'Offre spéciale', price: '210', featured: true }, { duration: '1 an', price: '490' }] },
+            { name: 'Serveur Forever', label: 'FOREVER', icon: 'fa-server', items: [{ duration: '1 mois', price: '30' }, { duration: '3 mois', price: '60' }, { duration: '1 an', price: '160' }] },
+            { name: 'Serveur Funcam', label: 'FUNCAM', icon: 'fa-tower-broadcast', items: [{ duration: '1 mois', price: '25' }, { duration: '3 mois', price: '45' }, { duration: '1 an', price: '90' }] },
+            { name: 'Application Apollo', label: 'APOLLO', icon: 'fa-mobile-screen-button', items: [{ duration: '1 mois', price: '30' }, { duration: '3 mois', price: '60' }, { duration: '1 an', price: '160' }] },
+          ],
+          overview: [
+            { label: 'VIP 1', title: 'Forfait VIP', icon: 'fa-crown', text: 'Une formule VIP directe pour le visionnage quotidien.', features: ['Chaînes BeIN 1–9', 'Formules Forever', 'Durées d’un mois à un an'] },
+            { label: 'VIP 2', title: 'VIP 2 Spécial', icon: 'fa-star', text: 'Un VIP élargi pour les offres et les avantages supplémentaires.', features: ['Chaînes BeIN 1–9', 'Nouveaux tournois : Coupe d’Asie, CAN et plus', 'Formules Forever exclusives', 'Application Apollo ou Dates'] },
+          ],
+          groupGuides: { 'VIP 1': 'Un choix direct au quotidien, avec des durées flexibles.', 'VIP 2': 'Des avantages étendus pour les tournois et les applications.', 'FOREVER': 'Un serveur simple, avec trois durées au choix.', 'FUNCAM': 'Une option légère, claire et directe.', 'APOLLO': 'Des durées directes pour l’application Apollo.' },
+          orderMessage: (group, duration, price) => `Bonjour CHEGDANI STORE, je souhaite commander : ${group} — ${duration} (${price} DH). Merci de m’envoyer les détails.`
+        },
+        en: {
+          dir: 'ltr', lang: 'en', family: 'poppins', brand: 'CHEGDANI STORE', languageLabel: 'Choose language',
+          heroEyebrow: 'IPTV and server subscriptions, without the hassle', heroTitle: 'Your entertainment, with a clear signal.', heroCopy: 'Choose the plan that suits you and order directly on WhatsApp. Clear prices and quick contact with CHEGDANI STORE.', heroWhatsApp: 'Contact us on WhatsApp', heroNote: 'Choose, message, complete',
+          sideLabel: 'How it works', sideTitle: 'Three simple steps', steps: ['Choose your plan and duration', 'Tap “Order now”', 'Send the WhatsApp message and we take it from there'],
+          overviewEyebrow: 'Quick overview', overviewTitle: 'Two VIP options, each with a clear purpose.', overviewCopy: 'Compare benefits, choose a duration, then send us the order details automatically through WhatsApp.',
+          pricingEyebrow: 'Plans and pricing', pricingTitle: 'Choose the time that fits your viewing.', pricingContact: 'Need help selecting a plan? Message us', order: 'Order now', per: 'Duration', footer: 'CHEGDANI STORE — the subscription you need, in one conversation.',
+          groups: [
+            { name: 'VIP Package', label: 'VIP 1', icon: 'fa-crown', items: [{ duration: '1 Month', price: '90' }, { duration: '3 Months', price: '150', featured: true }, { duration: '6 Months', price: '260' }, { duration: '1 Year', price: '450' }] },
+            { name: 'VIP 2 Special', label: 'VIP 2', icon: 'fa-star', items: [{ duration: '3 Months', price: '170' }, { duration: 'Special Offer', price: '210', featured: true }, { duration: '1 Year', price: '490' }] },
+            { name: 'Forever Server', label: 'FOREVER', icon: 'fa-server', items: [{ duration: '1 Month', price: '30' }, { duration: '3 Months', price: '60' }, { duration: '1 Year', price: '160' }] },
+            { name: 'Funcam Server', label: 'FUNCAM', icon: 'fa-tower-broadcast', items: [{ duration: '1 Month', price: '25' }, { duration: '3 Months', price: '45' }, { duration: '1 Year', price: '90' }] },
+            { name: 'Apollo App', label: 'APOLLO', icon: 'fa-mobile-screen-button', items: [{ duration: '1 Month', price: '30' }, { duration: '3 Months', price: '60' }, { duration: '1 Year', price: '160' }] },
+          ],
+          overview: [
+            { label: 'VIP 1', title: 'VIP Package', icon: 'fa-crown', text: 'A direct VIP choice for everyday viewing.', features: ['BeIN 1–9 channels', 'Forever packages', 'Durations from one month to one year'] },
+            { label: 'VIP 2', title: 'VIP 2 Special', icon: 'fa-star', text: 'An expanded VIP option for added offers and benefits.', features: ['BeIN 1–9 channels', 'New tournaments: Asian Cup, AFCON and more', 'Exclusive Forever packages', 'Apollo or Dates app'] },
+          ],
+          groupGuides: { 'VIP 1': 'A direct everyday choice with flexible durations.', 'VIP 2': 'Expanded benefits for tournaments and apps.', 'FOREVER': 'A straightforward server with three duration options.', 'FUNCAM': 'A light, clear and direct option.', 'APOLLO': 'Direct durations for the Apollo app.' },
+          orderMessage: (group, duration, price) => `Hello CHEGDANI STORE, I would like to order: ${group} — ${duration} (${price} DH). Please send me the details.`
+        },
+      };
+
+      const byId = (id) => document.getElementById(id);
+      function setText(id, value) { byId(id).textContent = value; }
+      function renderOverview(data) {
+        byId('overviewCards').innerHTML = data.overview.map((card, index) => `
+          <article class="overview-card glass rounded-3xl p-6 ${index === 1 ? 'md:translate-y-4' : ''}">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-300/25 bg-amber-300/10 text-lg text-amber-300"><i class="fa-solid ${card.icon}"></i></div>
+              <span class="rounded-full border border-amber-200/20 bg-slate-950/25 px-3 py-1 font-poppins text-[.68rem] font-bold tracking-[.14em] text-amber-200">${card.label}</span>
+            </div>
+            <h3 class="mt-5 text-2xl font-extrabold text-white">${card.title}</h3>
+            <p class="muted mt-2 text-sm leading-7">${card.text}</p>
+            <ul class="mt-5 grid gap-3">${card.features.map(feature => `<li class="flex items-start gap-2.5 text-sm font-semibold text-slate-100"><span class="feature-pip"><i class="fa-solid fa-check"></i></span><span>${feature}</span></li>`).join('')}</ul>
+          </article>`).join('');
+      }
+      function renderPrices(data) {
+        byId('pricingGroups').innerHTML = data.groups.map(group => `
+          <section class="price-group">
+            <div class="group-header">
+              <h3 class="group-title"><span class="group-icon flex h-10 w-10 items-center justify-center rounded-xl border border-amber-300/20 bg-amber-300/10 text-sm text-amber-300"><i class="fa-solid ${group.icon}"></i></span><span><small class="group-kicker">SIGNAL ROUTE / ${group.label}</small>${group.name}</span></h3>
+              <p class="group-lede">${data.groupGuides[group.label]}</p>
+            </div>
+            <div class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 ${group.items.length === 3 ? 'xl:grid-cols-3' : ''}">
+              ${group.items.map(item => `
+                <article class="pricing-card glass ${item.featured ? 'featured' : ''}">
+                  <div class="signal-route">
+                    <span class="package-chip"><i class="fa-solid ${group.icon}"></i>${group.label}</span><span class="signal-track"><span></span></span><span class="route-beacon"><i class="fa-solid fa-tower-broadcast"></i></span>
+                  </div>
+                  <div class="mt-4 flex items-start justify-between gap-3">
+                    <span class="font-poppins text-[.6rem] font-bold tracking-[.14em] text-slate-400">LINK ACTIVE</span>
+                    ${item.featured ? '<span class="rounded-full bg-amber-300 px-2.5 py-1 text-[.63rem] font-extrabold text-slate-900">POPULAR</span>' : ''}
+                  </div>
+                  <div class="price-stage mt-4"><p class="text-sm font-semibold text-slate-300">${data.per}</p><h4 class="mt-1 text-xl font-extrabold text-white">${item.duration}</h4><div class="mt-5 flex items-end gap-2"><span class="price-value">${item.price}</span><span class="price-currency">DH</span></div></div>
+                  <div class="card-signal"></div>
+                  <a class="order-button" target="_blank" rel="noopener noreferrer" href="https://wa.me/${phone}?text=${encodeURIComponent(data.orderMessage(group.name, item.duration, item.price))}" aria-label="${data.order} ${group.name}, ${item.duration}"><i class="fa-brands fa-whatsapp text-base"></i><span>${data.order}</span></a>
+                </article>`).join('')}
+            </div></div>
+          </section>`).join('');
+      }
+      function setLanguage(language) {
+        const data = content[language];
+        document.documentElement.lang = data.lang;
+        document.documentElement.dir = data.dir;
+        document.body.classList.toggle('ltr', data.dir === 'ltr');
+        document.body.classList.toggle('font-poppins', data.family === 'poppins');
+        document.title = language === 'ar' ? 'متجر الشگداني | CHEGDANI STORE' : 'CHEGDANI STORE | IPTV & Server Subscriptions';
+        setText('brandArabic', data.brand); setText('languageLabel', data.languageLabel); setText('heroEyebrow', data.heroEyebrow); setText('heroTitle', data.heroTitle); setText('heroCopy', data.heroCopy); setText('heroNote', data.heroNote);
+        byId('heroWhatsApp').querySelector('span').textContent = data.heroWhatsApp; setText('sideLabel', data.sideLabel); setText('sideTitle', data.sideTitle);
+        byId('stepsList').innerHTML = data.steps.map((step, index) => `<div class="flex items-center gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/7 font-poppins text-xs font-bold text-amber-200">0${index + 1}</span><span class="font-semibold text-slate-200">${step}</span></div>`).join('');
+        setText('overviewEyebrow', data.overviewEyebrow); setText('overviewTitle', data.overviewTitle); setText('overviewCopy', data.overviewCopy); setText('pricingEyebrow', data.pricingEyebrow); setText('pricingTitle', data.pricingTitle); setText('pricingContact', data.pricingContact); setText('footerText', data.footer);
+        renderOverview(data); renderPrices(data);
+        document.querySelectorAll('[data-lang]').forEach(button => { const active = button.dataset.lang === language; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+        const arrow = byId('heroWhatsApp').querySelector('.arrow-icon'); arrow.className = `fa-solid ${data.dir === 'rtl' ? 'fa-arrow-left' : 'fa-arrow-right'} text-sm arrow-icon`;
+      }
+      document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+      setLanguage('ar');
+    </script>
+  </body>
+</html>
