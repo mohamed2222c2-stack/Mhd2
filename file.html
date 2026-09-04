@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فضاء السات</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f2f5f8;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #2563eb);
+      color: white;
+      text-align: center;
+      padding: 35px 15px;
+    }
+
+    header h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .offers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card h2 {
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-size: 27px;
+    }
+
+    .price {
+      background: #f1f5f9;
+      margin: 12px 0;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .whatsapp-btn,
+    .group-btn {
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      padding: 13px 22px;
+      border-radius: 30px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+    }
+
+    .group-btn {
+      background: #128C7E;
+      margin-bottom: 25px;
+    }
+
+    .whatsapp-btn:hover,
+    .group-btn:hover {
+      opacity: 0.85;
+    }
+
+    .contact {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    footer {
+      text-align: center;
+      background: #111827;
+      color: white;
+      padding: 20px;
+      margin-top: 35px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>فضاء السات</h1>
+    <p>أفضل عروض الاشتراكات بأثمنة مناسبة</p>
+  </header>
+
+  <main class="container">
+
+    <div class="contact">
+      <a class="group-btn"
+         href="https://chat.whatsapp.com/LUMQPsx6JRc5Kz9fv0qRCn"
+         target="_blank">
+        انضم إلى مجموعة السات على واتساب
+      </a>
+    </div>
+
+    <section class="offers">
+
+      <div class="card">
+        <h2>VIP1</h2>
+
+        <div class="price">3 أشهر — 150 درهم</div>
+        <div class="price">6 أشهر — 250 درهم</div>
+        <div class="price">12 شهر — 450 درهم</div>
+
+        <a class="whatsapp-btn"
+           href="https://wa.me/212712250019?text=السلام%20عليكم،%20بغيت%20نشترك%20في%20عرض%20VIP1"
+           target="_blank">
+          اطلب عبر واتساب
+        </a>
+      </div>
+
+      <div class="card">
+        <h2>VIP2</h2>
+
+        <div class="price">3 أشهر — 170 درهم</div>
+        <div class="price">12 شهر — 490 درهم</div>
+
+        <a class="whatsapp-btn"
+           href="https://wa.me/212712250019?text=السلام%20عليكم،%20بغيت%20نشترك%20في%20عرض%20VIP2"
+           target="_blank">
+          اطلب عبر واتساب
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    © 2026 فضاء السات — جميع الحقوق محفوظة
+  </footer>
+
+</body>
+</html>
