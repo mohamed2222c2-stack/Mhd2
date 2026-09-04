@@ -1,255 +1,166 @@
-<!doctype html>
-<!--
-  CHEGDANI STORE — Premium black-and-gold editorial storefront.
-  Design reminder: use restrained gold as the signal of trust/action, generous dark space,
-  sharp editorial typography, and thin architectural dividers instead of generic glass cards.
--->
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta name="theme-color" content="#09090b" />
-    <meta name="description" content="CHEGDANI STORE — اشتراكات IPTV وخوادم وباقات VIP عبر واتساب." />
-    <title>متجر الشگداني | CHEGDANI STORE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: { ink: '#09090b', coal: '#121214', gold: '#f3c664', sand: '#f7edd6', line: '#353126' },
-            boxShadow: { gold: '0 18px 50px rgba(243,198,100,.18)' },
-            fontFamily: { arabic: ['Cairo', 'sans-serif'], latin: ['Poppins', 'sans-serif'] }
-          }
-        }
-      };
-    </script>
-    <style>
-      :root { --ink: #09090b; --coal: #121214; --gold: #f3c664; --sand: #f7edd6; --muted: #aaa59b; --line: rgba(243,198,100,.19); --ease: cubic-bezier(.23,1,.32,1); }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; background: var(--ink); }
-      body { margin: 0; overflow-x: hidden; background: var(--ink); color: #fff; font-family: 'Cairo', sans-serif; }
-      body.ltr { font-family: 'Poppins', sans-serif; }
-      body::before { content: ''; position: fixed; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(circle at 88% 7%, rgba(243,198,100,.10), transparent 24rem), radial-gradient(circle at 5% 36%, rgba(129,94,32,.12), transparent 32rem), linear-gradient(135deg, #09090b 0%, #11110f 52%, #09090b 100%); }
-      body::after { content: ''; position: fixed; z-index: 0; inset: 0; pointer-events: none; opacity: .18; background-image: radial-gradient(rgba(255,255,255,.20) .7px, transparent .7px); background-size: 5px 5px; mask-image: linear-gradient(to bottom, black, transparent 90%); }
-      .site-shell { position: relative; z-index: 1; }
-      .font-latin { font-family: 'Poppins', sans-serif; }
-      .gold-rule { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, rgba(243,198,100,.62), transparent); }
-      .display-title { letter-spacing: -.055em; line-height: .99; text-wrap: balance; }
-      .eyebrow { display: inline-flex; align-items: center; gap: .6rem; color: var(--gold); font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-      .eyebrow::before { content: ''; display: inline-block; width: 1.75rem; height: 1px; background: currentColor; }
-      .lang-button { border: 1px solid rgba(255,255,255,.11); color: #c8c3b8; background: transparent; transition: transform .18s var(--ease), background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease); }
-      .lang-button:hover, .lang-button:focus-visible { color: #fff; border-color: rgba(243,198,100,.55); outline: 0; }
-      .lang-button.active { background: var(--gold); color: #17130c; border-color: var(--gold); box-shadow: 0 8px 26px rgba(243,198,100,.18); }
-      .button-gold { background: var(--gold); color: #151108; border: 1px solid var(--gold); box-shadow: 0 14px 36px rgba(243,198,100,.16); transition: transform .16s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease); }
-      .button-gold:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(243,198,100,.28); background: #ffe09a; }
-      .button-gold:active { transform: scale(.97); }
-      .button-ghost { border: 1px solid rgba(243,198,100,.38); color: var(--sand); background: rgba(255,255,255,.025); transition: background .2s var(--ease), transform .16s var(--ease); }
-      .button-ghost:hover { background: rgba(243,198,100,.10); transform: translateY(-2px); }
-      .hero-grid { background-image: linear-gradient(rgba(243,198,100,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(243,198,100,.10) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse 80% 70% at 72% 24%, black, transparent 76%); }
-      .arch-orb { background: conic-gradient(from 215deg, transparent 0deg, rgba(243,198,100,.34) 38deg, transparent 87deg, transparent 360deg); filter: blur(.2px); }
-      .signal-line { position: relative; }
-      .signal-line::before { content: ''; position: absolute; top: .75rem; inset-inline-start: calc(-1 * clamp(1.7rem, 8vw, 7rem)); width: clamp(2.2rem, 11vw, 9rem); height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
-      [dir="rtl"] .signal-line::before { background: linear-gradient(270deg, transparent, var(--gold)); }
-      .brand-mark { position: relative; display: grid; height: 2.75rem; width: 2.75rem; place-items: center; overflow: hidden; border: 1px solid var(--gold); background: #16130d; color: var(--gold); }
-      .brand-mark::before { content: ''; position: absolute; width: 150%; height: 1px; transform: rotate(-42deg); background: var(--gold); box-shadow: 0 -7px 0 rgba(243,198,100,.34); }
-      .brand-mark i { position: relative; z-index: 1; font-size: .9rem; text-shadow: 0 0 18px var(--gold); }
-      .package-panel { position: relative; overflow: hidden; border: 1px solid rgba(243,198,100,.31); background: linear-gradient(145deg, rgba(25,29,39,.86), rgba(10,10,11,.97) 62%); box-shadow: inset 0 1px rgba(255,255,255,.035), 0 18px 44px rgba(0,0,0,.19); }
-      .package-panel::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: repeating-linear-gradient(90deg, var(--gold) 0 32px, rgba(243,198,100,.3) 32px 46px); }
-      .package-panel::after { content: ''; position: absolute; top: -8rem; inset-inline-end: -7rem; width: 14rem; height: 14rem; border: 1px solid rgba(243,198,100,.17); border-radius: 999px; box-shadow: 0 0 0 22px rgba(243,198,100,.025), 0 0 0 46px rgba(243,198,100,.018); }
-      .feature-row { border-top: 1px solid rgba(255,255,255,.09); }
-      .feature-row:first-child { border-top: 0; }
-      .price-card { position: relative; display: flex; flex-direction: column; min-height: 100%; overflow: hidden; border: 1px solid rgba(243,198,100,.16); background: linear-gradient(145deg, rgba(25,30,41,.76), rgba(10,10,11,.96) 70%); box-shadow: inset 0 1px rgba(255,255,255,.035), 0 16px 36px rgba(0,0,0,.14); transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease); }
-      .price-card::before { content: ''; position: absolute; top: 1.6rem; bottom: 1.25rem; inset-inline-start: 1.35rem; border-inline-start: 1px dashed rgba(243,198,100,.48); }
-      .price-card::after { content: ''; position: absolute; top: 1.35rem; inset-inline-start: 1.14rem; width: .44rem; height: .44rem; border-radius: 999px; background: var(--gold); box-shadow: 0 0 0 4px rgba(243,198,100,.11), 0 0 20px rgba(243,198,100,.48); }
-      .price-card > * { position: relative; z-index: 1; }
-      .price-card:hover { transform: translateY(-5px); border-color: rgba(243,198,100,.62); background: linear-gradient(145deg, rgba(32,38,54,.93), rgba(15,14,11,.98) 70%); box-shadow: inset 0 1px rgba(255,255,255,.06), 0 24px 50px rgba(0,0,0,.29); }
-      .price-card.featured { border-color: rgba(243,198,100,.74); background: linear-gradient(150deg, rgba(243,198,100,.17), rgba(24,27,35,.90) 58%, rgba(11,11,11,.98)); }
-      .price-card .plan-index { color: var(--gold); letter-spacing: .15em; font-size: .68rem; font-weight: 700; margin-inline-start: 1.1rem; }
-      .price-card h4, .price-card p, .price-card .price-number { margin-inline-start: 1.1rem; }
-      .price-card a { margin-inline-start: 1.1rem; }
-      .signal-badge { display: grid; width: 2.2rem; height: 2.2rem; place-items: center; border: 1px solid rgba(243,198,100,.55); color: var(--gold); background: rgba(243,198,100,.06); transform: rotate(45deg); }
-      .signal-badge i { transform: rotate(-45deg); font-size: .72rem; }
-      .price-number { font-family: 'Poppins', sans-serif; font-size: clamp(2.5rem, 5vw, 3.8rem); letter-spacing: -.08em; line-height: .95; color: var(--sand); }
-      .section-number { color: rgba(243,198,100,.72); font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: .12em; }
-      .cta-strip { border-block: 1px solid rgba(243,198,100,.32); background: linear-gradient(90deg, rgba(243,198,100,.10), transparent 38%, rgba(243,198,100,.05)); }
-      .rise { opacity: 0; transform: translateY(15px); animation: rise .55s var(--ease) forwards; }
-      .rise:nth-child(2) { animation-delay: .06s; } .rise:nth-child(3) { animation-delay: .12s; } .rise:nth-child(4) { animation-delay: .18s; }
-      @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
-    </style>
-  </head>
-  <body>
-    <div class="site-shell">
-      <header class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-5 py-6 lg:px-8">
-        <a href="#top" class="group flex items-center gap-3 text-white no-underline" aria-label="CHEGDANI STORE home">
-          <span class="brand-mark transition-transform duration-200 group-hover:rotate-6"><i class="fa-solid fa-tower-broadcast"></i></span>
-          <span class="leading-tight">
-            <span class="block text-base font-black tracking-tight" data-i18n="brandArabic">متجر الشگداني</span>
-            <span class="font-latin block text-[.62rem] font-bold tracking-[.23em] text-gold">CHEGDANI STORE</span>
-          </span>
-        </a>
-        <div class="flex items-center gap-1 rounded-full border border-white/10 bg-black/30 p-1.5 backdrop-blur" role="group" aria-label="Language selector">
-          <button class="lang-button active rounded-full px-3 py-2 text-[.69rem] font-bold" type="button" data-lang="ar">الدارجة</button>
-          <button class="lang-button rounded-full px-3 py-2 text-[.69rem] font-bold font-latin" type="button" data-lang="fr">FR</button>
-          <button class="lang-button rounded-full px-3 py-2 text-[.69rem] font-bold font-latin" type="button" data-lang="en">EN</button>
-        </div>
-      </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فضاء السات</title>
 
-      <main id="top">
-        <section class="relative overflow-hidden pb-20 pt-8 lg:pb-28 lg:pt-14">
-          <div class="hero-grid pointer-events-none absolute inset-0"></div>
-          <div class="arch-orb pointer-events-none absolute -right-20 top-[-8rem] h-[35rem] w-[35rem] rounded-full border border-gold/10"></div>
-          <div class="relative mx-auto grid max-w-7xl items-end gap-12 px-5 lg:grid-cols-[1.15fr_.85fr] lg:px-8">
-            <div class="max-w-3xl">
-              <p class="eyebrow rise" data-i18n="heroKicker">اشتراكات IPTV وخوادم بدون تعقيد</p>
-              <h1 class="display-title rise mt-5 text-5xl font-black text-white sm:text-6xl lg:text-8xl" data-i18n="heroTitle">باقات واضحة.<br /><span class="text-gold">مشاهدة بلا حدود.</span></h1>
-              <p class="rise mt-7 max-w-2xl text-lg leading-9 text-stone-300 sm:text-xl" data-i18n="heroText">اختار VIP اللي كيناسبك، توصل بالتفاصيل على واتساب، وبدا الفرجة بلا صداع الراس.</p>
-              <div class="rise mt-9 flex flex-wrap items-center gap-4">
-                <a id="heroWhatsApp" class="button-gold inline-flex items-center gap-3 px-6 py-4 text-base font-extrabold no-underline" href="https://wa.me/212712250019" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-whatsapp text-xl"></i><span data-i18n="heroCta">تواصل معنا فواتساب</span>
-                </a>
-                <a href="#offers" class="button-ghost inline-flex items-center gap-2 px-5 py-4 text-sm font-bold no-underline"><span data-i18n="seeOffers">شوف الباقات</span><i class="fa-solid fa-arrow-down text-gold"></i></a>
-              </div>
-              <div class="mt-10 flex items-center gap-3 text-sm text-stone-400">
-                <span class="grid h-9 w-9 place-items-center rounded-full border border-gold/30 text-gold"><i class="fa-brands fa-whatsapp"></i></span>
-                <span data-i18n="contactLabel">للاشتراك والاستفسار:</span>
-                <a class="font-latin font-bold tracking-[.12em] text-sand no-underline" href="https://wa.me/212712250019" target="_blank" rel="noopener">0712250019</a>
-              </div>
-            </div>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-            <aside class="signal-line border-l-0 border-r border-gold/30 px-0 py-2 lg:border-r-0 lg:border-l lg:px-8" aria-label="Service promise">
-              <p class="section-number font-latin text-xs">01 / SERVICE</p>
-              <p class="mt-4 text-3xl font-black leading-tight text-sand" data-i18n="promiseTitle">خدمة سريعة، طلب واضح.</p>
-              <div class="mt-8 space-y-6">
-                <div class="flex items-start gap-4"><span class="mt-1 text-gold"><i class="fa-solid fa-circle-check"></i></span><p class="m-0 text-sm leading-7 text-stone-300" data-i18n="promise1">اختار الباقة والمدة اللي تناسبك.</p></div>
-                <div class="flex items-start gap-4"><span class="mt-1 text-gold"><i class="fa-solid fa-circle-check"></i></span><p class="m-0 text-sm leading-7 text-stone-300" data-i18n="promise2">ضغط على «طلب دابا» وتوصلنا الرسالة.</p></div>
-                <div class="flex items-start gap-4"><span class="mt-1 text-gold"><i class="fa-solid fa-circle-check"></i></span><p class="m-0 text-sm leading-7 text-stone-300" data-i18n="promise3">نتابعو معاك التفعيل بلا تعقيد.</p></div>
-              </div>
-            </aside>
-          </div>
-        </section>
+    body {
+      background: #f2f5f8;
+      color: #222;
+    }
 
-        <section class="mx-auto max-w-7xl px-5 pb-20 lg:px-8 lg:pb-28" id="offers">
-          <div class="gold-rule"></div>
-          <div class="grid gap-10 py-12 lg:grid-cols-[.4fr_1fr] lg:items-end">
-            <div><p class="section-number text-xs">02 / VIP</p><h2 class="mt-4 text-4xl font-black leading-tight text-white sm:text-5xl" data-i18n="vipHeading">اختار التجربة اللي كتليق بيك.</h2></div>
-            <p class="max-w-2xl text-base leading-8 text-stone-400" data-i18n="vipSubheading">كل باقة مصممة بوضوح: VIP 1 للخدمة الأساسية، وVIP 2 للبطولات الجديدة والباقات الحصرية.</p>
-          </div>
-          <div class="grid gap-5 lg:grid-cols-2">
-            <article class="package-panel p-7 sm:p-9">
-              <div class="relative z-10 flex items-center justify-between gap-4"><span class="font-latin text-sm font-bold tracking-[.16em] text-gold">VIP 1</span><span class="grid h-11 w-11 place-items-center rounded-full border border-gold/50 text-gold"><i class="fa-solid fa-tv"></i></span></div>
-              <h3 class="relative z-10 mt-8 text-4xl font-black text-white" data-i18n="vip1Name">VIP 1</h3>
-              <p class="relative z-10 mt-3 text-sm text-stone-400" data-i18n="vip1Intro">الأساسيات اللي كتحتاج للفرجة اليومية.</p>
-              <div id="vip1Features" class="relative z-10 mt-7"></div>
-            </article>
-            <article class="package-panel p-7 sm:p-9">
-              <div class="relative z-10 flex items-center justify-between gap-4"><span class="font-latin text-sm font-bold tracking-[.16em] text-gold">VIP 2</span><span class="grid h-11 w-11 place-items-center rounded-full border border-gold/50 text-gold"><i class="fa-solid fa-trophy"></i></span></div>
-              <h3 class="relative z-10 mt-8 text-4xl font-black text-white" data-i18n="vip2Name">VIP 2</h3>
-              <p class="relative z-10 mt-3 text-sm text-stone-400" data-i18n="vip2Intro">مزايا أكثر للبطولات والباقات الحصرية.</p>
-              <div id="vip2Features" class="relative z-10 mt-7"></div>
-            </article>
-          </div>
-        </section>
+    header {
+      background: linear-gradient(135deg, #111827, #2563eb);
+      color: white;
+      text-align: center;
+      padding: 35px 15px;
+    }
 
-        <section class="cta-strip py-7">
-          <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-5 sm:flex-row sm:items-center lg:px-8">
-            <p class="m-0 text-lg font-bold text-sand" data-i18n="stripText">ما محتارش؟ راسلنا ونعاونوك تختار الباقة المناسبة.</p>
-            <a class="font-latin inline-flex items-center gap-2 text-sm font-bold text-gold no-underline" href="https://wa.me/212712250019" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp text-lg"></i><span data-i18n="stripCta">WhatsApp الآن</span></a>
-          </div>
-        </section>
+    header h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
 
-        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28" id="pricing">
-          <div class="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
-            <div><p class="section-number text-xs">03 / PRICING</p><h2 class="mt-4 text-4xl font-black text-white sm:text-5xl" data-i18n="pricingHeading">اختار المدة، وخلي الباقي علينا.</h2></div>
-            <p class="max-w-md text-sm leading-7 text-stone-400" data-i18n="pricingSubheading">أثمنة واضحة بالدرهم المغربي. الضغط على الزر يفتح واتساب برسالة الطلب جاهزة.</p>
-          </div>
-          <div id="pricingGroups" class="mt-12 space-y-14"></div>
-        </section>
-      </main>
+    header p {
+      font-size: 17px;
+    }
 
-      <footer class="border-t border-white/10 bg-black/25">
-        <div class="mx-auto flex max-w-7xl flex-col justify-between gap-5 px-5 py-9 sm:flex-row sm:items-center lg:px-8">
-          <div class="flex items-center gap-3"><span class="brand-mark h-9 w-9"><i class="fa-solid fa-tower-broadcast"></i></span><span class="text-sm font-bold text-sand">CHEGDANI STORE</span></div>
-          <p class="m-0 text-xs text-stone-500" data-i18n="footer">متجر الشگداني — اشتراكات وخوادم بوضوح وتواصل مباشر.</p>
-        </div>
-      </footer>
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .offers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card h2 {
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-size: 27px;
+    }
+
+    .price {
+      background: #f1f5f9;
+      margin: 12px 0;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .whatsapp-btn,
+    .group-btn {
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      padding: 13px 22px;
+      border-radius: 30px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+    }
+
+    .group-btn {
+      background: #128C7E;
+      margin-bottom: 25px;
+    }
+
+    .whatsapp-btn:hover,
+    .group-btn:hover {
+      opacity: 0.85;
+    }
+
+    .contact {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    footer {
+      text-align: center;
+      background: #111827;
+      color: white;
+      padding: 20px;
+      margin-top: 35px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>فضاء السات</h1>
+    <p>أفضل عروض الاشتراكات بأثمنة مناسبة</p>
+  </header>
+
+  <main class="container">
+
+    <div class="contact">
+      <a class="group-btn"
+         href="https://chat.whatsapp.com/LUMQPsx6JRc5Kz9fv0qRCn"
+         target="_blank">
+        انضم إلى مجموعة السات على واتساب
+      </a>
     </div>
 
-    <script>
-      const whatsapp = '212712250019';
-      const content = {
-        ar: {
-          dir: 'rtl', lang: 'ar', title: 'متجر الشگداني | CHEGDANI STORE', brandArabic: 'متجر الشگداني',
-          heroKicker: 'اشـتـراكات vip package', heroTitle: 'الباقة البنفسجية<br><span class="text-gold">و جميع باقات العالم<br>مشاهدة بلا حدود</span>', heroText: 'اختار VIP اللي كيناسبك، توصل بالتفاصيل على واتساب، وبدا الفرجة بلا صداع الراس.', heroCta: 'تواصل معنا فواتساب', seeOffers: 'شوف الباقات', contactLabel: 'للاشتراك والاستفسار:',
-          promiseTitle: 'خدمة سريعة، طلب واضح.', promise1: 'اختار الباقة والمدة اللي تناسبك.', promise2: 'ضغط على «طلب دابا» وتوصلنا الرسالة.', promise3: 'نتابعو معاك التفعيل بلا تعقيد.',
-          vipHeading: 'اختار التجربة اللي كتليق بيك.', vipSubheading: 'كل باقة مصممة بوضوح: VIP 1 للخدمة الأساسية، وVIP 2 للبطولات الجديدة والباقات الحصرية.', vip1Name: 'VIP 1', vip1Intro: 'الأساسيات اللي كتحتاج للفرجة اليومية.', vip2Name: 'VIP 2', vip2Intro: 'مزايا أكثر للبطولات والباقات الحصرية.',
-          stripText: 'ما محتارش؟ راسلنا ونعاونوك تختار الباقة المناسبة.', stripCta: 'واتساب الآن', pricingHeading: 'اختار المدة، وخلي الباقي علينا.', pricingSubheading: 'أثمنة واضحة بالدرهم المغربي. الضغط على الزر يفتح واتساب برسالة الطلب جاهزة.', footer: 'متجر الشگداني — اشتراكات وخوادم بوضوح وتواصل مباشر.',
-          features: { vip1: [['fa-tv','قنوات Bien 1–9'],['fa-cube','باقات فوريفر']], vip2: [['fa-tv','قنوات Bien 1–9'],['fa-trophy','أي بطولة جديدة، بحال كأس آسيا وأمم أفريقيا'],['fa-gem','الباقات الحصرية الجديدة في فوريفر'],['fa-mobile-screen-button','تطبيق Apollo أو Dates']] },
-          groupNames: { vip: 'VIP Package', vip2: 'VIP 2 Special', forever: 'Forever Server', funcam: 'Funcam Server', apollo: 'Apollo App' }, durations: { m1: 'شهر واحد', m3: '3 شهور', m6: '6 شهور', y1: 'عام واحد', special: 'عرض خاص' }, groupNote: { vip: 'مشاهدة VIP اليومية', vip2: 'بطولات ومزايا حصرية', forever: 'خادم فوريفر', funcam: 'خادم Funcam', apollo: 'تطبيق Apollo' }, order: 'طلب دابا', orderMessage: (name, duration, price) => `سلام متجر الشگداني، بغيت نطلب: ${name} — ${duration} (${price} DH). عافاك عطيني التفاصيل.`
-        },
-        fr: {
-          dir: 'ltr', lang: 'fr', title: 'CHEGDANI STORE | IPTV & Serveurs', brandArabic: 'CHEGDANI STORE',
-          heroKicker: 'IPTV & serveurs, sans complication', heroTitle: 'Des offres claires.<br><span class="text-gold">Le divertissement sans limites.</span>', heroText: 'Choisissez votre formule VIP, recevez les détails sur WhatsApp et profitez rapidement de votre service.', heroCta: 'Nous contacter sur WhatsApp', seeOffers: 'Voir les offres', contactLabel: 'Abonnement & informations :',
-          promiseTitle: 'Rapide, simple, direct.', promise1: 'Choisissez la formule et la durée.', promise2: 'Cliquez sur « Commander » pour nous envoyer votre demande.', promise3: 'Nous vous accompagnons pour l’activation.',
-          vipHeading: 'Choisissez l’expérience qui vous correspond.', vipSubheading: 'Chaque formule est lisible : VIP 1 pour l’essentiel, VIP 2 pour les nouveaux tournois et les offres exclusives.', vip1Name: 'VIP 1', vip1Intro: 'Les essentiels pour votre visionnage quotidien.', vip2Name: 'VIP 2', vip2Intro: 'Plus d’avantages, de tournois et de contenus exclusifs.',
-          stripText: 'Vous hésitez ? Écrivez-nous, nous vous aiderons à choisir.', stripCta: 'WhatsApp maintenant', pricingHeading: 'Choisissez la durée. On s’occupe du reste.', pricingSubheading: 'Tarifs transparents en dirhams marocains. Le bouton prépare votre message WhatsApp.', footer: 'CHEGDANI STORE — abonnements et serveurs, avec un contact direct.',
-          features: { vip1: [['fa-tv','Chaînes Bien 1–9'],['fa-cube','Packs Forever']], vip2: [['fa-tv','Chaînes Bien 1–9'],['fa-trophy','Nouveaux tournois : Coupe d’Asie, CAN…'],['fa-gem','Nouveaux packs exclusifs Forever'],['fa-mobile-screen-button','Application Apollo ou Dates']] },
-          groupNames: { vip: 'Pack VIP', vip2: 'VIP 2 Spécial', forever: 'Serveur Forever', funcam: 'Serveur Funcam', apollo: 'Application Apollo' }, durations: { m1: '1 mois', m3: '3 mois', m6: '6 mois', y1: '1 an', special: 'Offre spéciale' }, groupNote: { vip: 'Visionnage VIP quotidien', vip2: 'Tournois & avantages exclusifs', forever: 'Serveur Forever', funcam: 'Serveur Funcam', apollo: 'Application Apollo' }, order: 'Commander', orderMessage: (name, duration, price) => `Bonjour CHEGDANI STORE, je souhaite commander : ${name} — ${duration} (${price} DH). Merci de m’envoyer les détails.`
-        },
-        en: {
-          dir: 'ltr', lang: 'en', title: 'CHEGDANI STORE | IPTV & Servers', brandArabic: 'CHEGDANI STORE',
-          heroKicker: 'IPTV & servers, without the hassle', heroTitle: 'Clear plans.<br><span class="text-gold">Entertainment without limits.</span>', heroText: 'Choose the VIP plan that fits you, get the details on WhatsApp, and enjoy your service quickly.', heroCta: 'Contact us on WhatsApp', seeOffers: 'View plans', contactLabel: 'Subscriptions & enquiries:',
-          promiseTitle: 'Fast, simple, direct.', promise1: 'Choose the plan and duration that suit you.', promise2: 'Click “Order now” to send us your request.', promise3: 'We will guide you through activation.',
-          vipHeading: 'Choose the experience that fits you.', vipSubheading: 'Every plan is clear: VIP 1 for the essentials, VIP 2 for new tournaments and exclusive offers.', vip1Name: 'VIP 1', vip1Intro: 'The essentials for everyday viewing.', vip2Name: 'VIP 2', vip2Intro: 'More tournaments, benefits and exclusive content.',
-          stripText: 'Not sure which plan to choose? Message us and we will help.', stripCta: 'WhatsApp now', pricingHeading: 'Choose the duration. We handle the rest.', pricingSubheading: 'Straightforward pricing in Moroccan dirhams. The button prepares your WhatsApp order.', footer: 'CHEGDANI STORE — subscriptions and servers with direct support.',
-          features: { vip1: [['fa-tv','Bien 1–9 channels'],['fa-cube','Forever packages']], vip2: [['fa-tv','Bien 1–9 channels'],['fa-trophy','New tournaments: Asian Cup, AFCON…'],['fa-gem','New exclusive Forever packages'],['fa-mobile-screen-button','Apollo or Dates app']] },
-          groupNames: { vip: 'VIP Package', vip2: 'VIP 2 Special', forever: 'Forever Server', funcam: 'Funcam Server', apollo: 'Apollo App' }, durations: { m1: '1 month', m3: '3 months', m6: '6 months', y1: '1 year', special: 'Special offer' }, groupNote: { vip: 'Everyday VIP viewing', vip2: 'Tournaments & exclusive benefits', forever: 'Forever server', funcam: 'Funcam server', apollo: 'Apollo application' }, order: 'Order now', orderMessage: (name, duration, price) => `Hello CHEGDANI STORE, I would like to order: ${name} — ${duration} (${price} DH). Please send me the details.`
-        }
-      };
+    <section class="offers">
 
-      const pricing = [
-        { key: 'vip', plans: [['m1',90],['m3',150],['m6',260],['y1',450]] },
-        { key: 'vip2', plans: [['m3',170],['special',210],['y1',490]] },
-        { key: 'forever', plans: [['m1',30],['m3',60],['y1',160]] },
-        { key: 'funcam', plans: [['m1',25],['m3',45],['y1',90]] },
-        { key: 'apollo', plans: [['m1',30],['m3',60],['y1',160]] }
-      ];
+      <div class="card">
+        <h2>VIP1</h2>
 
-      let current = 'ar';
-      function featureHTML(items, accent) {
-        return items.map(([icon, text]) => `<div class="feature-row flex items-center gap-4 py-4"><span class="grid h-9 w-9 place-items-center rounded-full border ${accent} text-sm"><i class="fa-solid ${icon}"></i></span><p class="m-0 text-sm font-bold leading-6 text-stone-200">${text}</p></div>`).join('');
-      }
-      function renderPricing() {
-        const t = content[current];
-        document.getElementById('pricingGroups').innerHTML = pricing.map((group, groupIndex) => {
-          const grid = group.plans.map(([duration, price], index) => {
-            const featured = (group.key === 'vip' && duration === 'y1') || (group.key === 'vip2' && duration === 'special');
-            const message = encodeURIComponent(t.orderMessage(t.groupNames[group.key], t.durations[duration], price));
-            return `<article class="price-card ${featured ? 'featured' : ''} p-6"><div class="flex items-start justify-between gap-3"><span class="plan-index">${String(index + 1).padStart(2,'0')}</span>${featured ? '<span class="rounded-full bg-gold px-3 py-1 text-[.65rem] font-black text-ink">TOP</span>' : ''}</div><h4 class="mt-8 text-xl font-black text-white">${t.durations[duration]}</h4><p class="mt-2 text-xs text-stone-500">${t.groupNote[group.key]}</p><div class="mt-7 flex items-end gap-2"><span class="price-number">${price}</span><span class="mb-1 text-sm font-bold text-gold">DH</span></div><div class="mt-6 h-px bg-white/10"></div><a class="button-gold mt-6 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-extrabold no-underline" href="https://wa.me/${whatsapp}?text=${message}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp text-base"></i>${t.order}</a></article>`;
-          }).join('');
-          return `<div><div class="mb-5 flex items-end justify-between gap-4"><div class="flex items-end gap-4"><span class="signal-badge"><i class="fa-solid fa-tower-broadcast"></i></span><div><p class="font-latin m-0 text-xs font-bold tracking-[.15em] text-gold">0${groupIndex + 1}</p><h3 class="mt-2 text-2xl font-black text-sand">${t.groupNames[group.key]}</h3></div></div><span class="hidden h-px flex-1 bg-gradient-to-l from-transparent via-gold/30 to-transparent sm:block"></span></div><div class="grid gap-4 sm:grid-cols-2 ${group.plans.length === 4 ? 'xl:grid-cols-4' : 'lg:grid-cols-3'}">${grid}</div></div>`;
-        }).join('');
-      }
-      function applyLanguage(lang) {
-        current = lang;
-        const t = content[lang];
-        document.documentElement.lang = t.lang;
-        document.documentElement.dir = t.dir;
-        document.body.classList.toggle('ltr', t.dir === 'ltr');
-        document.title = t.title;
-        document.querySelectorAll('[data-i18n]').forEach(node => { node.innerHTML = t[node.dataset.i18n]; });
-        document.getElementById('vip1Features').innerHTML = featureHTML(t.features.vip1, 'border-gold/50 text-gold');
-        document.getElementById('vip2Features').innerHTML = featureHTML(t.features.vip2, 'border-gold/50 text-gold');
-        renderPricing();
-        document.querySelectorAll('[data-lang]').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
-        localStorage.setItem('chegdani-language', lang);
-      }
-      document.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', () => applyLanguage(btn.dataset.lang)));
-      applyLanguage(localStorage.getItem('chegdani-language') || 'ar');
-    </script>
-  </body>
+        <div class="price">3 أشهر — 150 درهم</div>
+        <div class="price">6 أشهر — 250 درهم</div>
+        <div class="price">12 شهر — 450 درهم</div>
+
+        <a class="whatsapp-btn"
+           href="https://wa.me/212712250019?text=السلام%20عليكم،%20بغيت%20نشترك%20في%20عرض%20VIP1"
+           target="_blank">
+          اطلب عبر واتساب
+        </a>
+      </div>
+
+      <div class="card">
+        <h2>VIP2</h2>
+
+        <div class="price">3 أشهر — 170 درهم</div>
+        <div class="price">12 شهر — 490 درهم</div>
+
+        <a class="whatsapp-btn"
+           href="https://wa.me/212712250019?text=السلام%20عليكم،%20بغيت%20نشترك%20في%20عرض%20VIP2"
+           target="_blank">
+          اطلب عبر واتساب
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    © 2026 فضاء السات — جميع الحقوق محفوظة
+  </footer>
+
+</body>
 </html>
